@@ -423,8 +423,8 @@ const challenges = [
     {
         table: "people",
         difficulty: "easy",
-        question: "5. Find the names of all people who have blue eyes.",
-        correctQuery: "SELECT * FROM people WHERE hair_colour = \'blue\'"
+        question: "5. Find the names of all people who have brown hair.",
+        correctQuery: "SELECT * FROM people WHERE hair_colour = \'brown\'"
     },
         {
         table: "people",
