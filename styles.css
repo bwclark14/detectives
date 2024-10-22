@@ -266,7 +266,7 @@ button:active {
  
 }
 
-/* Optional: To wrap buttons if there are many */
+/*wrap buttons if there are many */
 .symbols-container {
     flex-wrap: wrap; /* Allow buttons to wrap into next line if they exceed the container's width */
 }
@@ -340,6 +340,7 @@ input[type="number"], input[type="text"] {
     background: #2a2a3e;
     color: #e0e0e6;
     font-size: 0.9rem;
+    width:70%;
 }
 
 input[type="number"]:focus, input[type="text"]:focus {
