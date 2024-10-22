@@ -177,8 +177,6 @@ db.run(`
         ('XY12 ZZZ', 'Toyota', 'Corolla', 'Hybrid', 'Saloon', 'Silver', 'Alice Green', 'Liverpool', 2019),
         ('AB34 CDE', 'Honda', 'Civic', 'Petrol', 'Coupe', 'Black', 'Tom Brown', 'Manchester', 2016),
         ('JK56 RST', 'BMW', 'X5', 'Diesel', 'SUV', 'White', 'Lisa White', 'London', 2020),
-
-        -- New 30 records
         ('KN20 BHG', 'Audi', 'A4', 'Diesel', 'Saloon', 'Black', 'Oliver Scott', 'Leeds', 2020),
         ('MX16 PQR', 'Nissan', 'Qashqai', 'Petrol', 'SUV', 'Grey', 'Emma Wilson', 'Bristol', 2016),
         ('PL65 ZYX', 'Volkswagen', 'Golf', 'Petrol', 'Hatchback', 'White', 'Jack Thompson', 'Nottingham', 2015),
@@ -296,8 +294,6 @@ db.run(`
     -- Lucas Kerr now owns 3 cars
     ('PL09 HJK', 'BMW', '1 Series', 'Petrol', 'Hatchback', 'Black', 'Lucas Kerr', 'Aberdeen', 2009),
     ('ZY17 VWX', 'Audi', 'A3', 'Diesel', 'Hatchback', 'Blue', 'Lucas Kerr', 'Aberdeen', 2017);
-
-
 
 `);
 
@@ -666,7 +662,7 @@ const challenges = [
     difficulty: "easy",
     question: "10. I need a list of all Diesel cars, ordered by the year they were manufactured, from oldest to newest.",
     correctQuery: "SELECT * FROM cars WHERE fuel_type = \'Diesel\' ORDER BY year_manufactured ASC"
-}
+},
 
     // Challenges for the Products table
     {
