@@ -475,8 +475,11 @@ function executeQuery() {
     const query = document.getElementById("sql-query").textContent.trim();
     const resultMessage = document.getElementById("result-message");
     const resultTable = document.getElementById("query-result");
+    const recordMessage = document.getElementById("record-message");
     resultTable.innerHTML = "";
     resultMessage.textContent = "";
+    recordMessage.textContent = "";
+  
 
     const existingRecordMessage = document.getElementById("record-message");
     if (existingRecordMessage) {
@@ -489,7 +492,7 @@ function executeQuery() {
             resultMessage.textContent = "No results found for the query.";
             return;
         }
-        clearQuery();
+    
         const numRecords = result[0].values.length;
         const recordMessage = document.createElement("p");
         recordMessage.id = "record-message";
