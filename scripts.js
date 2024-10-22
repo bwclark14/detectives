@@ -153,15 +153,162 @@ db.run(`
 
     
     // Create Cars table
-    db.run(`CREATE TABLE cars (registration_no TEXT, make TEXT, model TEXT, fuel_type TEXT, body_style TEXT, owner_name TEXT, owner_city TEXT);`);
-    db.run(`
-        INSERT INTO cars VALUES 
-            ('LN01 ABC', 'Ford', 'Focus', 'Petrol', 'Hatchback', 'Sophia Robinson', 'Brighton'),
-            ('DV01 DEF', 'Vauxhall', 'Corsa', 'Diesel', 'Hatchback', 'James Turner', 'Birmingham'),
-            ('XY12 ZZZ', 'Toyota', 'Corolla', 'Hybrid', 'Sedan', 'Alice Green', 'Liverpool'),
-            ('AB34 CDE', 'Honda', 'Civic', 'Petrol', 'Coupe', 'Tom Brown', 'Manchester'),
-            ('JK56 RST', 'BMW', 'X5', 'Diesel', 'SUV', 'Lisa White', 'London');
-    `);
+// Create the updated cars table with 'colour' after 'body_style'
+db.run(`
+    CREATE TABLE cars (
+        registration_no TEXT, 
+        make TEXT, 
+        model TEXT, 
+        fuel_type TEXT, 
+        body_style TEXT, 
+        colour TEXT, 
+        owner_name TEXT, 
+        owner_city TEXT, 
+        year_manufactured INTEGER
+    );
+`);
+
+// Insert updated car records with realistic UK data and the requested fields
+db.run(`
+    INSERT INTO cars VALUES 
+        -- Existing 5 records
+        ('LN01 ABC', 'Ford', 'Focus', 'Petrol', 'Hatchback', 'Blue', 'Sophia Robinson', 'Brighton', 2015),
+        ('DV01 DEF', 'Vauxhall', 'Corsa', 'Diesel', 'Hatchback', 'Red', 'James Turner', 'Birmingham', 2017),
+        ('XY12 ZZZ', 'Toyota', 'Corolla', 'Hybrid', 'Saloon', 'Silver', 'Alice Green', 'Liverpool', 2019),
+        ('AB34 CDE', 'Honda', 'Civic', 'Petrol', 'Coupe', 'Black', 'Tom Brown', 'Manchester', 2016),
+        ('JK56 RST', 'BMW', 'X5', 'Diesel', 'SUV', 'White', 'Lisa White', 'London', 2020),
+
+        -- New 30 records
+        ('KN20 BHG', 'Audi', 'A4', 'Diesel', 'Saloon', 'Black', 'Oliver Scott', 'Leeds', 2020),
+        ('MX16 PQR', 'Nissan', 'Qashqai', 'Petrol', 'SUV', 'Grey', 'Emma Wilson', 'Bristol', 2016),
+        ('PL65 ZYX', 'Volkswagen', 'Golf', 'Petrol', 'Hatchback', 'White', 'Jack Thompson', 'Nottingham', 2015),
+        ('YD11 ABC', 'Mercedes', 'C-Class', 'Diesel', 'Saloon', 'Silver', 'Emily Davis', 'York', 2011),
+        ('HK19 LFG', 'Hyundai', 'Tucson', 'Hybrid', 'SUV', 'Blue', 'Michael Harris', 'Oxford', 2019),
+        ('GF14 HJK', 'Renault', 'Megane', 'Diesel', 'Estate', 'Red', 'Ella Moore', 'Newcastle', 2014),
+        ('VX67 TUV', 'Peugeot', '3008', 'Diesel', 'SUV', 'Black', 'Noah Lewis', 'Sheffield', 2017),
+        ('LT20 MNX', 'Kia', 'Sportage', 'Petrol', 'SUV', 'Green', 'Chloe Edwards', 'Cardiff', 2020),
+        ('KW18 WTY', 'Skoda', 'Superb', 'Diesel', 'Estate', 'Grey', 'Harry Walker', 'Glasgow', 2018),
+        ('BP13 GHJ', 'Mini', 'Cooper', 'Petrol', 'Hatchback', 'Yellow', 'Isabella Young', 'Leicester', 2013),
+        ('SA55 HTD', 'Mazda', 'MX-5', 'Petrol', 'Convertible', 'Blue', 'George Hall', 'Bath', 2015),
+        ('YM14 WRQ', 'Vauxhall', 'Astra', 'Diesel', 'Estate', 'White', 'Charlotte Wright', 'Coventry', 2014),
+        ('BL67 ZVT', 'Jaguar', 'F-Pace', 'Petrol', 'SUV', 'Red', 'Oscar King', 'Edinburgh', 2017),
+        ('CG21 YJU', 'Land Rover', 'Discovery', 'Diesel', 'SUV', 'Black', 'Lily Baker', 'Aberdeen', 2021),
+        ('NS17 LDF', 'Volvo', 'V90', 'Diesel', 'Estate', 'Silver', 'Ethan Wood', 'Cambridge', 2017),
+        ('MV18 UIQ', 'Tesla', 'Model S', 'Electric', 'Saloon', 'White', 'Amelia Martin', 'Milton Keynes', 2018),
+        ('JP12 RET', 'Ford', 'Mondeo', 'Diesel', 'Saloon', 'Blue', 'Freddie Clark', 'Southampton', 2012),
+        ('TG16 FDE', 'Fiat', '500', 'Petrol', 'Hatchback', 'Pink', 'Sophie Baker', 'Exeter', 2016),
+        ('RJ15 GHK', 'BMW', '3 Series', 'Diesel', 'Saloon', 'Grey', 'Jacob Mitchell', 'Norwich', 2015),
+        ('LK18 ASD', 'Mercedes', 'GLA', 'Hybrid', 'SUV', 'Silver', 'Harper Collins', 'Bournemouth', 2018),
+        ('HT22 EFG', 'Honda', 'CR-V', 'Hybrid', 'SUV', 'Green', 'Archie Evans', 'Plymouth', 2022),
+        ('WR10 XDF', 'Volkswagen', 'Passat', 'Diesel', 'Estate', 'Blue', 'Grace Morris', 'Gloucester', 2010),
+        ('FM13 IJH', 'Audi', 'A3', 'Petrol', 'Hatchback', 'Red', 'Joseph Ward', 'Wolverhampton', 2013),
+        ('YP19 VBN', 'Ford', 'Kuga', 'Diesel', 'SUV', 'White', 'Sebastian Parker', 'Stoke-on-Trent', 2019),
+        ('GP14 KLJ', 'Peugeot', '208', 'Petrol', 'Hatchback', 'Black', 'Henry Reed', 'Luton', 2014),
+        ('ZT12 HJY', 'Vauxhall', 'Insignia', 'Diesel', 'Saloon', 'Silver', 'Isla Russell', 'Hull', 2012),
+        ('NW21 OIU', 'Tesla', 'Model X', 'Electric', 'SUV', 'White', 'Mia Stewart', 'Durham', 2021),
+        ('HG15 RDL', 'Mazda', 'CX-5', 'Diesel', 'SUV', 'Red', 'Eleanor Hughes', 'Swansea', 2015),
+        ('RS19 RPY', 'Jaguar', 'XE', 'Petrol', 'Saloon', 'Blue', 'Thomas Phillips', 'Reading', 2019),
+        ('VN13 KLO', 'Honda', 'Jazz', 'Petrol', 'Hatchback', 'Yellow', 'Lucas Scott', 'Derby', 2013),
+    ('LP11 GHI', 'Toyota', 'Yaris', 'Petrol', 'Hatchback', 'Blue', 'Holly Barnes', 'Birmingham', 2011),
+    ('AK15 FDC', 'Volkswagen', 'Tiguan', 'Diesel', 'SUV', 'Black', 'Ben Marshall', 'Leeds', 2015),
+    ('RJ18 HKN', 'Ford', 'Puma', 'Petrol', 'SUV', 'Red', 'Grace Hamilton', 'Liverpool', 2018),
+    ('MP19 LMX', 'Nissan', 'Juke', 'Petrol', 'Hatchback', 'White', 'Daniel Griffin', 'Edinburgh', 2019),
+    ('XY17 SDF', 'Audi', 'Q7', 'Diesel', 'SUV', 'Silver', 'Adam Hughes', 'Bristol', 2017),
+    ('PL12 RQA', 'Hyundai', 'i30', 'Diesel', 'Hatchback', 'Grey', 'Sophie Taylor', 'Norwich', 2012),
+    ('KP20 YTE', 'Kia', 'Picanto', 'Petrol', 'Hatchback', 'Yellow', 'Oliver Stevens', 'London', 2020),
+    ('HB14 WLK', 'Peugeot', '5008', 'Diesel', 'SUV', 'Blue', 'Ella Gray', 'Bath', 2014),
+    ('MW16 QET', 'Land Rover', 'Range Rover', 'Diesel', 'SUV', 'Green', 'Emily Saunders', 'Cambridge', 2016),
+    ('BG10 HYR', 'BMW', '1 Series', 'Petrol', 'Hatchback', 'Black', 'William Fox', 'Sheffield', 2010),
+    ('TS13 ZDR', 'Honda', 'Jazz', 'Petrol', 'Hatchback', 'Red', 'Ruby Foster', 'Manchester', 2013),
+    ('VC19 PQR', 'Vauxhall', 'Mokka', 'Petrol', 'SUV', 'Grey', 'Lucas Carter', 'Newcastle', 2019),
+    ('PY11 DSR', 'Mini', 'Countryman', 'Diesel', 'SUV', 'White', 'James Robinson', 'Brighton', 2011),
+    ('RX18 TLM', 'Mazda', 'CX-3', 'Petrol', 'SUV', 'Red', 'Jacob Harrison', 'Oxford', 2018),
+    ('KN20 LHP', 'Volvo', 'XC60', 'Hybrid', 'SUV', 'Blue', 'Mia Richardson', 'Cardiff', 2020),
+    ('DF12 NGV', 'Mercedes', 'A-Class', 'Diesel', 'Hatchback', 'Silver', 'Ava Scott', 'Leicester', 2012),
+    ('GF18 PVL', 'Renault', 'Clio', 'Petrol', 'Hatchback', 'Black', 'Henry Cooper', 'Southampton', 2018),
+    ('TK15 VFS', 'Fiat', 'Panda', 'Petrol', 'Hatchback', 'Green', 'Grace Bell', 'Milton Keynes', 2015),
+    ('BR17 ZKR', 'Ford', 'Fiesta', 'Petrol', 'Hatchback', 'Yellow', 'Isaac Howard', 'Coventry', 2017),
+    ('LS16 NGP', 'Jaguar', 'XF', 'Diesel', 'Saloon', 'Grey', 'Ella Wood', 'Derby', 2016),
+    INSERT INTO cars VALUES 
+    ('SA11 BCD', 'Ford', 'Focus', 'Diesel', 'Hatchback', 'Blue', 'Emily Scott', 'Glasgow', 2011),
+    ('ED12 CDF', 'Vauxhall', 'Astra', 'Petrol', 'Hatchback', 'Silver', 'James McDonald', 'Edinburgh', 2012),
+    ('DU14 EFG', 'Toyota', 'Aygo', 'Petrol', 'Hatchback', 'Red', 'Sarah Campbell', 'Dundee', 2014),
+    ('IN15 FGH', 'Honda', 'Civic', 'Diesel', 'Saloon', 'Black', 'David Robertson', 'Inverness', 2015),
+    ('AB16 GHI', 'Volkswagen', 'Golf', 'Diesel', 'Hatchback', 'Grey', 'Anna Stewart', 'Aberdeen', 2016),
+    ('PA17 HJK', 'BMW', '3 Series', 'Petrol', 'Saloon', 'Blue', 'Oliver Macleod', 'Paisley', 2017),
+    ('ST18 JKL', 'Nissan', 'Qashqai', 'Diesel', 'SUV', 'White', 'Megan Fraser', 'Stirling', 2018),
+    ('PE19 KLM', 'Mercedes', 'C-Class', 'Petrol', 'Saloon', 'Black', 'Jack Hamilton', 'Perth', 2019),
+    ('KA11 LOP', 'Hyundai', 'i10', 'Petrol', 'Hatchback', 'Green', 'Grace Murray', 'Kilmarnock', 2011),
+    ('DU13 MNO', 'Renault', 'Captur', 'Diesel', 'SUV', 'Red', 'Tom Wallace', 'Dundee', 2013),
+    ('GL15 PQR', 'Audi', 'A4', 'Diesel', 'Saloon', 'White', 'Sophie Johnston', 'Glasgow', 2015),
+    ('AB12 STU', 'Peugeot', '208', 'Petrol', 'Hatchback', 'Silver', 'Lucas Kerr', 'Aberdeen', 2012),
+    ('IN14 VWX', 'Mazda', 'CX-5', 'Diesel', 'SUV', 'Blue', 'Ella Black', 'Inverness', 2014),
+    ('PE16 XYZ', 'Skoda', 'Octavia', 'Diesel', 'Estate', 'Black', 'Harry Smith', 'Perth', 2016),
+    ('KA17 BCA', 'Ford', 'Mondeo', 'Diesel', 'Saloon', 'Grey', 'George Cameron', 'Kilmarnock', 2017),
+    ('DU19 DEF', 'Kia', 'Sportage', 'Petrol', 'SUV', 'White', 'Amelia Wilson', 'Dundee', 2019),
+    ('GL12 GHI', 'Mini', 'Cooper', 'Petrol', 'Hatchback', 'Red', 'Daniel Paterson', 'Glasgow', 2012),
+    ('ED14 JKL', 'Fiat', '500', 'Petrol', 'Hatchback', 'Blue', 'Charlotte Brown', 'Edinburgh', 2014),
+    ('PA16 MNO', 'Volvo', 'XC90', 'Diesel', 'SUV', 'Black', 'William Gordon', 'Paisley', 2016),
+    ('ST18 PQR', 'Ford', 'Fiesta', 'Petrol', 'Hatchback', 'Yellow', 'Jessica Anderson', 'Stirling', 2018),
+    ('IN11 STU', 'Mercedes', 'GLA', 'Diesel', 'SUV', 'Silver', 'Emily Ross', 'Inverness', 2011),
+    ('AB13 VWX', 'Toyota', 'Prius', 'Hybrid', 'Hatchback', 'White', 'Andrew Miller', 'Aberdeen', 2013),
+    ('PA15 XYZ', 'Audi', 'A6', 'Diesel', 'Saloon', 'Grey', 'Hannah Robertson', 'Paisley', 2015),
+    ('GL17 BCD', 'Vauxhall', 'Insignia', 'Diesel', 'Saloon', 'Blue', 'Matthew Hughes', 'Glasgow', 2017),
+    ('ED19 EFG', 'Honda', 'HR-V', 'Petrol', 'SUV', 'Black', 'Emma Scott', 'Edinburgh', 2019),
+    ('DU11 GHI', 'BMW', 'X1', 'Diesel', 'SUV', 'Silver', 'Alexander Sutherland', 'Dundee', 2011),
+    ('IN13 JKL', 'Mazda', '3', 'Petrol', 'Hatchback', 'Red', 'Olivia Martin', 'Inverness', 2013),
+    ('KA15 MNO', 'Ford', 'Kuga', 'Diesel', 'SUV', 'Green', 'Isabella Gray', 'Kilmarnock', 2015),
+    ('AB18 PQR', 'Hyundai', 'Tucson', 'Diesel', 'SUV', 'White', 'Archie Reid', 'Aberdeen', 2018),
+    ('PE19 STU', 'Nissan', 'Leaf', 'Electric', 'Hatchback', 'Blue', 'Sophia Cameron', 'Perth', 2019),
+    INSERT INTO cars (registration_no, make, model, fuel_type, body_style, colour, owner_name, owner_city, year_manufactured) VALUES 
+    -- Sophia Robinson now owns 2 cars
+    ('HG23 EFG', 'Mini', 'Countryman', 'Petrol', 'SUV', 'White', 'Sophia Robinson', 'Brighton', 2016),
+    
+    -- James Turner now owns 3 cars
+    ('LD10 HJK', 'BMW', '5 Series', 'Diesel', 'Saloon', 'Black', 'James Turner', 'Birmingham', 2010),
+    ('BA17 PQR', 'Audi', 'Q7', 'Diesel', 'SUV', 'Silver', 'James Turner', 'Birmingham', 2017),
+
+    -- Alice Green now owns 2 cars
+    ('FG12 JKL', 'Honda', 'Jazz', 'Petrol', 'Hatchback', 'Blue', 'Alice Green', 'Liverpool', 2012),
+    
+    -- Tom Brown now owns 3 cars
+    ('DA15 XYZ', 'Ford', 'Kuga', 'Petrol', 'SUV', 'Grey', 'Tom Brown', 'Manchester', 2015),
+    ('XE19 LMN', 'Tesla', 'Model 3', 'Electric', 'Saloon', 'Red', 'Tom Brown', 'Manchester', 2019),
+
+    -- Lisa White now owns 2 cars
+    ('BC14 RST', 'Volkswagen', 'Passat', 'Diesel', 'Estate', 'Black', 'Lisa White', 'London', 2014),
+    
+    -- Emily Scott now owns 3 cars
+    ('WE10 FGH', 'Fiat', 'Panda', 'Petrol', 'Hatchback', 'Silver', 'Emily Scott', 'Glasgow', 2010),
+    ('YN16 QWE', 'Hyundai', 'Santa Fe', 'Diesel', 'SUV', 'Black', 'Emily Scott', 'Glasgow', 2016),
+
+    -- James McDonald now owns 2 cars
+    ('ER18 XYZ', 'Skoda', 'Fabia', 'Petrol', 'Hatchback', 'White', 'James McDonald', 'Edinburgh', 2018),
+    
+    -- Sarah Campbell now owns 2 cars
+    ('CF13 MNO', 'Nissan', 'Micra', 'Petrol', 'Hatchback', 'Red', 'Sarah Campbell', 'Dundee', 2013),
+    
+    -- David Robertson now owns 2 cars
+    ('MK17 GHI', 'Land Rover', 'Discovery', 'Diesel', 'SUV', 'Green', 'David Robertson', 'Inverness', 2017),
+    
+    -- Anna Stewart now owns 3 cars
+    ('BA11 QWE', 'Peugeot', '2008', 'Diesel', 'SUV', 'White', 'Anna Stewart', 'Aberdeen', 2011),
+    ('OP18 XYZ', 'Jaguar', 'XF', 'Diesel', 'Saloon', 'Grey', 'Anna Stewart', 'Aberdeen', 2018),
+
+    -- Oliver Macleod now owns 2 cars
+    ('JA14 RST', 'Kia', 'Ceed', 'Petrol', 'Hatchback', 'Silver', 'Oliver Macleod', 'Paisley', 2014),
+
+    -- Megan Fraser now owns 2 cars
+    ('KL12 BCD', 'Ford', 'Fiesta', 'Petrol', 'Hatchback', 'Red', 'Megan Fraser', 'Stirling', 2012),
+
+    -- Lucas Kerr now owns 3 cars
+    ('PL09 HJK', 'BMW', '1 Series', 'Petrol', 'Hatchback', 'Black', 'Lucas Kerr', 'Aberdeen', 2009),
+    ('ZY17 VWX', 'Audi', 'A3', 'Diesel', 'Hatchback', 'Blue', 'Lucas Kerr', 'Aberdeen', 2017);
+
+
+
+`);
+
     
     // Create Products table
     db.run(`CREATE TABLE products (product_id INTEGER, name TEXT, category TEXT, price REAL, number_in_stock INTEGER);`);
@@ -255,10 +402,20 @@ function populateFieldsButtons() {
     ];
     tableName = "people"; // Table name in the database
             break;
-        case "cars":
-            fields = ["registration_no", "make", "model", "fuel_type", "body_style", "owner_name", "owner_city"];
-            tableName = "cars";
-            break;
+case "cars":
+    fields = [
+        "registration_no", 
+        "make", 
+        "model", 
+        "fuel_type", 
+        "body_style", 
+        "colour",        // Added colour field
+        "owner_name", 
+        "owner_city", 
+        "year_manufactured"  // Added year_manufactured field
+    ];
+    tableName = "cars";
+    break;
         case "products":
             fields = ["product_id", "name", "category", "price", "number_in_stock"];
             tableName = "products";
@@ -457,30 +614,68 @@ const challenges = [
         correctQuery: "SELECT * FROM people ORDER BY height DESC"
     },
     // Challenges for the Cars table
-    {
-        table: "cars",
-        difficulty: "easy",
-        question: "Retrieve all records from the 'cars' table.",
-        correctQuery: "SELECT * FROM cars"
-    },
-    {
-        table: "cars",
-        difficulty: "medium",
-        question: "Count the number of unique makes in the 'cars' table.",
-        correctQuery: "SELECT COUNT(DISTINCT make) FROM cars"
-    },
-    {
-        table: "cars",
-        difficulty: "medium",
-        question: "Find all cars owned by residents of Birmingham.",
-        correctQuery: "SELECT * FROM cars WHERE owner_city = 'Birmingham'"
-    },
-    {
-        table: "cars",
-        difficulty: "hard",
-        question: "Retrieve the distinct fuel types used in the 'cars' table.",
-        correctQuery: "SELECT DISTINCT fuel_type FROM cars"
-    },
+// Challenges for the Cars table
+{
+    table: "cars",
+    difficulty: "easy",
+    question: "1. Show me all records from the 'cars' table.",
+    correctQuery: "SELECT * FROM cars"
+},
+{
+    table: "cars",
+    difficulty: "easy",
+    question: "2. I need a list of all cars that are red.",
+    correctQuery: "SELECT * FROM cars WHERE colour = \'Red\'"
+},
+{
+    table: "cars",
+    difficulty: "easy",
+    question: "3. Find all cars that are Hatchbacks.",
+    correctQuery: "SELECT * FROM cars WHERE body_style = \'Hatchback\'"
+},
+{
+    table: "cars",
+    difficulty: "easy",
+    question: "4. Show me all records of cars that run on Petrol.",
+    correctQuery: "SELECT * FROM cars WHERE fuel_type = 'Petrol'"
+},
+{
+    table: "cars",
+    difficulty: "easy",
+    question: "5. I need a list of all distinct cities where car owners are located.",
+    correctQuery: "SELECT DISTINCT owner_city FROM cars"
+},
+{
+    table: "cars",
+    difficulty: "easy",
+    question: "6. Provide me with a list of cars ordered by the year they were manufactured, starting with the most recent.",
+    correctQuery: "SELECT * FROM cars ORDER BY year_manufactured DESC"
+},
+{
+    table: "cars",
+    difficulty: "easy",
+    question: "7. Who owns a car registered with the number 'LN01 ABC'? Show all details.",
+    correctQuery: "SELECT * FROM cars WHERE registration_no = \'LN01 ABC\'"
+},
+{
+    table: "cars",
+    difficulty: "easy",
+    question: "8. Find all cars that are owned by people living in Glasgow.",
+    correctQuery: "SELECT * FROM cars WHERE owner_city = \'Glasgow\'"
+},
+{
+    table: "cars",
+    difficulty: "easy",
+    question: "9. Show a list of all cars in alphabetical order by the owner's name.",
+    correctQuery: "SELECT * FROM cars ORDER BY owner_name ASC"
+},
+{
+    table: "cars",
+    difficulty: "easy",
+    question: "10. I need a list of all Diesel cars, ordered by the year they were manufactured, from oldest to newest.",
+    correctQuery: "SELECT * FROM cars WHERE fuel_type = \'Diesel\' ORDER BY year_manufactured ASC"
+}
+
     // Challenges for the Products table
     {
         table: "products",
