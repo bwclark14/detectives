@@ -489,7 +489,7 @@ function executeQuery() {
             resultMessage.textContent = "No results found for the query.";
             return;
         }
-
+        clearQuery();
         const numRecords = result[0].values.length;
         const recordMessage = document.createElement("p");
         recordMessage.id = "record-message";
@@ -625,7 +625,7 @@ const challenges = [
     table: "cars",
     difficulty: "easy",
     question: "4. Show me all records of cars that run on Petrol.",
-    correctQuery: "SELECT * FROM cars WHERE fuel_type = 'Petrol'"
+    correctQuery: "SELECT * FROM cars WHERE fuel_type = \'Petrol\'"
 },
 {
     table: "cars",
