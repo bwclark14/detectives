@@ -181,11 +181,15 @@ function appendSQL(value) {
 }
 
 function deleteLastWord() {
-    if (queryHistory.length > 0) {
-        queryHistory.pop();
-        const newQuery = queryHistory.join(" ");
-        document.getElementById("sql-query").textContent = newQuery + " ";
+    // Check if the queryHistory is already empty
+    if (queryHistory.length === 0) {
+        return; // Exit the function if there's nothing to delete
     }
+
+    // Remove the last word from queryHistory and update the display
+    queryHistory.pop();
+    const newQuery = queryHistory.join(" ");
+    document.getElementById("sql-query").textContent = newQuery.trim() + " ";
 }
 
 function addNumericValue() {
