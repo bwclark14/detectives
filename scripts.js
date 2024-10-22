@@ -442,7 +442,7 @@ const challenges = [
         table: "people",
         difficulty: "easy",
         question: "8. How may people have the last name Baker? Give me all the details.",
-        correctQuery: "SELECT * FROM people WHERE forename = 'Baker'"
+        correctQuery: "SELECT * FROM people WHERE surname = 'Baker'"
     },
     {
         table: "people",
