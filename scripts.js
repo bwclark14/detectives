@@ -169,6 +169,7 @@ function clearQuery() {
     if (recordMessage) {
         recordMessage.remove();
     }
+    queryHistory = [];
 }
 
 let queryHistory = [];
