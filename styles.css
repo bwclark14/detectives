@@ -228,6 +228,7 @@ button:active {
     color: #5b86e5; /* Matching heading color */
     border-bottom: 1px solid #36d1dc; /* Matching border style */
     padding-bottom: 2px;
+    width:100%;
 }
 
 #test2 button {
