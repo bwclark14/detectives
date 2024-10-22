@@ -424,25 +424,25 @@ const challenges = [
         table: "people",
         difficulty: "easy",
         question: "5. Find the names of all people who have blue eyes.",
-        correctQuery: "SELECT * FROM people WHERE hair_colour = \'brown\' "
+        correctQuery: "SELECT * FROM people WHERE hair_colour = \'blue\'"
     },
         {
         table: "people",
         difficulty: "easy",
         question: "6. Provide me with a list of people who have birthdays in June.",
-        correctQuery: "SELECT * FROM people WHERE month_of_birth = \'June\' "
+        correctQuery: "SELECT * FROM people WHERE month_of_birth = \'June\'"
     },
             {
         table: "people",
         difficulty: "easy",
         question: "7. How may people are called Priya? Give me all the details.",
-        correctQuery: "SELECT * FROM people WHERE forename = \'Priya\'  "
+        correctQuery: "SELECT * FROM people WHERE forename = \'Priya\'"
     },
              {
         table: "people",
         difficulty: "easy",
         question: "8. How may people have the last name Baker? Give me all the details.",
-        correctQuery: "SELECT * FROM people WHERE forename = \'Baker\'  "
+        correctQuery: "SELECT * FROM people WHERE forename = \'Baker\'"
     },
     {
         table: "people",
