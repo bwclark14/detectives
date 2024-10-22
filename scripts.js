@@ -408,6 +408,191 @@ const challenges = [
         question: "2. We need a list of everyone who is 29 years old.",
         correctQuery: "SELECT * FROM people WHERE age = 29"
     },
+    {
+        table: "people",
+        difficulty: "easy",
+        question: "3. Find everyone with a shoe size less than 6",
+        correctQuery: "SELECT * FROM people WHERE shoe_size < 6"
+    },
+    {
+        table: "people",
+        difficulty: "easy",
+        question: "4. How many people are taller than 175cm?",
+        correctQuery: "SELECT * FROM people WHERE height > 175"
+    },
+    {
+        table: "people",
+        difficulty: "easy",
+        question: "5. Find the names of all people who have brown hair.",
+        correctQuery: "SELECT * FROM people WHERE hair_colour = 'brown'"
+    },
+    {
+        table: "people",
+        difficulty: "easy",
+        question: "6. Provide me with a list of people who have birthdays in June.",
+        correctQuery: "SELECT * FROM people WHERE month_of_birth = 'June'"
+    },
+    {
+        table: "people",
+        difficulty: "easy",
+        question: "7. How may people are called Priya? Give me all the details.",
+        correctQuery: "SELECT * FROM people WHERE forename = 'Priya'"
+    },
+    {
+        table: "people",
+        difficulty: "easy",
+        question: "8. How may people have the last name Baker? Give me all the details.",
+        correctQuery: "SELECT * FROM people WHERE forename = 'Baker'"
+    },
+    {
+        table: "people",
+        difficulty: "easy",
+        question: "9. Create a list of everyone in alphabetical order of surname",
+        correctQuery: "SELECT * FROM people ORDER BY surname ASC"
+    },
+    {
+        table: "people",
+        difficulty: "easy",
+        question: "10. Who is the tallest person? Give me a list of everyone from tallest to shortest",
+        correctQuery: "SELECT * FROM people ORDER BY height DESC"
+    },
+    // Challenges for the Cars table
+    {
+        table: "cars",
+        difficulty: "easy",
+        question: "Retrieve all records from the 'cars' table.",
+        correctQuery: "SELECT * FROM cars"
+    },
+    {
+        table: "cars",
+        difficulty: "medium",
+        question: "Count the number of unique makes in the 'cars' table.",
+        correctQuery: "SELECT COUNT(DISTINCT make) FROM cars"
+    },
+    {
+        table: "cars",
+        difficulty: "medium",
+        question: "Find all cars owned by residents of Birmingham.",
+        correctQuery: "SELECT * FROM cars WHERE owner_city = 'Birmingham'"
+    },
+    {
+        table: "cars",
+        difficulty: "hard",
+        question: "Retrieve the distinct fuel types used in the 'cars' table.",
+        correctQuery: "SELECT DISTINCT fuel_type FROM cars"
+    },
+    // Challenges for the Products table
+    {
+        table: "products",
+        difficulty: "easy",
+        question: "Retrieve all records from the 'products' table.",
+        correctQuery: "SELECT * FROM products"
+    },
+    {
+        table: "products",
+        difficulty: "medium",
+        question: "Find the total number of products in stock.",
+        correctQuery: "SELECT SUM(number_in_stock) FROM products"
+    },
+    {
+        table: "products",
+        difficulty: "medium",
+        question: "List the names of products that cost more than $50.",
+        correctQuery: "SELECT name FROM products WHERE price > 50"
+    },
+    {
+        table: "products",
+        difficulty: "hard",
+        question: "Retrieve the average price of products in the 'products' table.",
+        correctQuery: "SELECT AVG(price) FROM products"
+    }
+];
+
+let currentChallengeIndex = 0;
+let currentDifficulty = "easy"; // Default difficulty
+
+function loadChallenge() {
+    const challengeContainer = document.getElementById("challenge-container");
+    const filteredChallenges = challenges.filter(challenge => 
+        challenge.table === currentDatabase && challenge.difficulty === currentDifficulty
+    );
+
+    if (filteredChallenges.length === 0) {
+        challengeContainer.textContent = "No challenges available for the selected database and difficulty.";
+        return;
+    }
+
+    // Reset current challenge index if it exceeds the number of available challenges
+    if (currentChallengeIndex >= filteredChallenges.length) {
+        challengeContainer.textContent = "Challenge complete!";
+        return;
+    }
+
+    challengeContainer.textContent = filteredChallenges[currentChallengeIndex].question;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const sqlcDiv = document.getElementById("sqlc");
+    sqlcDiv.style.display = "none";
+
+    const challengeSection = document.createElement("div");
+    challengeSection.id = "challenge-section";
+    challengeSection.style.marginTop = "20px";
+    challengeSection.innerHTML = `
+        <h2>SQL Challenge</h2>
+        <div id="difficulty-buttons">
+            <button class="difficulty-button" data-difficulty="easy">Easy</button>
+            <button class="difficulty-button" data-difficulty="medium">Medium</button>
+            <button class="difficulty-button" data-difficulty="hard">Hard</button>
+        </div>
+        <p id="challenge-container"></p>
+        <button style="margin-bottom:10px; margin-top:10px;" class="run-query-button" onclick="checkChallenge()">
+            Submit Challenge Answer
+        </button>
+        <p id="challenge-result"></p>
+    `;
+    sqlcDiv.appendChild(challengeSection);
+
+    // Load initial challenge
+    loadChallenge();
+
+    // Add event listeners for difficulty buttons
+    const difficultyButtons = document.querySelectorAll(".difficulty-button");
+    difficultyButtons.forEach(button => {
+        button.addEventListener("click", (event) => {
+            currentDifficulty = event.target.dataset.difficulty;
+            currentChallengeIndex = 0; // Reset challenge index on difficulty change
+            loadChallenge(); // Load the first challenge for the new difficulty
+        });
+    });
+
+    const toggleButton = document.getElementById("toggle-sqlc");
+    toggleButton.addEventListener("click", () => {
+        if (sqlcDiv.style.display === "none") {
+            sqlcDiv.style.display = "block";
+            toggleButton.textContent = "Hide SQL Challenge";
+        } else {
+            sqlcDiv.style.display = "none";
+            toggleButton.textContent = "Show SQL Challenge";
+        }
+    });
+});
+
+/*
+const challenges = [
+    // Challenges for the People table
+    {
+        table: "people",
+        difficulty: "easy",
+        question: "1. I need to know the number of people in the database. Show me all records from the 'people' table.",
+        correctQuery: "SELECT * FROM people"
+    },
+    {
+        table: "people",
+        difficulty: "easy",
+        question: "2. We need a list of everyone who is 29 years old.",
+        correctQuery: "SELECT * FROM people WHERE age = 29"
+    },
      {
         table: "people",
         difficulty: "easy",
@@ -559,6 +744,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+*/
 
 function checkChallenge() {
     const query = document.getElementById("sql-query").textContent.trim();
