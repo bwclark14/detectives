@@ -30,16 +30,127 @@ function changeDatabase() {
 }
 
 function createSampleDatabases() {
-    // Create People table
-    db.run(`CREATE TABLE people (surname TEXT, forename TEXT, eye_color TEXT, hair_color TEXT, shoe_size INTEGER, height INTEGER, month_of_birth TEXT, year_of_birth INTEGER);`);
-    db.run(`
-        INSERT INTO people VALUES 
-            ('Brown', 'David', 'blue', 'brown', 8, 140, 'April', 2008),
-            ('Miller', 'Sarah', 'hazel', 'red', 4, 95, 'May', 2016),
-            ('Smith', 'John', 'green', 'black', 10, 180, 'February', 1990),
-            ('Taylor', 'Emma', 'blue', 'blonde', 7, 130, 'July', 2005),
-            ('Jones', 'Michael', 'brown', 'dark', 9, 150, 'December', 1995);
-    `);
+    // Create the "people" table with an additional column for "age"
+db.run(`
+  CREATE TABLE people (
+    surname TEXT, 
+    forename TEXT, 
+    eye_colour TEXT, 
+    hair_colour TEXT, 
+    shoe_size INTEGER, 
+    height INTEGER, 
+    month_of_birth TEXT, 
+    year_of_birth INTEGER,
+    age INTEGER
+  );
+`);
+
+// Insert updated values for each person with age calculated based on the current year (assuming it's 2024)
+db.run(`
+  INSERT INTO people VALUES 
+    ('Brown', 'David', 'blue', 'brown', 8, 170, 'April', 1988, 36),
+    ('Miller', 'Sarah', 'hazel', 'red', 4, 105, 'May', 2016, 8),
+    ('Smith', 'John', 'green', 'black', 10, 180, 'February', 1990, 34),
+    ('Taylor', 'Emma', 'blue', 'blonde', 7, 160, 'July', 2005, 19),
+    ('Jones', 'Michael', 'brown', 'dark', 9, 175, 'December', 1995, 28),
+    ('Wilson', 'Lucy', 'brown', 'brown', 5, 110, 'March', 2012, 12),
+    ('Davis', 'Jack', 'blue', 'brown', 9, 178, 'August', 1986, 38),
+    ('Clark', 'Sophia', 'green', 'blonde', 6, 145, 'January', 2010, 14),
+    ('Lewis', 'James', 'hazel', 'dark', 11, 182, 'September', 1980, 44),
+    ('Walker', 'Grace', 'blue', 'red', 5, 135, 'June', 2008, 16),
+    
+    ('Robinson', 'Olivia', 'brown', 'brown', 7, 155, 'April', 2004, 20),
+    ('Harris', 'Liam', 'green', 'black', 10, 183, 'November', 1992, 32),
+    ('King', 'Charlotte', 'hazel', 'blonde', 6, 148, 'February', 2010, 14),
+    ('Scott', 'George', 'blue', 'dark', 8, 168, 'May', 1998, 26),
+    ('Moore', 'Isabella', 'brown', 'red', 5, 112, 'July', 2013, 11),
+
+    ('Hall', 'Benjamin', 'green', 'brown', 9, 179, 'October', 1985, 39),
+    ('Young', 'Amelia', 'hazel', 'blonde', 4, 118, 'March', 2015, 9),
+    ('Allen', 'Henry', 'blue', 'black', 11, 185, 'August', 1994, 30),
+    ('Wright', 'Ella', 'brown', 'red', 6, 150, 'December', 2009, 14),
+    ('Green', 'Emily', 'blue', 'brown', 5, 120, 'June', 2014, 10),
+
+    ('Adams', 'Jacob', 'hazel', 'brown', 8, 165, 'March', 1997, 27),
+    ('Baker', 'Mia', 'green', 'blonde', 6, 140, 'September', 2007, 17),
+    ('Nelson', 'Ethan', 'brown', 'dark', 10, 177, 'November', 1991, 33),
+    ('Hill', 'Lily', 'blue', 'red', 4, 130, 'April', 2011, 13),
+    ('Carter', 'Alexander', 'hazel', 'black', 11, 190, 'October', 1983, 41),
+
+    ('Mitchell', 'Ava', 'green', 'brown', 7, 152, 'February', 2006, 18),
+    ('Perez', 'Noah', 'blue', 'dark', 9, 175, 'July', 1993, 31),
+    ('Roberts', 'Sophie', 'brown', 'red', 5, 122, 'May', 2013, 11),
+    ('Turner', 'Lucas', 'hazel', 'black', 8, 165, 'June', 1999, 25),
+    ('Phillips', 'Harper', 'blue', 'blonde', 4, 135, 'August', 2012, 12),
+    ('Nguyen', 'An', 'brown', 'black', 9, 175, 'January', 1990, 34),
+    ('Rodriguez', 'Carlos', 'hazel', 'dark', 10, 178, 'October', 1995, 29),
+    ('Kumar', 'Priya', 'black', 'black', 5, 140, 'April', 2012, 12),
+    ('Khan', 'Priya', 'black', 'black', 8, 165, 'June', 1999, 25),
+    ('Khan', 'Amir', 'brown', 'black', 8, 165, 'March', 2001, 23),
+    ('Yamamoto', 'Hana', 'brown', 'black', 6, 145, 'November', 2009, 15),
+
+    ('Garcia', 'Isabella', 'green', 'dark', 6, 150, 'May', 2005, 19),
+    ('Singh', 'Raj', 'brown', 'black', 9, 170, 'June', 1998, 26),
+    ('Lee', 'Ji-Hyun', 'brown', 'dark', 5, 132, 'July', 2011, 13),
+    ('Alvarez', 'Lucia', 'blue', 'brown', 6, 158, 'August', 2003, 21),
+    ('Chen', 'Wei', 'black', 'black', 8, 172, 'February', 1997, 27),
+
+    ('Omar', 'Zainab', 'brown', 'black', 5, 137, 'December', 2010, 13),
+    ('Ibrahim', 'Omar', 'green', 'black', 10, 180, 'September', 1987, 37),
+    ('Fernandez', 'Mateo', 'brown', 'dark', 8, 167, 'March', 2004, 20),
+    ('Patel', 'Asha', 'black', 'black', 6, 143, 'May', 2007, 17),
+    ('Kim', 'Soo-Jin', 'brown', 'dark', 9, 174, 'January', 1992, 32),
+
+    ('Nakamura', 'Satoshi', 'black', 'black', 10, 182, 'April', 1994, 30),
+    ('Gonzalez', 'Miguel', 'brown', 'dark', 8, 169, 'October', 2000, 24),
+    ('Takahashi', 'Yuki', 'green', 'dark', 5, 133, 'July', 2012, 12),
+    ('Martinez', 'Camila', 'blue', 'brown', 7, 155, 'August', 1999, 25),
+    ('Ali', 'Fatima', 'brown', 'black', 5, 128, 'February', 2014, 10),
+    ('Nowak', 'Kasia', 'brown', 'blonde', 6, 160, 'April', 2006, 18),
+        ('Kowalski', 'Jakub', 'blue', 'brown', 8, 175, 'July', 1995, 29),
+        ('Wojcik', 'Ania', 'green', 'black', 5, 150, 'March', 2010, 14),
+        ('Lewandowski', 'Mateusz', 'brown', 'dark', 10, 180, 'January', 1988, 36),
+        ('Szymanski', 'Ola', 'blue', 'blonde', 4, 125, 'September', 2013, 11),
+
+        ('Popescu', 'Ioana', 'hazel', 'black', 7, 158, 'May', 2000, 24),
+        ('Ionescu', 'Andrei', 'blue', 'brown', 9, 170, 'October', 1992, 32),
+        ('Stanescu', 'Elena', 'green', 'dark', 5, 140, 'February', 2011, 13),
+        ('Marin', 'Victor', 'brown', 'black', 8, 165, 'December', 1994, 29),
+        ('Dumitrescu', 'Mihai', 'hazel', 'brown', 10, 178, 'June', 1989, 35),
+        ('Radu', 'Sofia', 'blue', 'blonde', 6, 153, 'August', 2008, 16),
+         ('Brown', 'Oliver', 'green', 'black', 9, 177, 'May', 2012, 12),
+        ('Brown', 'Chloe', 'blue', 'blonde', 7, 165, 'November', 2008, 16),
+        ('Baker', 'Sophia', 'hazel', 'brown', 5, 140, 'August', 2014, 10),
+        ('Miller', 'Ethan', 'blue', 'red', 8, 160, 'January', 2002, 22),
+        
+        ('Kowalski', 'Agnieszka', 'brown', 'dark', 6, 155, 'March', 2009, 15),
+        ('Kowalski', 'Piotr', 'blue', 'black', 10, 180, 'December', 1986, 37),
+        ('Ionescu', 'Raluca', 'green', 'blonde', 5, 145, 'April', 2015, 9),
+        ('Ionescu', 'Vlad', 'brown', 'dark', 9, 173, 'September', 1991, 33),
+
+        ('Nguyen', 'Lan', 'black', 'black', 6, 150, 'October', 2010, 14),
+        ('Nguyen', 'Minh', 'brown', 'dark', 8, 168, 'February', 2003, 21),
+        ('Brown', 'Lara', 'hazel', 'blonde', 5, 130, 'June', 2014, 10),
+        ('Roberts', 'Simon', 'blue', 'dark', 11, 185, 'August', 1984, 40),
+                ('Jones', 'David', 'brown', 'dark', 10, 180, 'December', 1988, 35),
+        ('Miller', 'Sarah', 'hazel', 'brown', 8, 167, 'April', 1995, 29),
+
+        ('Clark', 'John', 'blue', 'dark', 9, 175, 'November', 1984, 39),
+        ('Lewis', 'Isabella', 'green', 'blonde', 5, 135, 'February', 2012, 12),
+        ('Walker', 'Liam', 'brown', 'dark', 10, 182, 'September', 1990, 34),
+        ('Robinson', 'Emily', 'hazel', 'red', 6, 150, 'June', 2014, 10),
+
+        ('Harris', 'Amelia', 'blue', 'black', 8, 162, 'May', 2001, 23),
+        ('King', 'Jack', 'brown', 'black', 7, 170, 'August', 2010, 14),
+        ('Young', 'Ava', 'green', 'dark', 5, 140, 'April', 2013, 11),
+        ('Wright', 'Henry', 'hazel', 'blonde', 10, 179, 'January', 1992, 32),
+
+        ('Nguyen', 'Sofia', 'brown', 'black', 9, 176, 'February', 2004, 20),
+        ('Davis', 'Noah', 'blue', 'dark', 6, 152, 'October', 2006, 17),
+        ('Patel', 'Lily', 'green', 'black', 8, 164, 'September', 1995, 29);
+    
+`);
+
     
     // Create Cars table
     db.run(`CREATE TABLE cars (registration_no TEXT, make TEXT, model TEXT, fuel_type TEXT, body_style TEXT, owner_name TEXT, owner_city TEXT);`);
@@ -130,9 +241,19 @@ function populateFieldsButtons() {
     let tableName;
 
     switch (currentDatabase) {
-        case "people":
-            fields = ["surname", "forename", "eye_color", "hair_color", "shoe_size", "height", "month_of_birth", "year_of_birth"];
-            tableName = "people";
+       case "people":
+    fields = [
+        "surname",       // Surname of the person
+        "forename",      // Forename of the person
+        "eye_colour",     // Eye color
+        "hair_colour",    // Hair color
+        "shoe_size",     // UK shoe size
+        "height",        // Height in centimeters
+        "month_of_birth",// Month of birth
+        "year_of_birth", // Year of birth
+        "age"            // Age of the person
+    ];
+    tableName = "people"; // Table name in the database
             break;
         case "cars":
             fields = ["registration_no", "make", "model", "fuel_type", "body_style", "owner_name", "owner_city"];
