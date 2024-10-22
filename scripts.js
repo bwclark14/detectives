@@ -51,7 +51,7 @@ db.run(`
     ('Brown', 'David', 'blue', 'brown', 8, 170, 'April', 1988, 36),
     ('Miller', 'Sarah', 'hazel', 'red', 4, 105, 'May', 2016, 8),
     ('Smith', 'John', 'green', 'black', 10, 180, 'February', 1990, 34),
-    ('Taylor', 'Emma', 'blue', 'blonde', 7, 160, 'July', 2005, 19),
+    ('Baker', 'Emma', 'blue', 'blonde', 7, 160, 'July', 2005, 19),
     ('Jones', 'Michael', 'brown', 'dark', 9, 175, 'December', 1995, 28),
     ('Wilson', 'Lucy', 'brown', 'brown', 5, 110, 'March', 2012, 12),
     ('Davis', 'Jack', 'blue', 'brown', 9, 178, 'August', 1986, 38),
@@ -61,7 +61,7 @@ db.run(`
     
     ('Robinson', 'Olivia', 'brown', 'brown', 7, 155, 'April', 2004, 20),
     ('Harris', 'Liam', 'green', 'black', 10, 183, 'November', 1992, 32),
-    ('King', 'Charlotte', 'hazel', 'blonde', 6, 148, 'February', 2010, 14),
+    ('Baker', 'Charlotte', 'hazel', 'blonde', 6, 148, 'February', 2010, 14),
     ('Scott', 'George', 'blue', 'dark', 8, 168, 'May', 1998, 26),
     ('Moore', 'Isabella', 'brown', 'red', 5, 112, 'July', 2013, 11),
 
@@ -112,7 +112,7 @@ db.run(`
         ('Lewandowski', 'Mateusz', 'brown', 'dark', 10, 180, 'January', 1988, 36),
         ('Szymanski', 'Ola', 'blue', 'blonde', 4, 125, 'September', 2013, 11),
 
-        ('Popescu', 'Ioana', 'hazel', 'black', 7, 158, 'May', 2000, 24),
+        ('Baker', 'Ioana', 'hazel', 'black', 7, 158, 'May', 2000, 24),
         ('Ionescu', 'Andrei', 'blue', 'brown', 9, 170, 'October', 1992, 32),
         ('Stanescu', 'Elena', 'green', 'dark', 5, 140, 'February', 2011, 13),
         ('Marin', 'Victor', 'brown', 'black', 8, 165, 'December', 1994, 29),
@@ -399,26 +399,62 @@ const challenges = [
     {
         table: "people",
         difficulty: "easy",
-        question: "Retrieve all records from the 'people' table.",
+        question: "1. I need to know the number of people in the database. Show me all records from the 'people' table.",
         correctQuery: "SELECT * FROM people"
     },
     {
         table: "people",
-        difficulty: "medium",
-        question: "Count the number of records in the 'people' table.",
-        correctQuery: "SELECT COUNT(*) FROM people"
+        difficulty: "easy",
+        question: "2. We need a list of everyone who is 29 years old.",
+        correctQuery: "SELECT * FROM people WHERE age = 29"
+    },
+     {
+        table: "people",
+        difficulty: "easy",
+        question: "3. Find everyone with a shoe size less than 6",
+        correctQuery: "SELECT * FROM people WHERE shoe_size < 6"
+    },
+         {
+        table: "people",
+        difficulty: "easy",
+        question: "4. How many people are taller than 175cm?",
+        correctQuery: "SELECT * FROM people WHERE height > 175"
     },
     {
         table: "people",
-        difficulty: "medium",
-        question: "Find the names of all people who have blue eyes.",
-        correctQuery: "SELECT forename, surname FROM people WHERE eye_color = 'blue'"
+        difficulty: "easy",
+        question: "5. Find the names of all people who have blue eyes.",
+        correctQuery: "SELECT * FROM people WHERE hair_colour = \'brown\' "
+    },
+        {
+        table: "people",
+        difficulty: "easy",
+        question: "6. Provide me with a list of people who have birthdays in June.",
+        correctQuery: "SELECT * FROM people WHERE month_of_birth = \'June\' "
+    },
+            {
+        table: "people",
+        difficulty: "easy",
+        question: "7. How may people are called Priya? Give me all the details.",
+        correctQuery: "SELECT * FROM people WHERE forename = \'Priya\'  "
+    },
+             {
+        table: "people",
+        difficulty: "easy",
+        question: "8. How may people have the last name Baker? Give me all the details.",
+        correctQuery: "SELECT * FROM people WHERE forename = \'Baker\'  "
     },
     {
         table: "people",
-        difficulty: "hard",
-        question: "Retrieve the surnames of people born after the year 2000.",
-        correctQuery: "SELECT surname FROM people WHERE year_of_birth > 2000"
+        difficulty: "easy",
+        question: "9. Create a list of everyone in alphabetical order of surname",
+        correctQuery: "SELECT * FROM people ORDER BY surname ASC"
+    },
+       {
+        table: "people",
+        difficulty: "easy",
+        question: "10. Who is the tallest peson?  Give me a list of everyone from tallest to shortest",
+        correctQuery: "SELECT * FROM people ORDER BY height DESC"
     },
 
     // Challenges for the Cars table
