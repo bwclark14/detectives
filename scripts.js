@@ -229,7 +229,6 @@ db.run(`
     ('TK15 VFS', 'Fiat', 'Panda', 'Petrol', 'Hatchback', 'Green', 'Grace Bell', 'Milton Keynes', 2015),
     ('BR17 ZKR', 'Ford', 'Fiesta', 'Petrol', 'Hatchback', 'Yellow', 'Isaac Howard', 'Coventry', 2017),
     ('LS16 NGP', 'Jaguar', 'XF', 'Diesel', 'Saloon', 'Grey', 'Ella Wood', 'Derby', 2016),
-    INSERT INTO cars VALUES 
     ('SA11 BCD', 'Ford', 'Focus', 'Diesel', 'Hatchback', 'Blue', 'Emily Scott', 'Glasgow', 2011),
     ('ED12 CDF', 'Vauxhall', 'Astra', 'Petrol', 'Hatchback', 'Silver', 'James McDonald', 'Edinburgh', 2012),
     ('DU14 EFG', 'Toyota', 'Aygo', 'Petrol', 'Hatchback', 'Red', 'Sarah Campbell', 'Dundee', 2014),
@@ -260,38 +259,31 @@ db.run(`
     ('KA15 MNO', 'Ford', 'Kuga', 'Diesel', 'SUV', 'Green', 'Isabella Gray', 'Kilmarnock', 2015),
     ('AB18 PQR', 'Hyundai', 'Tucson', 'Diesel', 'SUV', 'White', 'Archie Reid', 'Aberdeen', 2018),
     ('PE19 STU', 'Nissan', 'Leaf', 'Electric', 'Hatchback', 'Blue', 'Sophia Cameron', 'Perth', 2019),
-    INSERT INTO cars (registration_no, make, model, fuel_type, body_style, colour, owner_name, owner_city, year_manufactured) VALUES 
-    -- Sophia Robinson now owns 2 cars
     ('HG23 EFG', 'Mini', 'Countryman', 'Petrol', 'SUV', 'White', 'Sophia Robinson', 'Brighton', 2016),
     
-    -- James Turner now owns 3 cars
     ('LD10 HJK', 'BMW', '5 Series', 'Diesel', 'Saloon', 'Black', 'James Turner', 'Birmingham', 2010),
     ('BA17 PQR', 'Audi', 'Q7', 'Diesel', 'SUV', 'Silver', 'James Turner', 'Birmingham', 2017),
 
-    -- Alice Green now owns 2 cars
     ('FG12 JKL', 'Honda', 'Jazz', 'Petrol', 'Hatchback', 'Blue', 'Alice Green', 'Liverpool', 2012),
-    
-    -- Tom Brown now owns 3 cars
+
     ('DA15 XYZ', 'Ford', 'Kuga', 'Petrol', 'SUV', 'Grey', 'Tom Brown', 'Manchester', 2015),
     ('XE19 LMN', 'Tesla', 'Model 3', 'Electric', 'Saloon', 'Red', 'Tom Brown', 'Manchester', 2019),
 
-    -- Lisa White now owns 2 cars
     ('BC14 RST', 'Volkswagen', 'Passat', 'Diesel', 'Estate', 'Black', 'Lisa White', 'London', 2014),
     
-    -- Emily Scott now owns 3 cars
+ 
     ('WE10 FGH', 'Fiat', 'Panda', 'Petrol', 'Hatchback', 'Silver', 'Emily Scott', 'Glasgow', 2010),
     ('YN16 QWE', 'Hyundai', 'Santa Fe', 'Diesel', 'SUV', 'Black', 'Emily Scott', 'Glasgow', 2016),
 
-    -- James McDonald now owns 2 cars
+
     ('ER18 XYZ', 'Skoda', 'Fabia', 'Petrol', 'Hatchback', 'White', 'James McDonald', 'Edinburgh', 2018),
-    
-    -- Sarah Campbell now owns 2 cars
+
     ('CF13 MNO', 'Nissan', 'Micra', 'Petrol', 'Hatchback', 'Red', 'Sarah Campbell', 'Dundee', 2013),
     
-    -- David Robertson now owns 2 cars
+
     ('MK17 GHI', 'Land Rover', 'Discovery', 'Diesel', 'SUV', 'Green', 'David Robertson', 'Inverness', 2017),
     
-    -- Anna Stewart now owns 3 cars
+
     ('BA11 QWE', 'Peugeot', '2008', 'Diesel', 'SUV', 'White', 'Anna Stewart', 'Aberdeen', 2011),
     ('OP18 XYZ', 'Jaguar', 'XF', 'Diesel', 'Saloon', 'Grey', 'Anna Stewart', 'Aberdeen', 2018),
 
