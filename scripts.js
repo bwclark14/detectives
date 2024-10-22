@@ -475,10 +475,9 @@ function executeQuery() {
     const query = document.getElementById("sql-query").textContent.trim();
     const resultMessage = document.getElementById("result-message");
     const resultTable = document.getElementById("query-result");
-    const recordMessage = document.getElementById("record-message");
+
     resultTable.innerHTML = "";
     resultMessage.textContent = "";
-    recordMessage.textContent = "";
   
 
     const existingRecordMessage = document.getElementById("record-message");
