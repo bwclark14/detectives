@@ -813,12 +813,12 @@ function checkChallenge() {
 
     // Check if the user's query matches the correct query
     if (query.toLowerCase() === challenge.correctQuery.toLowerCase()) {
-        challengeResult.textContent = "Correct! You've solved the challenge.";
+        challengeResult.textContent = `Good job! Your query got us the results we need: "${query}"`;
         updateIndicator(currentChallengeIndex, true);  // Mark the current question as correct
         setTimeout(nextChallenge, 3000);
       
     } else {
-        challengeResult.textContent = "Incorrect. Please try again.";
+        challengeResult.textContent = `Oops! Try again. Your query didnt produce the results we need: "${query}"`;
        
     }
     clearQuery();
