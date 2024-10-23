@@ -734,6 +734,7 @@ document.addEventListener("DOMContentLoaded", () => {
     challengeSection.innerHTML = `
         <div id="challenge-section" style="display: flex; justify-content: space-between; align-items: center;">
             <h2 id="challenge-title" style="margin: 0;  border-style:none;">SQL Challenge</h2>
+            <div id="indicators" style="display: inline-flex; gap: 5px; margin-top: 10px;"></div>
             <div id="difficulty-buttons" style="display: inline-flex; gap: 10px;">
                 <button class="difficulty-button" data-difficulty="easy">Easy</button>
                 <button class="difficulty-button" data-difficulty="medium">Medium</button>
@@ -741,7 +742,7 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
         </div>
         <hr style="border: 1px solid #36d1dc;">
-        <div id="indicators" style="display: flex; gap: 5px; margin-top: 10px;"></div> <!-- New container for indicators -->
+         <!-- New container for indicators -->
         <p id="challenge-container"></p>
         <button style="margin-bottom:10px; margin-top:10px;" class="run-query-button" onclick="checkChallenge()">
             Submit Challenge Answer
