@@ -1010,4 +1010,12 @@ function openTab(evt, tabName) {
     evt.currentTarget.classList.add("active");
 }
 
+function previousChallenge() {
+    if (currentChallengeIndex > 0) {
+        currentChallengeIndex--;
+        loadChallenge(); // Load the previous challenge
+        document.getElementById("challenge-result").textContent = ""; // Clear previous results
+    }
+}
+
 
