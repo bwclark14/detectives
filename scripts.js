@@ -960,6 +960,7 @@ function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+/*
 function nextChallenge() {
     const filteredChallenges = challenges.filter(challenge => challenge.table === currentDatabase);
     
@@ -973,6 +974,7 @@ function nextChallenge() {
     loadChallenge(); // Load the next challenge
     document.getElementById("challenge-result").textContent = ""; // Clear previous results
 }
+*/
 
 function openTab(evt, tabName) {
     // Declare variables for all tab contents and tab buttons
