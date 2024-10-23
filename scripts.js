@@ -821,6 +821,7 @@ function checkChallenge() {
         challengeResult.textContent = "Incorrect. Please try again.";
        
     }
+    clearQuery();
 }
 
 
