@@ -709,6 +709,7 @@ function loadChallenge() {
 
     if (filteredChallenges.length === 0) {
         challengeContainer.textContent = "No challenges available for the selected database and difficulty.";
+        resetIndicators(0);  // Reset indicators
         return;
     }
 
@@ -719,6 +720,8 @@ function loadChallenge() {
     }
 
     challengeContainer.textContent = filteredChallenges[currentChallengeIndex].question;
+    resetIndicators(filteredChallenges.length);  // Reset indicators based on the current number of challenges
+    updateIndicators();  // Update the current challenge status visually
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -729,17 +732,16 @@ document.addEventListener("DOMContentLoaded", () => {
     challengeSection.id = "challenge-section";
     challengeSection.style.marginTop = "20px";
     challengeSection.innerHTML = `
-<div id="challenge-section" style="display: flex; justify-content: space-between; align-items: center;">
-   
-    <h2 id="challenge-title" style="margin: 0;  border-style:none;">SQL Challenge</h2>
-    <div id="difficulty-buttons" style="display: inline-flex; gap: 10px;">
-        <button class="difficulty-button" data-difficulty="easy">Easy</button>
-        <button class="difficulty-button" data-difficulty="medium">Medium</button>
-        <button class="difficulty-button" data-difficulty="hard">Hard</button>
-    </div>
-  
-</div>
-<hr style="border: 1px solid #36d1dc;">
+        <div id="challenge-section" style="display: flex; justify-content: space-between; align-items: center;">
+            <h2 id="challenge-title" style="margin: 0;  border-style:none;">SQL Challenge</h2>
+            <div id="difficulty-buttons" style="display: inline-flex; gap: 10px;">
+                <button class="difficulty-button" data-difficulty="easy">Easy</button>
+                <button class="difficulty-button" data-difficulty="medium">Medium</button>
+                <button class="difficulty-button" data-difficulty="hard">Hard</button>
+            </div>
+        </div>
+        <hr style="border: 1px solid #36d1dc;">
+        <div id="indicators" style="display: flex; gap: 5px; margin-top: 10px;"></div> <!-- New container for indicators -->
         <p id="challenge-container"></p>
         <button style="margin-bottom:10px; margin-top:10px;" class="run-query-button" onclick="checkChallenge()">
             Submit Challenge Answer
@@ -966,6 +968,32 @@ function capitalizeFirstLetter(string) {
 }
 
 
+function checkChallenge() {
+    const query = document.getElementById("sql-query").textContent.trim();
+    const challengeResult = document.getElementById("challenge-result");
+
+    const challenge = challenges.filter(challenge => challenge.table === currentDatabase)[currentChallengeIndex];
+    if (!challenge) {
+        challengeResult.textContent = "No challenge loaded.";
+        return;
+    }
+
+    // Check if the user's query matches the correct query
+    if (query.toLowerCase() === challenge.correctQuery.toLowerCase()) {
+        challengeResult.textContent = "Correct! You've solved the challenge.";
+        updateIndicator(currentChallengeIndex, true);  // Mark the current question as correct
+        setTimeout(nextChallenge, 3000);
+    } else {
+        challengeResult.textContent = "Incorrect. Please try again.";
+    }
+}
+
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+
 function nextChallenge() {
     const filteredChallenges = challenges.filter(challenge => challenge.table === currentDatabase);
     
@@ -978,6 +1006,46 @@ function nextChallenge() {
     currentChallengeIndex++;
     loadChallenge(); // Load the next challenge
     document.getElementById("challenge-result").textContent = ""; // Clear previous results
+}
+
+// Function to reset the visual indicators
+function resetIndicators(count) {
+    const indicatorsContainer = document.getElementById("indicators");
+    indicatorsContainer.innerHTML = ""; // Clear existing indicators
+
+    // Generate a number of circles (or boxes) based on the challenge count
+    for (let i = 0; i < count; i++) {
+        const indicator = document.createElement("div");
+        indicator.classList.add("indicator");
+        indicator.style.width = "20px";
+        indicator.style.height = "20px";
+        indicator.style.borderRadius = "50%";
+        indicator.style.backgroundColor = "#ccc";  // Default color (grey)
+        indicator.style.border = "1px solid #333";
+        indicatorsContainer.appendChild(indicator);
+    }
+}
+
+// Function to update visual indicators based on the current challenge index
+function updateIndicators() {
+    const indicators = document.querySelectorAll(".indicator");
+
+    // Loop through all indicators and set their color to green if the challenge was solved correctly
+    for (let i = 0; i < indicators.length; i++) {
+        if (i < currentChallengeIndex) {
+            indicators[i].style.backgroundColor = "green";  // Mark completed challenges
+        } else {
+            indicators[i].style.backgroundColor = "#ccc";  // Reset other challenges
+        }
+    }
+}
+
+// Function to update a specific indicator after a challenge is solved
+function updateIndicator(index, isCorrect) {
+    const indicators = document.querySelectorAll(".indicator");
+    if (isCorrect) {
+        indicators[index].style.backgroundColor = "green";  // Change the color to green for correct answers
+    }
 }
 
 
