@@ -695,6 +695,7 @@ const challenges = [
 
 let currentChallengeIndex = 0;
 let currentDifficulty = "easy"; // Default difficulty
+let correctAnswers = []; // Track which challenges are correctly answered
 
 function loadChallenge() {
     const challengeContainer = document.getElementById("challenge-container");
@@ -709,11 +710,25 @@ function loadChallenge() {
 
     // Reset current challenge index if it exceeds the number of available challenges
     if (currentChallengeIndex >= filteredChallenges.length) {
-        challengeContainer.textContent = "Challenge complete!";
+        // Only show complete message if all challenges have been correctly answered
+        if (correctAnswers.length === filteredChallenges.length && correctAnswers.every(correct => correct)) {
+            challengeContainer.textContent = "Challenge complete!";
+        } else {
+            challengeContainer.textContent = "You must answer all challenges correctly!";
+        }
         return;
     }
 
-    challengeContainer.textContent = filteredChallenges[currentChallengeIndex].question;
+    const currentChallenge = filteredChallenges[currentChallengeIndex];
+    challengeContainer.textContent = currentChallenge.question;
+
+    // Show a tick mark if the current challenge was answered correctly
+    if (correctAnswers[currentChallengeIndex]) {
+        const tickMark = document.createElement("span");
+        tickMark.textContent = " ✓";
+        tickMark.style.color = "green";
+        challengeContainer.appendChild(tickMark);
+    }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -731,6 +746,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <button class="difficulty-button" data-difficulty="hard">Hard</button>
         </div>
         <p id="challenge-container"></p>
+        <button id="prev-question" style="margin-right:10px;" onclick="previousChallenge()">Previous Question</button>
         <button style="margin-bottom:10px; margin-top:10px;" class="run-query-button" onclick="checkChallenge()">
             Submit Challenge Answer
         </button>
@@ -747,9 +763,11 @@ document.addEventListener("DOMContentLoaded", () => {
         button.addEventListener("click", (event) => {
             currentDifficulty = event.target.dataset.difficulty;
             currentChallengeIndex = 0; // Reset challenge index on difficulty change
+            correctAnswers = []; // Reset correct answers for the new difficulty
             loadChallenge(); // Load the first challenge for the new difficulty
         });
     });
+});
 
     const toggleButton = document.getElementById("toggle-sqlc");
     toggleButton.addEventListener("click", () => {
@@ -931,24 +949,22 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 */
 
-function checkChallenge() {
-    const query = document.getElementById("sql-query").textContent.trim();
-    const challengeResult = document.getElementById("challenge-result");
-
-    const challenge = challenges.filter(challenge => challenge.table === currentDatabase)[currentChallengeIndex];
-    if (!challenge) {
-        challengeResult.textContent = "No challenge loaded.";
-        return;
+function nextChallenge() {
+    const filteredChallenges = challenges.filter(challenge => challenge.table === currentDatabase && challenge.difficulty === currentDifficulty);
+    
+    if (currentChallengeIndex >= filteredChallenges.length - 1) {
+        if (correctAnswers.length === filteredChallenges.length && correctAnswers.every(correct => correct)) {
+            alert("Challenge complete!");
+        } else {
+            alert("You must answer all challenges correctly to complete!");
+        }
+        return; // No more challenges available
     }
 
-    // Check if the user's query matches the correct query
-    if (query.toLowerCase() === challenge.correctQuery.toLowerCase()) {
-        challengeResult.textContent = "Correct! You've solved the challenge.";
-      setTimeout(nextChallenge, 3000)
-        
-    } else {
-        challengeResult.textContent = "Incorrect. Please try again.";
-    }
+    // Increment the challenge index
+    currentChallengeIndex++;
+    loadChallenge(); // Load the next challenge
+    document.getElementById("challenge-result").textContent = ""; // Clear previous results
 }
 
 function capitalizeFirstLetter(string) {
