@@ -766,9 +766,6 @@ document.addEventListener("DOMContentLoaded", () => {
             correctAnswers = []; // Reset correct answers for the new difficulty
             loadChallenge(); // Load the first challenge for the new difficulty
         });
-    });
-});
-
     const toggleButton = document.getElementById("toggle-sqlc");
     toggleButton.addEventListener("click", () => {
         if (sqlcDiv.style.display === "none") {
@@ -780,6 +777,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
+
 
 /*
 const challenges = [
