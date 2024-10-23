@@ -740,7 +740,7 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
         </div>
         <hr style="border: 1px solid #36d1dc;">
-         <!-- New container for indicators -->
+         <div id="challenge-container">
       
         <button style="margin-bottom:10px; margin-top:10px;" class="run-query-button" onclick="checkChallenge()">
             Submit Challenge Answer
