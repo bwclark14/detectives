@@ -26,9 +26,7 @@ function changeDatabase() {
     // Reset challenge index to start from the beginning
     currentChallengeIndex = 0;
 
-    // clear current challenge result
-    const challengeResult = document.getElementById("challenge-result");
-    challengeResult.textContent = "";
+
 
     // Load challenges based on the current database
     loadChallenge(currentDatabase); // Automatically load challenges based on the selected database
