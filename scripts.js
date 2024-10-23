@@ -604,66 +604,68 @@ const challenges = [
         correctQuery: "SELECT * FROM people ORDER BY height DESC"
     },
     // Challenges for the Cars table
-    {
-        table: "cars",
-        difficulty: "easy",
-        question: "1. Show me all records from the 'cars' table.",
-        correctQuery: "SELECT * FROM cars"
-    },
-    {
-        table: "cars",
-        difficulty: "easy",
-        question: "2. I need a list of all cars that are red.",
-        correctQuery: "SELECT * FROM cars WHERE colour = 'Red'"
-    },
-    {
-        table: "cars",
-        difficulty: "easy",
-        question: "3. Find all cars that are Hatchbacks.",
-        correctQuery: "SELECT * FROM cars WHERE body_style = 'Hatchback'"
-    },
-    {
-        table: "cars",
-        difficulty: "easy",
-        question: "4. Show me all records of cars that run on Petrol.",
-        correctQuery: "SELECT * FROM cars WHERE fuel_type = 'Petrol'"
-    },
-    {
-        table: "cars",
-        difficulty: "easy",
-        question: "5. I need a list of all distinct cities where car owners are located.",
-        correctQuery: "SELECT DISTINCT owner_city FROM cars"
-    },
-    {
-        table: "cars",
-        difficulty: "easy",
-        question: "6. Provide me with a list of cars ordered by the year they were manufactured, starting with the most recent.",
-        correctQuery: "SELECT * FROM cars ORDER BY year_manufactured DESC"
-    },
-    {
-        table: "cars",
-        difficulty: "easy",
-        question: "7. Who owns a car registered with the number 'LN01 ABC'? Show all details.",
-        correctQuery: "SELECT * FROM cars WHERE registration_no = 'LN01 ABC'"
-    },
-    {
-        table: "cars",
-        difficulty: "easy",
-        question: "8. Find all cars that are owned by people living in Glasgow.",
-        correctQuery: "SELECT * FROM cars WHERE owner_city = 'Glasgow'"
-    },
-    {
-        table: "cars",
-        difficulty: "easy",
-        question: "9. Show a list of all cars in alphabetical order by the owner's name.",
-        correctQuery: "SELECT * FROM cars ORDER BY owner_name ASC"
-    },
-    {
-        table: "cars",
-        difficulty: "easy",
-        question: "10. I need a list of all Diesel cars, ordered by the year they were manufactured, from oldest to newest.",
-        correctQuery: "SELECT * FROM cars WHERE fuel_type = 'Diesel' ORDER BY year_manufactured ASC"
-    },
+// Challenges for the Cars table
+{
+    table: "cars",
+    difficulty: "easy",
+    question: "1. Show me all records from the 'cars' table.",
+    correctQuery: "SELECT * FROM cars"
+},
+{
+    table: "cars",
+    difficulty: "easy",
+    question: "2. I need a list of all cars that are red.",
+    correctQuery: "SELECT * FROM cars WHERE colour = \'Red\'"
+},
+{
+    table: "cars",
+    difficulty: "easy",
+    question: "3. Find all cars that are Hatchbacks.",
+    correctQuery: "SELECT * FROM cars WHERE body_style = \'Hatchback\'"
+},
+{
+    table: "cars",
+    difficulty: "easy",
+    question: "4. Show me all records of cars that run on Petrol.",
+    correctQuery: "SELECT * FROM cars WHERE fuel_type = \'Petrol\'"
+},
+{
+    table: "cars",
+    difficulty: "easy",
+    question: "5. I need a list of all distinct cities where car owners are located.",
+    correctQuery: "SELECT DISTINCT owner_city FROM cars"
+},
+{
+    table: "cars",
+    difficulty: "easy",
+    question: "6. Provide me with a list of cars ordered by the year they were manufactured, starting with the most recent.",
+    correctQuery: "SELECT * FROM cars ORDER BY year_manufactured DESC"
+},
+{
+    table: "cars",
+    difficulty: "easy",
+    question: "7. Who owns a car registered with the number 'LN01 ABC'? Show all details.",
+    correctQuery: "SELECT * FROM cars WHERE registration_no = \'LN01 ABC\'"
+},
+{
+    table: "cars",
+    difficulty: "easy",
+    question: "8. Find all cars that are owned by people living in Glasgow.",
+    correctQuery: "SELECT * FROM cars WHERE owner_city = \'Glasgow\'"
+},
+{
+    table: "cars",
+    difficulty: "easy",
+    question: "9. Show a list of all cars in alphabetical order by the owner's name.",
+    correctQuery: "SELECT * FROM cars ORDER BY owner_name ASC"
+},
+{
+    table: "cars",
+    difficulty: "easy",
+    question: "10. I need a list of all Diesel cars, ordered by the year they were manufactured, from oldest to newest.",
+    correctQuery: "SELECT * FROM cars WHERE fuel_type = \'Diesel\' ORDER BY year_manufactured ASC"
+},
+
     // Challenges for the Products table
     {
         table: "products",
@@ -693,7 +695,6 @@ const challenges = [
 
 let currentChallengeIndex = 0;
 let currentDifficulty = "easy"; // Default difficulty
-let correctAnswers = new Array(challenges.length).fill(false); // Track which challenges are correctly answered
 
 function loadChallenge() {
     const challengeContainer = document.getElementById("challenge-container");
@@ -708,29 +709,11 @@ function loadChallenge() {
 
     // Reset current challenge index if it exceeds the number of available challenges
     if (currentChallengeIndex >= filteredChallenges.length) {
-        // Only show complete message if all challenges have been correctly answered
-        if (correctAnswers.length === filteredChallenges.length && correctAnswers.every(correct => correct)) {
-            challengeContainer.textContent = "Challenge complete!";
-        } else {
-            challengeContainer.textContent = "You must answer all challenges correctly!";
-        }
+        challengeContainer.textContent = "Challenge complete!";
         return;
     }
 
-    const currentChallenge = filteredChallenges[currentChallengeIndex];
-    challengeContainer.textContent = currentChallenge.question;
-
-    // Show progress (how many answered correctly out of total)
-    const progressText = `Question ${currentChallengeIndex + 1} of ${filteredChallenges.length}. Correctly answered: ${correctAnswers.filter(Boolean).length} of ${filteredChallenges.length}`;
-    document.getElementById("progress").textContent = progressText;
-
-    // Show a tick mark if the current challenge was answered correctly
-    if (correctAnswers[currentChallengeIndex]) {
-        const tickMark = document.createElement("span");
-        tickMark.textContent = " ✓";
-        tickMark.style.color = "green";
-        challengeContainer.appendChild(tickMark);
-    }
+    challengeContainer.textContent = filteredChallenges[currentChallengeIndex].question;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -748,12 +731,9 @@ document.addEventListener("DOMContentLoaded", () => {
             <button class="difficulty-button" data-difficulty="hard">Hard</button>
         </div>
         <p id="challenge-container"></p>
-        <p id="progress"></p> <!-- Add progress display here -->
-        <button id="prev-question" style="margin-right:10px;" onclick="previousChallenge()">Previous Question</button>
         <button style="margin-bottom:10px; margin-top:10px;" class="run-query-button" onclick="checkChallenge()">
             Submit Challenge Answer
         </button>
-        <button id="next-question" onclick="nextChallenge()">Next Question</button>
         <p id="challenge-result"></p>
     `;
     sqlcDiv.appendChild(challengeSection);
@@ -767,12 +747,10 @@ document.addEventListener("DOMContentLoaded", () => {
         button.addEventListener("click", (event) => {
             currentDifficulty = event.target.dataset.difficulty;
             currentChallengeIndex = 0; // Reset challenge index on difficulty change
-            correctAnswers = new Array(challenges.length).fill(false); // Reset correct answers for the new difficulty
             loadChallenge(); // Load the first challenge for the new difficulty
         });
     });
 
-    // Toggle button functionality for showing/hiding the SQL challenge
     const toggleButton = document.getElementById("toggle-sqlc");
     toggleButton.addEventListener("click", () => {
         if (sqlcDiv.style.display === "none") {
@@ -785,44 +763,233 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+/*
+const challenges = [
+    // Challenges for the People table
+    {
+        table: "people",
+        difficulty: "easy",
+        question: "1. I need to know the number of people in the database. Show me all records from the 'people' table.",
+        correctQuery: "SELECT * FROM people"
+    },
+    {
+        table: "people",
+        difficulty: "easy",
+        question: "2. We need a list of everyone who is 29 years old.",
+        correctQuery: "SELECT * FROM people WHERE age = 29"
+    },
+     {
+        table: "people",
+        difficulty: "easy",
+        question: "3. Find everyone with a shoe size less than 6",
+        correctQuery: "SELECT * FROM people WHERE shoe_size < 6"
+    },
+         {
+        table: "people",
+        difficulty: "easy",
+        question: "4. How many people are taller than 175cm?",
+        correctQuery: "SELECT * FROM people WHERE height > 175"
+    },
+    {
+        table: "people",
+        difficulty: "easy",
+        question: "5. Find the names of all people who have brown hair.",
+        correctQuery: "SELECT * FROM people WHERE hair_colour = \'brown\'"
+    },
+        {
+        table: "people",
+        difficulty: "easy",
+        question: "6. Provide me with a list of people who have birthdays in June.",
+        correctQuery: "SELECT * FROM people WHERE month_of_birth = \'June\'"
+    },
+            {
+        table: "people",
+        difficulty: "easy",
+        question: "7. How may people are called Priya? Give me all the details.",
+        correctQuery: "SELECT * FROM people WHERE forename = \'Priya\'"
+    },
+             {
+        table: "people",
+        difficulty: "easy",
+        question: "8. How may people have the last name Baker? Give me all the details.",
+        correctQuery: "SELECT * FROM people WHERE forename = \'Baker\'"
+    },
+    {
+        table: "people",
+        difficulty: "easy",
+        question: "9. Create a list of everyone in alphabetical order of surname",
+        correctQuery: "SELECT * FROM people ORDER BY surname ASC"
+    },
+       {
+        table: "people",
+        difficulty: "easy",
+        question: "10. Who is the tallest peson?  Give me a list of everyone from tallest to shortest",
+        correctQuery: "SELECT * FROM people ORDER BY height DESC"
+    },
+
+    // Challenges for the Cars table
+    {
+        table: "cars",
+        difficulty: "easy",
+        question: "Retrieve all records from the 'cars' table.",
+        correctQuery: "SELECT * FROM cars"
+    },
+    {
+        table: "cars",
+        difficulty: "medium",
+        question: "Count the number of unique makes in the 'cars' table.",
+        correctQuery: "SELECT COUNT(DISTINCT make) FROM cars"
+    },
+    {
+        table: "cars",
+        difficulty: "medium",
+        question: "Find all cars owned by residents of Birmingham.",
+        correctQuery: "SELECT * FROM cars WHERE owner_city = 'Birmingham'"
+    },
+    {
+        table: "cars",
+        difficulty: "hard",
+        question: "Retrieve the distinct fuel types used in the 'cars' table.",
+        correctQuery: "SELECT DISTINCT fuel_type FROM cars"
+    },
+
+    // Challenges for the Products table
+    {
+        table: "products",
+        difficulty: "easy",
+        question: "Retrieve all records from the 'products' table.",
+        correctQuery: "SELECT * FROM products"
+    },
+    {
+        table: "products",
+        difficulty: "medium",
+        question: "Find the total number of products in stock.",
+        correctQuery: "SELECT SUM(number_in_stock) FROM products"
+    },
+    {
+        table: "products",
+        difficulty: "medium",
+        question: "List the names of products that cost more than $50.",
+        correctQuery: "SELECT name FROM products WHERE price > 50"
+    },
+    {
+        table: "products",
+        difficulty: "hard",
+        question: "Retrieve the average price of products in the 'products' table.",
+        correctQuery: "SELECT AVG(price) FROM products"
+    }
+];
+
+let currentChallengeIndex = 0;
+
+function loadChallenge() {
+    const challengeContainer = document.getElementById("challenge-container");
+    const filteredChallenges = challenges.filter(challenge => challenge.table === currentDatabase);
+    if (filteredChallenges.length === 0) {
+        challengeContainer.textContent = "No challenges available for the selected database.";
+        return;
+    }
+
+    // Reset current challenge index if it exceeds the number of available challenges
+    if (currentChallengeIndex >= filteredChallenges.length) {
+        challengeContainer.textContent = "Challenge complete!";
+        return;
+    }
+
+    challengeContainer.textContent = filteredChallenges[currentChallengeIndex].question;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const sqlcDiv = document.getElementById("sqlc");
+    sqlcDiv.style.display = "none";
+
+    const challengeSection = document.createElement("div");
+    challengeSection.id = "challenge-section";
+    challengeSection.style.marginTop = "20px";
+    challengeSection.innerHTML = `
+        <h2>SQL Challenge</h2>
+        <p id="challenge-container"></p>
+        <button style="margin-bottom:10px; margin-top:10px;" class="run-query-button" onclick="checkChallenge()">
+            Submit Challenge Answer
+        </button>
+        <p id="challenge-result"></p>
+    `;
+    sqlcDiv.appendChild(challengeSection);
+
+    loadChallenge();
+
+    const toggleButton = document.getElementById("toggle-sqlc");
+    toggleButton.addEventListener("click", () => {
+        if (sqlcDiv.style.display === "none") {
+            sqlcDiv.style.display = "block";
+            toggleButton.textContent = "Hide SQL Challenge";
+        } else {
+            sqlcDiv.style.display = "none";
+            toggleButton.textContent = "Show SQL Challenge";
+        }
+    });
+});
+*/
+
 function checkChallenge() {
-    const filteredChallenges = challenges.filter(challenge => challenge.table === currentDatabase && challenge.difficulty === currentDifficulty);
-    const userQuery = getUserQuery(); // Assume this function gets the user's query input
-    const currentChallenge = filteredChallenges[currentChallengeIndex];
+    const query = document.getElementById("sql-query").textContent.trim();
+    const challengeResult = document.getElementById("challenge-result");
 
-    if (userQuery === currentChallenge.correctQuery) {
-        correctAnswers[currentChallengeIndex] = true; // Mark the current challenge as correct
-        document.getElementById("challenge-result").textContent = "Correct!";
+    const challenge = challenges.filter(challenge => challenge.table === currentDatabase)[currentChallengeIndex];
+    if (!challenge) {
+        challengeResult.textContent = "No challenge loaded.";
+        return;
+    }
 
-        // Update tick mark immediately
-        loadChallenge();
+    // Check if the user's query matches the correct query
+    if (query.toLowerCase() === challenge.correctQuery.toLowerCase()) {
+        challengeResult.textContent = "Correct! You've solved the challenge.";
+      setTimeout(nextChallenge, 3000)
+        
     } else {
-        document.getElementById("challenge-result").textContent = "Incorrect, try again.";
+        challengeResult.textContent = "Incorrect. Please try again.";
     }
 }
 
-function nextChallenge() {
-    const filteredChallenges = challenges.filter(challenge => challenge.table === currentDatabase && challenge.difficulty === currentDifficulty);
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
+function nextChallenge() {
+    const filteredChallenges = challenges.filter(challenge => challenge.table === currentDatabase);
+    
     if (currentChallengeIndex >= filteredChallenges.length - 1) {
-        if (correctAnswers.length === filteredChallenges.length && correctAnswers.every(correct => correct)) {
-            alert("Challenge complete!");
-        } else {
-            alert("You must answer all challenges correctly to complete!");
-        }
+        alert("Challenge complete!");
         return; // No more challenges available
     }
-
-    // Increment the challenge index
+    
+    // Increment the challenge index and loop back if at the end
     currentChallengeIndex++;
     loadChallenge(); // Load the next challenge
     document.getElementById("challenge-result").textContent = ""; // Clear previous results
 }
 
-function previousChallenge() {
-    if (currentChallengeIndex > 0) {
-        currentChallengeIndex--;
-        loadChallenge(); // Load the previous challenge
-        document.getElementById("challenge-result").textContent = ""; // Clear previous results
+function openTab(evt, tabName) {
+    // Declare variables for all tab contents and tab buttons
+    let i, tabcontent, tablinks;
+
+    // Get all elements with class="tab-content" and hide them
+    tabcontent = document.getElementsByClassName("tab-content");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+        tabcontent[i].classList.remove("active");
     }
+
+    // Get all elements with class="tab button" and remove the class "active"
+    tablinks = document.getElementsByClassName("tab")[0].getElementsByTagName("button");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].classList.remove("active");
+    }
+
+    // Show the selected tab content and mark the clicked tab as active
+    document.getElementById(tabName).style.display = "block";
+    document.getElementById(tabName).classList.add("active");
+    evt.currentTarget.classList.add("active");
 }
+
+
