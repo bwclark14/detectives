@@ -766,6 +766,9 @@ document.addEventListener("DOMContentLoaded", () => {
             correctAnswers = []; // Reset correct answers for the new difficulty
             loadChallenge(); // Load the first challenge for the new difficulty
         });
+    });
+
+    // Toggle button functionality for showing/hiding the SQL challenge
     const toggleButton = document.getElementById("toggle-sqlc");
     toggleButton.addEventListener("click", () => {
         if (sqlcDiv.style.display === "none") {
