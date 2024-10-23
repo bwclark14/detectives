@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     createSampleDatabases();
     changeDatabase();
     clearQuery();
-    document.getElementById("next-challenge-btn").addEventListener("click", nextChallenge);
+    //document.getElementById("next-challenge-btn").addEventListener("click", nextChallenge);
     document.getElementById("clear-button").addEventListener("click", clearQuery);
 });
 
@@ -885,26 +885,20 @@ function updateIndicator(index, isCorrect) {
 
 
 function openTab(evt, tabName) {
-    // Declare variables for all tab contents and tab buttons
     let i, tabcontent, tablinks;
 
-    // Get all elements with class="tab-content" and hide them
     tabcontent = document.getElementsByClassName("tab-content");
     for (i = 0; i < tabcontent.length; i++) {
         tabcontent[i].style.display = "none";
         tabcontent[i].classList.remove("active");
     }
 
-    // Get all elements with class="tab button" and remove the class "active"
     tablinks = document.getElementsByClassName("tab")[0].getElementsByTagName("button");
     for (i = 0; i < tablinks.length; i++) {
         tablinks[i].classList.remove("active");
     }
 
-    // Show the selected tab content and mark the clicked tab as active
     document.getElementById(tabName).style.display = "block";
-    document.getElementById(tabName).classList.add("active");
     evt.currentTarget.classList.add("active");
 }
-
 
