@@ -743,7 +743,7 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
         <hr style="border: 1px solid #36d1dc;">
          <!-- New container for indicators -->
-        <p id="challenge-container"></p>
+      
         <button style="margin-bottom:10px; margin-top:10px;" class="run-query-button" onclick="checkChallenge()">
             Submit Challenge Answer
         </button>
@@ -1016,7 +1016,7 @@ function resetIndicators(count) {
     const indicatorsContainer = document.getElementById("indicators");
     indicatorsContainer.innerHTML = ""; // Clear existing indicators
 
-    // Generate a number of circles (or boxes) based on the challenge count
+    // Generate a number of circles based on the challenge count
     for (let i = 0; i < count; i++) {
         const indicator = document.createElement("div");
         indicator.classList.add("indicator");
@@ -1024,7 +1024,7 @@ function resetIndicators(count) {
         indicator.style.height = "20px";
         indicator.style.borderRadius = "50%";
         indicator.style.backgroundColor = "#ccc";  // Default color (grey)
-        indicator.style.border = "1px solid #333";
+        indicator.style.border = "2px solid white";
         indicatorsContainer.appendChild(indicator);
     }
 }
@@ -1036,7 +1036,7 @@ function updateIndicators() {
     // Loop through all indicators and set their color to green if the challenge was solved correctly
     for (let i = 0; i < indicators.length; i++) {
         if (i < currentChallengeIndex) {
-            indicators[i].style.backgroundColor = "green";  // Mark completed challenges
+            indicators[i].style.backgroundColor = "#66ff00";  // Mark completed challenges
         } else {
             indicators[i].style.backgroundColor = "#ccc";  // Reset other challenges
         }
