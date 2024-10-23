@@ -984,8 +984,10 @@ function checkChallenge() {
         challengeResult.textContent = "Correct! You've solved the challenge.";
         updateIndicator(currentChallengeIndex, true);  // Mark the current question as correct
         setTimeout(nextChallenge, 3000);
+        clearQuery();
     } else {
         challengeResult.textContent = "Incorrect. Please try again.";
+        clearQuery();
     }
 }
 
