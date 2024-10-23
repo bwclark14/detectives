@@ -729,12 +729,12 @@ document.addEventListener("DOMContentLoaded", () => {
     challengeSection.id = "challenge-section";
     challengeSection.style.marginTop = "20px";
     challengeSection.innerHTML = `
-        <h2>SQL Challenge</h2>
-        <div id="difficulty-buttons">
-            <button class="difficulty-button" data-difficulty="easy">Easy</button>
-            <button class="difficulty-button" data-difficulty="medium">Medium</button>
-            <button class="difficulty-button" data-difficulty="hard">Hard</button>
-        </div>
+<h2 id="challenge-title" style="display: inline-block; vertical-align: middle; margin-right: 20px;">SQL Challenge</h2>
+<div id="difficulty-buttons" style="display: inline-flex; vertical-align: middle; gap: 10px;">
+    <button class="difficulty-button" data-difficulty="easy">Easy</button>
+    <button class="difficulty-button" data-difficulty="medium">Medium</button>
+    <button class="difficulty-button" data-difficulty="hard">Hard</button>
+</div>
         <p id="challenge-container"></p>
         <button style="margin-bottom:10px; margin-top:10px;" class="run-query-button" onclick="checkChallenge()">
             Submit Challenge Answer
