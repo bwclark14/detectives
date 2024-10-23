@@ -730,11 +730,13 @@ document.addEventListener("DOMContentLoaded", () => {
     challengeSection.style.marginTop = "20px";
     challengeSection.innerHTML = `
 <div id="challenge-section" style="display: flex; justify-content: space-between; align-items: center;">
+    <div style="border-bottom: 2px solid #36d1dc;">
     <h2 id="challenge-title" style="margin: 0;  border-style:none;">SQL Challenge</h2>
-    <div id="difficulty-buttons" style="display: inline-flex; gap: 10px;  border-bottom: 2px solid #36d1dc;">
+    <div id="difficulty-buttons" style="display: inline-flex; gap: 10px;">
         <button class="difficulty-button" data-difficulty="easy">Easy</button>
         <button class="difficulty-button" data-difficulty="medium">Medium</button>
         <button class="difficulty-button" data-difficulty="hard">Hard</button>
+    </div>
     </div>
 </div>
         <p id="challenge-container"></p>
