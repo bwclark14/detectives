@@ -771,7 +771,7 @@ const challenges = [
         table: "people",
         difficulty: "hard",
         question: "1. Give me all the details of people who are shorter than 160cm OR have feet larger than a 9",
-        correctQuery: "SELECT surname, height, shoe_size FROM people WHERE height < 160 AND shoe_size > 9"
+        correctQuery: "SELECT * FROM people WHERE height < 160 OR shoe_size > 9"
     },
         {
         table: "people",
