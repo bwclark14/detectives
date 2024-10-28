@@ -725,7 +725,7 @@ const challenges = [
         table: "people",
         difficulty: "medium",
         question: "4. Can you show me only the surnames of people who have blue eyes, in alphabetical order of surname?",
-        correctQuery: "SELECT surname FROM people WHERE eye_colour = 'blue' ORDER BY surname"
+        correctQuery: "SELECT surname FROM people WHERE eye_colour = 'blue' ORDER BY surname ASC"
     },
         {
         table: "people",
@@ -770,13 +770,13 @@ const challenges = [
         {
         table: "people",
         difficulty: "hard",
-        question: "11. Give me all the details of people who are shorter than 160cm OR have feet larger than a 9",
+        question: "1. Give me all the details of people who are shorter than 160cm OR have feet larger than a 9",
         correctQuery: "SELECT surname, height, shoe_size FROM people WHERE height < 160 AND shoe_size > 9"
     },
         {
         table: "people",
         difficulty: "hard",
-        question: "12. Give me the surnames, heights and shoe sizes of people who are taller than 170 cm or who have feet smaller than 5.",
+        question: "2. Give me the surnames, heights and shoe sizes of people who are taller than 170 cm or who have feet smaller than 5.",
         correctQuery: "SELECT surname, height, shoe_size FROM people WHERE height > 170 OR shoe_size < 5"
     },
 
