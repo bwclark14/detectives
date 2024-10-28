@@ -229,6 +229,8 @@ button:active {
     border-bottom: 1px solid #36d1dc; /* Matching border style */
     padding-bottom: 2px;
     width:100%;
+    padding-top:2px;
+
 }
 
 #test2 button {
@@ -246,8 +248,16 @@ button:active {
     gap: 20px; /* Optional: Add some space between the two containers */
 }
 
+.side-by-side-container h3 {
+    padding-top:2px;
+}
+
 .table-container {
     flex: 0 1 auto; /* The table container will only take the space it needs */
+}
+
+.table-container h3 {
+    padding-top:2px;
 }
 
 .symbols-container {
