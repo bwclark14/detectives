@@ -702,6 +702,84 @@ const challenges = [
         question: "10. Who is the tallest person? Give me a list of everyone from tallest to shortest",
         correctQuery: "SELECT * FROM people ORDER BY height DESC"
     },
+    // medium
+    {
+        table: "people",
+        difficulty: "medium",
+        question: "1. I need the forenames and surnames of people who are older than 30 years.",
+        correctQuery: "SELECT forename, surname FROM people WHERE age > 30"
+    },
+        {
+        table: "people",
+        difficulty: "medium",
+        question: "2. List the forenames and hair colours of people who wear shoes larger than size 8.",
+        correctQuery: "SELECT forename, hair_colour FROM people WHERE shoe_size > 8"
+    },
+        {
+        table: "people",
+        difficulty: "medium",
+        question: "3. Get the surnames and forenames of people born in March and sort them by age from youngest to oldest.",
+        correctQuery: "SELECT surname, forename FROM people WHERE month_of_birth = 'March' ORDER BY age ASC"
+    },
+    {
+        table: "people",
+        difficulty: "medium",
+        question: "4. Can you show me only the surnames of people who have blue eyes, in alphabetical order of surname?",
+        correctQuery: "SELECT surname FROM people WHERE eye_colour = 'blue' ORDER BY surname"
+    },
+        {
+        table: "people",
+        difficulty: "medium",
+        question: "5. Show me the forenames and shoe sizes of people who are younger than 18.",
+        correctQuery: "SELECT forename, shoe_size FROM people WHERE age < 18"
+    },
+
+
+    {
+        table: "people",
+        difficulty: "medium",
+        question: "6. I want to know the surnames, heights and eye colours of people who are exactly 25 years old and sort them by surname in reverse alphabetical order.",
+        correctQuery: "SELECT surname, height, eye_colour FROM people WHERE age = 25 ORDER BY surname DESC"
+    },
+
+    {
+        table: "people",
+        difficulty: "medium",
+        question: "7. I need to see the surnames of people with brown hair, ordered by their shoe size.",
+        correctQuery: "SELECT surname FROM people WHERE hair_colour = 'brown' ORDER BY shoe_size ASC"
+    },
+    {
+        table: "people",
+        difficulty: "medium",
+        question: "8. Can you provide the forenames of people who have a shoe size of 8 OR have hazel eyes?",
+        correctQuery: "SELECT forename, shoe_size, eye_colour FROM people WHERE shoe_size = 7 OR eye_colour = 'hazel'"
+    },
+
+    {
+        table: "people",
+        difficulty: "medium",
+        question: "9. I want a list of forenames, surnames and eye colours of people who younger than 30 years old, ordered by the oldest person first.",
+        correctQuery: "SELECT forename, surname, eye_colour FROM people WHERE age <30 ORDER BY age DESC"
+    },
+        {
+        table: "people",
+        difficulty: "medium",
+        question: "10. Give me all the details of people who over 26 years old with black hair.",
+        correctQuery: "SELECT * FROM people WHERE age > 26 AND hair_colour = 'black'
+    },
+        {
+        table: "people",
+        difficulty: "medium",
+        question: "11. Give me all the details of people who are shorter than 160cm OR have feet larger than a 9",
+        correctQuery: "SELECT surname, height, shoe_size FROM people WHERE height < 160 AND shoe_size > 9"
+    },
+        {
+        table: "people",
+        difficulty: "medium",
+        question: "12. Give me the surnames, heights and shoe sizes of people who are taller than 170 cm or who have feet smaller than 5.",
+        correctQuery: "SELECT surname, height, shoe_size FROM people WHERE height > 170 OR shoe_size < 5"
+    },
+
     // Challenges for the Cars table
 // Challenges for the Cars table
 {
