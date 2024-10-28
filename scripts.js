@@ -765,7 +765,7 @@ const challenges = [
         table: "people",
         difficulty: "medium",
         question: "10. Give me all the details of people who over 26 years old with black hair.",
-        correctQuery: "SELECT * FROM people WHERE age > 26 AND hair_colour = 'black'
+        correctQuery: "SELECT * FROM people WHERE age > 26 AND hair_colour = 'black'"
     },
         {
         table: "people",
