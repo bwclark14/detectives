@@ -645,92 +645,92 @@ const challenges = [
     {
         table: "people",
         difficulty: "easy",
-        question: "1. I need to know the number of people in the database. Show me all records from the 'people' table.",
+        question: "EASY 1. I need to know the number of people in the database. Show me all records from the 'people' table.",
         correctQuery: "SELECT * FROM people"
     },
     {
         table: "people",
         difficulty: "easy",
-        question: "2. We need a list of everyone who is 29 years old.",
+        question: "EASY 2. We need a list of everyone who is 29 years old.",
         correctQuery: "SELECT * FROM people WHERE age = 29"
     },
     {
         table: "people",
         difficulty: "easy",
-        question: "3. Find everyone with a shoe size less than 6",
+        question: "EASY 3. Find everyone with a shoe size less than 6",
         correctQuery: "SELECT * FROM people WHERE shoe_size < 6"
     },
     {
         table: "people",
         difficulty: "easy",
-        question: "4. How many people are taller than 175cm?",
+        question: "EASY 4. How many people are taller than 175cm?",
         correctQuery: "SELECT * FROM people WHERE height > 175"
     },
     {
         table: "people",
         difficulty: "easy",
-        question: "5. Find the names of all people who have brown hair.",
+        question: "EASY 5. Find the names of all people who have brown hair.",
         correctQuery: "SELECT * FROM people WHERE hair_colour = 'brown'"
     },
     {
         table: "people",
         difficulty: "easy",
-        question: "6. Provide me with a list of people who have birthdays in June.",
+        question: "EASY 6. Provide me with a list of people who have birthdays in June.",
         correctQuery: "SELECT * FROM people WHERE month_of_birth = 'June'"
     },
     {
         table: "people",
         difficulty: "easy",
-        question: "7. How may people are called Priya? Give me all the details.",
+        question: "EASY 7. How may people are called Priya? Give me all the details.",
         correctQuery: "SELECT * FROM people WHERE forename = 'Priya'"
     },
     {
         table: "people",
         difficulty: "easy",
-        question: "8. How may people have the last name Baker? Give me all the details.",
+        question: "EASY 8. How may people have the last name Baker? Give me all the details.",
         correctQuery: "SELECT * FROM people WHERE surname = 'Baker'"
     },
     {
         table: "people",
         difficulty: "easy",
-        question: "9. Create a list of everyone in alphabetical order of surname",
+        question: "EASY 9. Create a list of everyone in alphabetical order of surname",
         correctQuery: "SELECT * FROM people ORDER BY surname ASC"
     },
     {
         table: "people",
         difficulty: "easy",
-        question: "10. Who is the tallest person? Give me a list of everyone from tallest to shortest",
+        question: "EASY 10. Who is the tallest person? Give me a list of everyone from tallest to shortest",
         correctQuery: "SELECT * FROM people ORDER BY height DESC"
     },
     // medium
     {
         table: "people",
         difficulty: "medium",
-        question: "1. I need the forenames and surnames of people who are older than 30 years.",
+        question: "MEDIUM 1. I need the forenames and surnames of people who are older than 30 years.",
         correctQuery: "SELECT forename , surname FROM people WHERE age > 30"
     },
         {
         table: "people",
         difficulty: "medium",
-        question: "2. List the forenames and hair colours of people who wear shoes larger than size 8.",
+        question: "MEDIUM 2. List the forenames and hair colours of people who wear shoes larger than size 8.",
         correctQuery: "SELECT forename , hair_colour FROM people WHERE shoe_size > 8"
     },
         {
         table: "people",
         difficulty: "medium",
-        question: "3. Get the surnames, forenames and ages of people born in March.",
+        question: "MEDIUM 3. Get the surnames, forenames and ages of people born in March.",
         correctQuery: "SELECT surname , forename , age FROM people WHERE month_of_birth = \'March\'"
     },
     {
         table: "people",
         difficulty: "medium",
-        question: "4. Can you show me only the surnames of people who have blue eyes, in alphabetical order of surname?",
+        question: "MEDIUM 4. Can you show me only the surnames of people who have blue eyes, in alphabetical order of surname?",
         correctQuery: "SELECT surname FROM people WHERE eye_colour = \'blue\'"
     },
         {
         table: "people",
         difficulty: "medium",
-        question: "5. Show me the forenames and shoe sizes of people who are younger than 18.",
+        question: "MEDIUM 5. Show me the forenames and shoe sizes of people who are younger than 18.",
         correctQuery: "SELECT forename , shoe_size FROM people WHERE age < 18"
     },
 
@@ -738,45 +738,45 @@ const challenges = [
     {
         table: "people",
         difficulty: "medium",
-        question: "6. I want to know the surnames, heights and eye colours of people who are exactly 25 years old and sort them by surname in reverse alphabetical order.",
+        question: "MEDIUM 6. I want to know the surnames, heights and eye colours of people who are exactly 25 years old and sort them by surname in reverse alphabetical order.",
         correctQuery: "SELECT surname , height , eye_colour FROM people WHERE age = 25 ORDER BY surname ASC"
     },
 
     {
         table: "people",
         difficulty: "medium",
-        question: "7. I need to see the surnames and shoe sizes of people with black hair, ordered by their shoe size from smalles to largest.",
+        question: "MEDIUM 7. I need to see the surnames and shoe sizes of people with black hair, ordered by their shoe size from smalles to largest.",
         correctQuery: "SELECT surname , shoe_size FROM people WHERE hair_colour = \'black\' ORDER BY shoe_size ASC"
     },
     {
         table: "people",
         difficulty: "medium",
-        question: "8. Can you provide the forenames of people who have a shoe size of 8 OR have hazel eyes?",
+        question: "MEDIUM 8. Can you provide the forenames of people who have a shoe size of 8 OR have hazel eyes?",
         correctQuery: "SELECT forename , shoe_size , eye_colour FROM people WHERE shoe_size = 7 OR eye_colour = \'hazel\'"
     },
 
     {
         table: "people",
         difficulty: "medium",
-        question: "9. I want a list of forenames, surnames and eye colours of people who younger than 30 years old, ordered by the oldest person first.",
+        question: "MEDIUM 9. I want a list of forenames, surnames and eye colours of people who younger than 30 years old, ordered by the oldest person first.",
         correctQuery: "SELECT forename , surname , eye_colour FROM people WHERE age < 30 ORDER BY age DESC"
     },
         {
         table: "people",
         difficulty: "medium",
-        question: "10. Give me all the details of people who over 26 years old with black hair.",
+        question: "MEDIUM 10. Give me all the details of people who over 26 years old with black hair.",
         correctQuery: "SELECT * FROM people WHERE age > 26 AND hair_colour = \'black\'"
     },
         {
         table: "people",
         difficulty: "hard",
-        question: "1. Give me all the details of people who are shorter than 160cm OR have feet larger than a 9",
+        question: "HARD 1. Give me all the details of people who are shorter than 160cm OR have feet larger than a 9",
         correctQuery: "SELECT * FROM people WHERE height < 160 OR shoe_size > 9"
     },
         {
         table: "people",
         difficulty: "hard",
-        question: "2. Give me the surnames, heights and shoe sizes of people who are taller than 170 cm or who have feet smaller than 5.",
+        question: "HARD 2. Give me the surnames, heights and shoe sizes of people who are taller than 170 cm or who have feet smaller than 5.",
         correctQuery: "SELECT surname , height , shoe_size FROM people WHERE height > 170 OR shoe_size < 5"
     },
 
