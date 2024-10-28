@@ -769,13 +769,13 @@ const challenges = [
     },
         {
         table: "people",
-        difficulty: "medium",
+        difficulty: "hard",
         question: "11. Give me all the details of people who are shorter than 160cm OR have feet larger than a 9",
         correctQuery: "SELECT surname, height, shoe_size FROM people WHERE height < 160 AND shoe_size > 9"
     },
         {
         table: "people",
-        difficulty: "medium",
+        difficulty: "hard",
         question: "12. Give me the surnames, heights and shoe sizes of people who are taller than 170 cm or who have feet smaller than 5.",
         correctQuery: "SELECT surname, height, shoe_size FROM people WHERE height > 170 OR shoe_size < 5"
     },
