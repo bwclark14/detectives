@@ -875,8 +875,6 @@ let currentDifficulty = "easy"; // Default difficulty
 
 function loadChallenge() {
     const challengeContainer = document.getElementById("challenge-container");
-    const difficultyContainer = document.getElementById("difficulty-level"); // Add this line to reference the difficulty level container
-
     const filteredChallenges = challenges.filter(challenge => 
         challenge.table === currentDatabase && challenge.difficulty === currentDifficulty
     );
@@ -893,35 +891,35 @@ function loadChallenge() {
         return;
     }
 
-    // Set the difficulty level display
-    difficultyContainer.textContent = `Current Difficulty: ${currentDifficulty}`; // Update difficulty text
     challengeContainer.textContent = filteredChallenges[currentChallengeIndex].question;
     resetIndicators(filteredChallenges.length);  // Reset indicators based on the current number of challenges
     updateIndicators();  // Update the current challenge status visually
 }
 
-// Inside the DOMContentLoaded event
-const challengeSection = document.createElement("div");
-challengeSection.id = "challenge-section";
-challengeSection.style.marginTop = "0"; // Remove margin-top to prevent space below
-challengeSection.innerHTML = `
-    <div style="display: flex; justify-content: space-between; align-items: center;">
-        <h2 id="challenge-title" style="margin: 0; border-style:none;">SQL Challenge</h2>
-        <div id="indicators" style="display: inline-flex; gap: 5px; margin-top: 10px;"></div>
-        <div id="difficulty-buttons" style="display: inline-flex; gap: 10px;">
-            <button class="difficulty-button" data-difficulty="easy">Easy</button>
-            <button class="difficulty-button" data-difficulty="medium">Medium</button>
-            <button class="difficulty-button" data-difficulty="hard">Hard</button>
+document.addEventListener("DOMContentLoaded", () => {
+    const sqlcDiv = document.getElementById("sqlc");
+    sqlcDiv.style.display = "none";
+
+    const challengeSection = document.createElement("div");
+    challengeSection.id = "challenge-section";
+    challengeSection.style.marginTop = "0"; // Remove margin-top to prevent space below
+    challengeSection.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h2 id="challenge-title" style="margin: 0; border-style:none;">SQL Challenge</h2>
+            <div id="indicators" style="display: inline-flex; gap: 5px; margin-top: 10px;"></div>
+            <div id="difficulty-buttons" style="display: inline-flex; gap: 10px;">
+                <button class="difficulty-button" data-difficulty="easy">Easy</button>
+                <button class="difficulty-button" data-difficulty="medium">Medium</button>
+                <button class="difficulty-button" data-difficulty="hard">Hard</button>
+            </div>
         </div>
-    </div>
-    <hr style="border: 1px solid #36d1dc;">
-    <p id="difficulty-level" style="font-weight: bold;"></p> <!-- Add difficulty level display here -->
-    <p id="challenge-container"></p>
-  
-    <button style="margin-bottom:10px; margin-top:10px;" class="run-query-button" onclick="checkChallenge()">
-        Submit Challenge Answer
-    </button>
-    <p id="challenge-result"></p>
+        <hr style="border: 1px solid #36d1dc;">
+        <p id="challenge-container"></p>
+      
+        <button style="margin-bottom:10px; margin-top:10px;" class="run-query-button" onclick="checkChallenge()">
+            Submit Challenge Answer
+        </button>
+        <p id="challenge-result"></p>
     `;
     sqlcDiv.appendChild(challengeSection);
 
@@ -972,6 +970,7 @@ challengeSection.innerHTML = `
         }
     });
 });
+
 
 
 
