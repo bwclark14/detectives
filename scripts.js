@@ -824,10 +824,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const challengeSection = document.createElement("div");
     challengeSection.id = "challenge-section";
-    challengeSection.style.marginTop = "20px";
+    challengeSection.style.marginTop = "0"; // Remove margin-top to prevent space below
     challengeSection.innerHTML = `
-        <div id="challenge-section" style="display: flex; justify-content: space-between; align-items: center;">
-            <h2 id="challenge-title" style="margin: 0;  border-style:none;">SQL Challenge</h2>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h2 id="challenge-title" style="margin: 0; border-style:none;">SQL Challenge</h2>
             <div id="indicators" style="display: inline-flex; gap: 5px; margin-top: 10px;"></div>
             <div id="difficulty-buttons" style="display: inline-flex; gap: 10px;">
                 <button class="difficulty-button" data-difficulty="easy">Easy</button>
@@ -836,7 +836,7 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
         </div>
         <hr style="border: 1px solid #36d1dc;">
-         <p id="challenge-container"></p>
+        <p id="challenge-container"></p>
       
         <button style="margin-bottom:10px; margin-top:10px;" class="run-query-button" onclick="checkChallenge()">
             Submit Challenge Answer
@@ -844,6 +844,27 @@ document.addEventListener("DOMContentLoaded", () => {
         <p id="challenge-result"></p>
     `;
     sqlcDiv.appendChild(challengeSection);
+
+    const queryInputDiv = document.querySelector(".query-input");
+    const originalParent = queryInputDiv.parentNode;
+
+    // Create a placeholder div and insert it right after queryInputDiv
+    const placeholder = document.createElement("div");
+    placeholder.style.display = "none"; // Keep it hidden initially
+    originalParent.insertBefore(placeholder, queryInputDiv.nextSibling);
+
+    function moveQueryInputToChallenge() {
+        // Hide placeholder and move queryInputDiv to challengeSection
+        placeholder.style.display = "block";
+        placeholder.style.height = "10px"; // Reserve height space if necessary
+        challengeSection.appendChild(queryInputDiv);
+    }
+
+    function restoreQueryInputToOriginal() {
+        // Move queryInputDiv back to its original position and hide placeholder
+        originalParent.insertBefore(queryInputDiv, placeholder);
+        placeholder.style.display = "none";
+    }
 
     // Load initial challenge
     loadChallenge();
@@ -863,12 +884,18 @@ document.addEventListener("DOMContentLoaded", () => {
         if (sqlcDiv.style.display === "none") {
             sqlcDiv.style.display = "block";
             toggleButton.textContent = "Hide SQL Challenge";
+            moveQueryInputToChallenge();
         } else {
             sqlcDiv.style.display = "none";
             toggleButton.textContent = "Show SQL Challenge";
+            restoreQueryInputToOriginal();
         }
     });
 });
+
+
+
+
 
 /*
 function checkChallenge() {
@@ -998,4 +1025,3 @@ function openTab(evt, tabName) {
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.classList.add("active");
 }
-
