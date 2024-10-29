@@ -464,14 +464,14 @@ button.add-value-button {
 
 @media (max-width: 768px) {
     #test2 {
-        width: 100%;
+        width: 30%;
         margin-top: 10px;
     }
 }
 
 @media (max-width: 768px) {
     #test {
-        width: 100%;
+        width: 65%;
         margin-top: 10px;
     }
 }
