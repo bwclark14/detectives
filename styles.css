@@ -409,7 +409,7 @@ button.add-value-button {
 /* Responsive Design */
 @media (max-width: 768px) {
     .query-input {
-        flex-direction: column;
+        flex-direction: row;
     }
 
     .sql-query-display {
@@ -461,7 +461,7 @@ button.add-value-button {
         padding: 6px;
     }
 }
-/*
+
 @media (max-width: 768px) {
     #test2 {
         width: 30%;
@@ -475,7 +475,7 @@ button.add-value-button {
         margin-top: 10px;
     }
 }
-*/
+
 @media (max-width: 480px) {
     #test2 {
         padding: 8px;
