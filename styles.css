@@ -406,7 +406,7 @@ button.add-value-button {
     color: #0d0d14;
 }
 
-/* Responsive Design 
+/* Responsive Design */
 @media (max-width: 768px) {
     .query-input {
         flex-direction: column;
@@ -491,4 +491,4 @@ button.add-value-button {
         padding: 6px 8px;
     }
 }
-*/
+
