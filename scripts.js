@@ -1055,7 +1055,32 @@ function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+function checkChallenge() {
+    const query = document.getElementById("sql-query").textContent.trim();
+    const challengeResult = document.getElementById("challenge-result");
 
+    const challenge = challenges.filter(challenge => challenge.table === currentDatabase)[currentChallengeIndex];
+    if (!challenge) {
+        challengeResult.textContent = "No challenge loaded.";
+        return;
+    }
+
+    // Normalize both user query and correct query before comparing
+    const normalizedUserQuery = normalizeQuery(query);
+    const normalizedCorrectQuery = normalizeQuery(challenge.correctQuery);
+
+    if (normalizedUserQuery === normalizedCorrectQuery) {
+        challengeResult.textContent = `Good job! Your query got us the results we need: "${query}"`;
+        updateIndicator(currentChallengeIndex, true);  // Mark the current question as correct
+        setTimeout(nextChallenge, 3000);
+    } else {
+        challengeResult.textContent = `Oops! Try again. Your query didn't produce the results we need: "${query}"`;
+    }
+    clearQuery();
+}
+
+
+/* old
 function checkChallenge() {
     const query = document.getElementById("sql-query").textContent.trim();
     const challengeResult = document.getElementById("challenge-result");
@@ -1078,7 +1103,7 @@ function checkChallenge() {
     }
     clearQuery();
 }
-
+*/
 
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -1157,3 +1182,11 @@ function openTab(evt, tabName) {
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.classList.add("active");
 }
+
+function normalizeQuery(query) {
+    return query
+        .replace(/\s+/g, ' ') // Replace multiple spaces with a single space
+        .trim() // Trim leading/trailing spaces
+        .toLowerCase(); // Convert to lowercase
+}
+
