@@ -518,5 +518,55 @@ button.add-value-button {
     width: 100%;
     }
 
+    #test2 {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.side-by-side-container,
+.logiccompare {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.table-container, 
+.symbols-container, 
+.logiccompare h3 + button { /* styles for each section */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.table-container h3,
+.symbols-container h3,
+.logiccompare h3 {
+  margin: 0 0 5px;
+  text-align: center;
+}
+
+#table-buttons,
+.symbols-container button,
+.logiccompare button {
+  margin-bottom: 5px;
+}
+
+.logiccompare {
+  display: flex;
+  flex-direction: column;
+}
+
+.logiccompare h3 {
+  display: inline;
+  margin-right: 10px;
+}
+
+.logiccompare h3 + button {
+  margin-bottom: 5px;
+}
+
+
 }
 
