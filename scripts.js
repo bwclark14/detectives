@@ -422,6 +422,7 @@ function checkChallenge() {
             updateIndicator(currentChallengeIndex, false, "yellow");
             challengeResult.textContent = "Still incorrect. You have 1 more attempt.";
         } else {
+            // Update the indicator to red after 3 incorrect attempts
             updateIndicator(currentChallengeIndex, false, "red");
             challengeResult.textContent = "Incorrect. Moving to the next challenge.";
             setTimeout(nextChallenge, 3000);
@@ -429,6 +430,7 @@ function checkChallenge() {
     }
     clearQuery();
 }
+
 
 function nextChallenge() {
     const filteredChallenges = challenges.filter(
@@ -444,6 +446,7 @@ function nextChallenge() {
     loadChallenge();
     document.getElementById("challenge-result").textContent = "";
 }
+
 
 function resetIndicators(count) {
     const indicatorsContainer = document.getElementById("indicators");
