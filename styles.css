@@ -258,6 +258,7 @@ button:active {
 
 .table-container {
     flex: 0 1 auto; /* The table container will only take the space it needs */
+    overflow-x: auto; /* Enables horizontal scrolling when table overflows */
 }
 
 .table-container h3 {
