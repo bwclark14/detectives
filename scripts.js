@@ -706,8 +706,8 @@ const challenges = [
     {
         table: "people",
         difficulty: "medium",
-        question: "MEDIUM 1. I need the forenames and surnames of people who are older than 30.",
-        correctQuery: "SELECT forename , surname FROM people WHERE age > 30"
+        question: "MEDIUM 1. I just need the forenames and surnames of all the people in the database",
+        correctQuery: "SELECT forename , surname FROM people"
     },
         {
         table: "people",
