@@ -390,14 +390,17 @@ function loadChallenge() {
 
     challengeContainer.textContent = filteredChallenges[currentChallengeIndex].question;
 
-    // Do not reset indicators if the previous challenge was answered incorrectly
+    // Reset attempts for the new challenge
+    attempts = 0; 
+
+    // Ensure the previous indicator states persist
     if (attempts < 3) {
-        resetIndicators(filteredChallenges.length);
+        resetIndicators(filteredChallenges.length); // Only reset if less than 3 attempts
     }
 
     updateIndicators(); // Update indicators based on the currentChallengeIndex
-    attempts = 0; // Reset attempts for the new challenge
 }
+
 
 
 function checkChallenge() {
@@ -428,8 +431,8 @@ function checkChallenge() {
             updateIndicator(currentChallengeIndex, false, "yellow");
             challengeResult.textContent = "Still incorrect. You have 1 more attempt.";
         } else {
-            // Update the indicator to red after 3 incorrect attempts
-            updateIndicator(currentChallengeIndex, false, "red");
+            // Final attempt
+            updateIndicator(currentChallengeIndex, false, "red"); // Set to red after three failed attempts
             challengeResult.textContent = "Incorrect. Moving to the next challenge.";
             setTimeout(nextChallenge, 3000);
         }
