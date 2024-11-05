@@ -1,5 +1,8 @@
 let db;
 let currentDatabase = "people";
+let currentChallengeIndex = 0;
+let currentDifficulty = "easy"; // Default difficulty
+let attempts = 0; // Track attempts per challenge
 
 document.addEventListener("DOMContentLoaded", async () => {
     const SQL = await initSqlJs({ locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/${file}` });
@@ -7,33 +10,140 @@ document.addEventListener("DOMContentLoaded", async () => {
     createSampleDatabases();
     changeDatabase();
     clearQuery();
-    //document.getElementById("next-challenge-btn").addEventListener("click", nextChallenge);
+
     document.getElementById("clear-button").addEventListener("click", clearQuery);
+
+    const toggleButton = document.getElementById("toggle-sqlc");
+    toggleButton.addEventListener("click", toggleChallengeDisplay);
+    
+    loadChallenge(); // Load the first challenge on page load
 });
 
-function changeDatabase() {
+function toggleChallengeDisplay() {
+    const sqlcDiv = document.getElementById("sqlc");
+    const toggleButton = document.getElementById("toggle-sqlc");
+
+    if (sqlcDiv.style.display === "none") {
+        sqlcDiv.style.display = "block";
+        toggleButton.textContent = "Hide SQL Challenge";
+    } else {
+        sqlcDiv.style.display = "none";
+        toggleButton.textContent = "Show SQL Challenge";
+    }
+}
+
+function loadChallenge() {
+    const challengeContainer = document.getElementById("challenge-container");
+    const filteredChallenges = challenges.filter(challenge =>
+        challenge.table === currentDatabase && challenge.difficulty === currentDifficulty
+    );
+
+    if (filteredChallenges.length === 0) {
+        challengeContainer.textContent = "No challenges available for the selected database and difficulty.";
+        resetIndicators(0); 
+        return;
+    }
+
+    if (currentChallengeIndex >= filteredChallenges.length) {
+        challengeContainer.textContent = "Challenge complete!";
+        return;
+    }
+
+    challengeContainer.textContent = filteredChallenges[currentChallengeIndex].question;
+    resetIndicators(filteredChallenges.length);
+    updateIndicators();
+    attempts = 0; // Reset attempts for the new challenge
+}
+
+function checkChallenge() {
+    const query = document.getElementById("sql-query").textContent.trim();
+    const challengeResult = document.getElementById("challenge-result");
+
+    const challenge = challenges
+        .filter(challenge => challenge.table === currentDatabase && challenge.difficulty === currentDifficulty)[currentChallengeIndex];
     
-    // Update the current database variable
-    currentDatabase = document.getElementById("database-select").value;
+    if (!challenge) {
+        challengeResult.textContent = "No challenge loaded.";
+        return;
+    }
 
-    // Update the title to reflect the selected database
-    document.getElementById("database-title").textContent = `${capitalizeFirstLetter(currentDatabase)} Database`;
+    const normalizedUserQuery = normalizeQuery(query);
+    const normalizedCorrectQuery = normalizeQuery(challenge.correctQuery);
 
-    // Display tables associated with the selected database
-    displayTable();
-    populateFieldsButtons();
+    if (normalizedUserQuery === normalizedCorrectQuery) {
+        challengeResult.textContent = `Good job! Your query got us the results we need: "${query}"`;
+        updateIndicator(currentChallengeIndex, true);
+        setTimeout(nextChallenge, 3000);
+    } else {
+        attempts++;
+        if (attempts === 1) {
+            updateIndicator(currentChallengeIndex, false, "yellow");
+            challengeResult.textContent = "Incorrect. You have 2 more attempts.";
+        } else if (attempts === 2) {
+            updateIndicator(currentChallengeIndex, false, "yellow");
+            challengeResult.textContent = "Still incorrect. You have 1 more attempt.";
+        } else {
+            updateIndicator(currentChallengeIndex, false, "red");
+            challengeResult.textContent = "Incorrect. Moving to the next challenge.";
+            setTimeout(nextChallenge, 3000);
+        }
+    }
+    clearQuery();
+}
 
-    // Reset challenge index to start from the beginning
-    currentChallengeIndex = 0;
+function nextChallenge() {
+    const filteredChallenges = challenges.filter(
+        challenge => challenge.table === currentDatabase && challenge.difficulty === currentDifficulty
+    );
 
+    if (currentChallengeIndex >= filteredChallenges.length - 1) {
+        alert("Challenge complete!");
+        return;
+    }
 
+    currentChallengeIndex++;
+    loadChallenge();
+    document.getElementById("challenge-result").textContent = "";
+}
 
-    // Load challenges based on the current database
-    loadChallenge(currentDatabase); // Automatically load challenges based on the selected database
+function resetIndicators(count) {
+    const indicatorsContainer = document.getElementById("indicators");
+    indicatorsContainer.innerHTML = "";
+
+    for (let i = 0; i < count; i++) {
+        const indicator = document.createElement("div");
+        indicator.classList.add("indicator");
+        indicator.style.width = "20px";
+        indicator.style.height = "20px";
+        indicator.style.borderRadius = "50%";
+        indicator.style.backgroundColor = "#ccc";  // Default color (grey)
+        indicator.style.border = "2px solid white";
+        indicatorsContainer.appendChild(indicator);
+    }
+}
+
+function updateIndicators() {
+    const indicators = document.querySelectorAll(".indicator");
+    for (let i = 0; i < indicators.length; i++) {
+        if (i < currentChallengeIndex) {
+            indicators[i].style.backgroundColor = "#66ff00";
+        } else {
+            indicators[i].style.backgroundColor = "#ccc";
+        }
+    }
+}
+
+function updateIndicator(index, isCorrect, color) {
+    const indicators = document.querySelectorAll(".indicator");
+    if (color) {
+        indicators[index].style.backgroundColor = color;
+    } else if (isCorrect) {
+        indicators[index].style.backgroundColor = "#66ff00";
+    }
 }
 
 function createSampleDatabases() {
-    // Create the "people" table with an additional column for "age"
+ // Create the "people" table with an additional column for "age"
 db.run(`
   CREATE TABLE people (
     surname TEXT, 
@@ -409,235 +519,36 @@ db.run(`
     `);
 }
 
-function displayTable() {
-    const table = document.getElementById("data-table");
-    table.innerHTML = ""; // Clear existing table content
+function changeDatabase() {
+      
+    // Update the current database variable
+    currentDatabase = document.getElementById("database-select").value;
 
-    // Get the current database table data
-    const data = db.exec(`SELECT * FROM ${currentDatabase} ORDER BY RANDOM() LIMIT 5`)[0];
+    // Update the title to reflect the selected database
+    document.getElementById("database-title").textContent = `${capitalizeFirstLetter(currentDatabase)} Database`;
 
-    if (!data) {
-        table.innerHTML = "<p>No data available.</p>";
-        return;
-    }
+    // Display tables associated with the selected database
+    displayTable();
+    populateFieldsButtons();
 
-    const headers = data.columns;
-    const numberOfFields = headers.length;
+    // Reset challenge index to start from the beginning
+    currentChallengeIndex = 0;
 
-    // Check if fieldInfo already exists and remove it if it does
-    const existingFieldInfo = document.getElementById("field-info");
-    if (existingFieldInfo) {
-        existingFieldInfo.remove();
-    }
 
-    // Create a new div for field information
-    const fieldInfo = document.createElement('div');
-    fieldInfo.id = "field-info";
-    fieldInfo.style.border = '1px solid #000';
-    fieldInfo.style.padding = '10px';
-    fieldInfo.style.textAlign = 'center';
-    fieldInfo.style.marginBottom = '10px';
 
-    // Create text for number of fields and fields list
-    const fieldCountText = `Number of fields: ${numberOfFields}`;
-    const fieldListText = `Fields: ${headers.join(', ')}`;
-    fieldInfo.innerHTML = `<strong>${fieldCountText}</strong><br><br><strong>${fieldListText}</strong>`;
-
-    // Insert field information above the table
-    table.parentNode.insertBefore(fieldInfo, table);
-
-    // Create header row for the table
-    const headerRow = table.insertRow();
-    headers.forEach(header => {
-        const cell = headerRow.insertCell();
-        cell.textContent = header;
-        cell.style.fontWeight = "bold";
-    });
-
-    // Insert data rows into the table
-    data.values.forEach(row => {
-        const rowElement = table.insertRow();
-        row.forEach(cellData => {
-            const cell = rowElement.insertCell();
-            cell.textContent = cellData;
-        });
-    });
-}
-
-function populateFieldsButtons() {
-    const fieldsContainer = document.getElementById("fields-buttons");
-    fieldsContainer.innerHTML = "";
-
-    const tableButtonsContainer = document.getElementById("table-buttons");
-    tableButtonsContainer.innerHTML = "";
-
-    let fields;
-    let tableName;
-
-    switch (currentDatabase) {
-       case "people":
-    fields = [
-        "surname",       // Surname of the person
-        "forename",      // Forename of the person
-        "eye_colour",     // Eye color
-        "hair_colour",    // Hair color
-        "shoe_size",     // UK shoe size
-        "height",        // Height in centimeters
-        "month_of_birth",// Month of birth
-        "year_of_birth", // Year of birth
-        "age"            // Age of the person
-    ];
-    tableName = "people"; // Table name in the database
-            break;
-case "cars":
-    fields = [
-        "registration_no", 
-        "make", 
-        "model", 
-        "fuel_type", 
-        "body_style", 
-        "colour",        // Added colour field
-        "owner_name", 
-        "owner_city", 
-        "year_manufactured"  // Added year_manufactured field
-    ];
-    tableName = "cars";
-    break;
-        case "products":
-            fields = ["product_id", "name", "category", "price", "number_in_stock"];
-            tableName = "products";
-            break;
-    }
-
-    // Create a button for the table name
-    const tableButton = document.createElement("button");
-    tableButton.textContent = tableName;
-    tableButton.onclick = () => appendSQL(tableName);
-    tableButtonsContainer.appendChild(tableButton);
-
-    // Create buttons for each field
-    fields.forEach(field => {
-        const button = document.createElement("button");
-        button.textContent = field;
-        button.onclick = () => appendSQL(field);
-        fieldsContainer.appendChild(button);
-        fieldsContainer.appendChild(document.createTextNode(" "));
-    });
+    // Load challenges based on the current database
+    loadChallenge(currentDatabase); // Automatically load challenges based on the selected database
 }
 
 function clearQuery() {
     document.getElementById("sql-query").textContent = "";
-    document.getElementById("record-message").textContent = "";
-    document.getElementById("query-result").innerHTML = "";
-    document.getElementById("result-message").textContent = "";
-    const recordMessage = document.getElementById("record-message");
-    if (recordMessage) {
-        recordMessage.remove();
-    }
-    queryHistory = [];
 }
 
-let queryHistory = [];
-
-function appendSQL(value) {
-    const sqlQueryDiv = document.getElementById("sql-query");
-    sqlQueryDiv.textContent += value + " ";
-    queryHistory.push(value);
-}
-
-function deleteLastWord() {
-    // Check if the queryHistory is already empty
-    if (queryHistory.length === 0) {
-        return; // Exit the function if there's nothing to delete
-    }
-
-    // Remove the last word from queryHistory and update the display
-    queryHistory.pop();
-    const newQuery = queryHistory.join(" ");
-    document.getElementById("sql-query").textContent = newQuery.trim() + " ";
-}
-
-function addNumericValue() {
-    const numInput = document.getElementById("number-input").value;
-    appendSQL(numInput);
-    document.getElementById("number-input").value = "";
-}
-
-function addTextValue() {
-    const textInput = document.getElementById("text-input").value;
-    const formattedText = `'${textInput}'`;
-    appendSQL(formattedText);
-    document.getElementById("text-input").value = "";
-}
-
-function executeQuery() {
-    const query = document.getElementById("sql-query").textContent.trim();
-    const resultMessage = document.getElementById("result-message");
-    const resultTable = document.getElementById("query-result");
-
-    resultTable.innerHTML = "";
-    resultMessage.textContent = "";
-  
-
-    const existingRecordMessage = document.getElementById("record-message");
-    if (existingRecordMessage) {
-        existingRecordMessage.innerHTML = "";
-    }
-
-    try {
-        const result = db.exec(query);
-        if (!result || result.length === 0 || !result[0].values || result[0].values.length === 0) {
-            resultMessage.textContent = "No results found for the query.";
-            return;
-        }
-    
-        const numRecords = result[0].values.length;
-        const recordMessage = document.createElement("p");
-        recordMessage.id = "record-message";
-        recordMessage.textContent = `Found ${numRecords} record(s):`;
-        resultTable.parentNode.insertBefore(recordMessage, resultTable);
-
-        const headers = result[0].columns;
-        const headerRow = resultTable.insertRow();
-        headers.forEach(header => {
-            const cell = headerRow.insertCell();
-            cell.textContent = header;
-            cell.style.fontWeight = "bold";
-        });
-
-        result[0].values.forEach(row => {
-            const rowElement = resultTable.insertRow();
-            row.forEach(cellData => {
-                const cell = rowElement.insertCell();
-                cell.textContent = cellData;
-            });
-        });
-
-        resultMessage.textContent = "";
-        scrollToQResults();
-    } catch (e) {
-        resultMessage.textContent = `Error executing query: ${e.message}`;
-    }
-}
-
-function scrollToQResults() {
-    const qResultsElement = document.getElementById("qresults");
-    if (qResultsElement) {
-        qResultsElement.scrollIntoView({ behavior: "smooth" });
-    }
-}
-
-function toggleTable() {
-    const tableContainer = document.querySelector('.table-container');
-    const toggleButton = document.getElementById('toggle-table-button');
-
-    if (tableContainer.style.display === "none") {
-        tableContainer.style.display = "block";
-        toggleButton.textContent = "Hide Table";
-    } else {
-        tableContainer.style.display = "none";
-        toggleButton.textContent = "Show Table";
-    }
+function normalizeQuery(query) {
+    return query
+        .replace(/\s+/g, " ")
+        .trim()
+        .toLowerCase();
 }
 
 const challenges = [
@@ -922,295 +833,3 @@ const challenges = [
         correctQuery: "SELECT AVG(price) FROM products"
     }
 ];
-
-let currentChallengeIndex = 0;
-let currentDifficulty = "easy"; // Default difficulty
-
-function loadChallenge() {
-    const challengeContainer = document.getElementById("challenge-container");
-    const filteredChallenges = challenges.filter(challenge => 
-        challenge.table === currentDatabase && challenge.difficulty === currentDifficulty
-    );
-
-    if (filteredChallenges.length === 0) {
-        challengeContainer.textContent = "No challenges available for the selected database and difficulty.";
-        resetIndicators(0);  // Reset indicators
-        return;
-    }
-
-    // Reset current challenge index if it exceeds the number of available challenges
-    if (currentChallengeIndex >= filteredChallenges.length) {
-        challengeContainer.textContent = "Challenge complete!";
-        return;
-    }
-
-    challengeContainer.textContent = filteredChallenges[currentChallengeIndex].question;
-    resetIndicators(filteredChallenges.length);  // Reset indicators based on the current number of challenges
-    updateIndicators();  // Update the current challenge status visually
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-    const sqlcDiv = document.getElementById("sqlc");
-    sqlcDiv.style.display = "none";
-
-    const challengeSection = document.createElement("div");
-    challengeSection.id = "challenge-section";
-    challengeSection.style.marginTop = "0"; // Remove margin-top to prevent space below
-    challengeSection.innerHTML = `
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <h2 id="challenge-title" style="margin: 0; border-style:none;">SQL Challenge</h2>
-            <div id="indicators" style="display: inline-flex; gap: 5px; margin-top: 10px;"></div>
-            <div id="difficulty-buttons" style="display: inline-flex; gap: 10px;">
-                <button class="difficulty-button" data-difficulty="easy">Easy</button>
-                <button class="difficulty-button" data-difficulty="medium">Medium</button>
-                <button class="difficulty-button" data-difficulty="hard">Hard</button>
-            </div>
-        </div>
-        <hr style="border: 1px solid #36d1dc;">
-        <p id="challenge-container"></p>
-      
-        <button style="margin-bottom:10px; margin-top:10px;" class="run-query-button" onclick="checkChallenge()">
-            Submit Challenge Answer
-        </button>
-        <p id="challenge-result"></p>
-    `;
-    sqlcDiv.appendChild(challengeSection);
-
-    const queryInputDiv = document.querySelector(".query-input");
-    const originalParent = queryInputDiv.parentNode;
-
-    // Create a placeholder div and insert it right after queryInputDiv
-    const placeholder = document.createElement("div");
-    placeholder.style.display = "none"; // Keep it hidden initially
-    originalParent.insertBefore(placeholder, queryInputDiv.nextSibling);
-
-    function moveQueryInputToChallenge() {
-        // Hide placeholder and move queryInputDiv to challengeSection
-        placeholder.style.display = "block";
-        placeholder.style.height = "10px"; // Reserve height space if necessary
-        challengeSection.appendChild(queryInputDiv);
-    }
-
-    function restoreQueryInputToOriginal() {
-        // Move queryInputDiv back to its original position and hide placeholder
-        originalParent.insertBefore(queryInputDiv, placeholder);
-        placeholder.style.display = "none";
-    }
-
-    // Load initial challenge
-    loadChallenge();
-
-    // Add event listeners for difficulty buttons
-    const difficultyButtons = document.querySelectorAll(".difficulty-button");
-    difficultyButtons.forEach(button => {
-        button.addEventListener("click", (event) => {
-            currentDifficulty = event.target.dataset.difficulty;
-            currentChallengeIndex = 0; // Reset challenge index on difficulty change
-            loadChallenge(); // Load the first challenge for the new difficulty
-        });
-    });
-
-    const toggleButton = document.getElementById("toggle-sqlc");
-    toggleButton.addEventListener("click", () => {
-        if (sqlcDiv.style.display === "none") {
-            sqlcDiv.style.display = "block";
-            toggleButton.textContent = "Hide SQL Challenge";
-            moveQueryInputToChallenge();
-        } else {
-            sqlcDiv.style.display = "none";
-            toggleButton.textContent = "Show SQL Challenge";
-            restoreQueryInputToOriginal();
-        }
-    });
-});
-
-
-
-
-
-
-/*
-function checkChallenge() {
-    const query = document.getElementById("sql-query").textContent.trim();
-    const challengeResult = document.getElementById("challenge-result");
-
-    const challenge = challenges.filter(challenge => challenge.table === currentDatabase)[currentChallengeIndex];
-    if (!challenge) {
-        challengeResult.textContent = "No challenge loaded.";
-        return;
-    }
-
-    // Check if the user's query matches the correct query
-    if (query.toLowerCase() === challenge.correctQuery.toLowerCase()) {
-        challengeResult.textContent = "Correct! You've solved the challenge.";
-      setTimeout(nextChallenge, 3000)
-        
-    } else {
-        challengeResult.textContent = "Incorrect. Please try again.";
-    }
-}
-*/
-
-function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-let currentAttempts = 0;  // Initialize a counter for attempts per challenge
-const MAX_ATTEMPTS = 3;  // Maximum number of attempts allowed
-
-function checkChallenge() {
-    const query = document.getElementById("sql-query").textContent.trim();
-    const challengeResult = document.getElementById("challenge-result");
-
-    const challenge = challenges
-        .filter(challenge => challenge.table === currentDatabase && challenge.difficulty === currentDifficulty)[currentChallengeIndex];
-    
-    if (!challenge) {
-        challengeResult.textContent = "No challenge loaded.";
-        return;
-    }
-
-    const normalizedUserQuery = normalizeQuery(query);
-    const normalizedCorrectQuery = normalizeQuery(challenge.correctQuery);
-
-    if (normalizedUserQuery === normalizedCorrectQuery) {
-        // Correct answer
-        challengeResult.textContent = `Good job! Your query got us the results we need: "${query}"`;
-        updateIndicator(currentChallengeIndex, "correct");  // Mark as correct (green)
-        currentAttempts = 0;  // Reset attempts for the next challenge
-        setTimeout(nextChallenge, 3000);
-    } else {
-        // Incorrect answer
-        currentAttempts++;  // Increment attempt counter
-
-        if (currentAttempts === 1) {
-            // First incorrect attempt, change indicator to yellow
-            challengeResult.innerHTML = `<p>Oops! That’s not quite right. Try again!</p>`;
-            updateIndicator(currentChallengeIndex, "warning");  // Mark as warning (yellow)
-        } else if (currentAttempts === 2) {
-            // Second incorrect attempt, change indicator to red if third try fails
-            challengeResult.innerHTML = `<p>Incorrect again. This is your last attempt!</p>`;
-            updateIndicator(currentChallengeIndex, "error");  // Mark as error (red if third try fails)
-        } else {
-            // Third incorrect attempt, move to next challenge
-            challengeResult.innerHTML = `<p>Incorrect. The correct answer was: "${challenge.correctQuery}"</p>`;
-            updateIndicator(currentChallengeIndex, "error");  // Mark as error (red)
-            currentAttempts = 0;  // Reset attempts
-            setTimeout(nextChallenge, 3000);
-        }
-    }
-    clearQuery();
-}
-
-
-
-
-/* old
-function checkChallenge() {
-    const query = document.getElementById("sql-query").textContent.trim();
-    const challengeResult = document.getElementById("challenge-result");
-
-    const challenge = challenges.filter(challenge => challenge.table === currentDatabase)[currentChallengeIndex];
-    if (!challenge) {
-        challengeResult.textContent = "No challenge loaded.";
-        return;
-    }
-
-    // Check if the user's query matches the correct query
-    if (query.toLowerCase() === challenge.correctQuery.toLowerCase()) {
-        challengeResult.textContent = `Good job! Your query got us the results we need: "${query}"`;
-        updateIndicator(currentChallengeIndex, true);  // Mark the current question as correct
-        setTimeout(nextChallenge, 3000);
-      
-    } else {
-        challengeResult.textContent = `Oops! Try again. Your query didnt produce the results we need: "${query}"`;
-       
-    }
-    clearQuery();
-}
-*/
-
-function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-
-function nextChallenge() {
-    const filteredChallenges = challenges.filter(
-        challenge => challenge.table === currentDatabase && challenge.difficulty === currentDifficulty
-    );
-
-    if (currentChallengeIndex >= filteredChallenges.length - 1) {
-        alert("Challenge complete!");
-        return;
-    }
-
-    currentChallengeIndex++;
-    currentAttempts = 0;  // Reset attempts for the new challenge
-    loadChallenge();
-    document.getElementById("challenge-result").textContent = "";
-}
-
-// Function to reset the visual indicators
-function resetIndicators(count) {
-    const indicatorsContainer = document.getElementById("indicators");
-    indicatorsContainer.innerHTML = "";  // Clear existing indicators
-
-    for (let i = 0; i < count; i++) {
-        const indicator = document.createElement("div");
-        indicator.classList.add("indicator");
-        indicator.style.width = "20px";
-        indicator.style.height = "20px";
-        indicator.style.borderRadius = "50%";
-        indicator.style.backgroundColor = "#ccc";  // Default grey
-        indicator.style.border = "2px solid white";
-        indicatorsContainer.appendChild(indicator);
-    }
-}
-
-
-// Function to update visual indicators based on the current challenge index
-function updateIndicator(index, status) {
-    const indicators = document.querySelectorAll(".indicator");
-    if (status === "correct") {
-        indicators[index].style.backgroundColor = "#66ff00";  // Green for correct answers
-    } else if (status === "warning") {
-        indicators[index].style.backgroundColor = "yellow";  // Yellow for first incorrect attempt
-    } else if (status === "error") {
-        indicators[index].style.backgroundColor = "red";  // Red for last attempt or challenge failure
-    }
-}
-
-// Function to update a specific indicator after a challenge is solved
-function updateIndicator(index, isCorrect) {
-    const indicators = document.querySelectorAll(".indicator");
-    if (isCorrect) {
-        indicators[index].style.backgroundColor = "#66ff00";  // Change the color to green for correct answers
-    }
-}
-
-
-function openTab(evt, tabName) {
-    let i, tabcontent, tablinks;
-
-    tabcontent = document.getElementsByClassName("tab-content");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-        tabcontent[i].classList.remove("active");
-    }
-
-    tablinks = document.getElementsByClassName("tab")[0].getElementsByTagName("button");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].classList.remove("active");
-    }
-
-    document.getElementById(tabName).style.display = "block";
-    evt.currentTarget.classList.add("active");
-}
-
-function normalizeQuery(query) {
-    return query
-        .replace(/\s+/g, ' ') // Replace multiple spaces with a single space
-        .trim() // Trim leading/trailing spaces
-        .toLowerCase(); // Convert to lowercase
-}
