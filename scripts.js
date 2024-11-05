@@ -893,7 +893,6 @@ db.run(`
 }
 
 function changeDatabase() {
-      
     // Update the current database variable
     currentDatabase = document.getElementById("database-select").value;
 
@@ -907,11 +906,14 @@ function changeDatabase() {
     // Reset challenge index to start from the beginning
     currentChallengeIndex = 0;
 
-
+    // Reset indicators and their state when the database changes
+    resetIndicators(0); // Clear the indicators visually
+    indicatorsState = []; // Reset indicators state
 
     // Load challenges based on the current database
     loadChallenge(currentDatabase); // Automatically load challenges based on the selected database
 }
+
 
 function clearQuery() {
     document.getElementById("sql-query").textContent = "";
