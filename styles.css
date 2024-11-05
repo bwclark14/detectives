@@ -268,7 +268,7 @@ button:active {
 .symbols-container {
     display: flex; /* Use Flexbox for the symbols container */
     flex-direction: row; /* Stack the title vertically */
-  width:100%;
+
 }
 
 .symbols-container h3 {
