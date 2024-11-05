@@ -1074,10 +1074,15 @@ function checkChallenge() {
         updateIndicator(currentChallengeIndex, true);  // Mark the current question as correct
         setTimeout(nextChallenge, 3000);
     } else {
-        challengeResult.textContent = `Oops! Try again. Your query didn't produce the results we need: "${query}"`;
+        challengeResult.innerHTML = `
+            <p>Oops! Your query didn’t produce the correct results.</p>
+            <p><strong>Your Query:</strong> "${query}"</p>
+            <p><strong>Correct Query:</strong> "${challenge.correctQuery}"</p>
+        `;
     }
     clearQuery();
 }
+
 
 
 /* old
