@@ -1055,9 +1055,6 @@ function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-let currentAttempts = 0;  // Initialize a counter for attempts per challenge
-const MAX_ATTEMPTS = 3;  // Maximum number of attempts allowed
-
 function checkChallenge() {
     const query = document.getElementById("sql-query").textContent.trim();
     const challengeResult = document.getElementById("challenge-result");
@@ -1074,33 +1071,16 @@ function checkChallenge() {
     const normalizedCorrectQuery = normalizeQuery(challenge.correctQuery);
 
     if (normalizedUserQuery === normalizedCorrectQuery) {
-        // Correct answer
         challengeResult.textContent = `Good job! Your query got us the results we need: "${query}"`;
-        updateIndicator(currentChallengeIndex, "correct");  // Mark as correct (green)
-        currentAttempts = 0;  // Reset attempts for the next challenge
+        updateIndicator(currentChallengeIndex, true);
         setTimeout(nextChallenge, 3000);
     } else {
-        // Incorrect answer
-        currentAttempts++;  // Increment attempt counter
-
-        if (currentAttempts === 1) {
-            // First incorrect attempt, change indicator to yellow
-            challengeResult.innerHTML = `<p>Oops! That’s not quite right. Try again!</p>`;
-            updateIndicator(currentChallengeIndex, "warning");  // Mark as warning (yellow)
-        } else if (currentAttempts === 2) {
-            // Second incorrect attempt, change indicator to red if third try fails
-            challengeResult.innerHTML = `<p>Incorrect again. This is your last attempt!</p>`;
-            updateIndicator(currentChallengeIndex, "error");  // Mark as error (red if third try fails)
-        } else {
-            // Third incorrect attempt, move to next challenge
-            challengeResult.innerHTML = `<p>Incorrect. The correct answer was: "${challenge.correctQuery}"</p>`;
-            updateIndicator(currentChallengeIndex, "error");  // Mark as error (red)
-            currentAttempts = 0;  // Reset attempts
-            setTimeout(nextChallenge, 3000);
-        }
+        challengeResult.innerHTML = `
+            <p>Oops! Your query didn’t produce the correct results.</p>
+            <p><strong>Your Query:</strong> "${query}"</p>
+            <p><strong>Correct Query:</strong> "${challenge.correctQuery}"</p>
+        `;
     }
-    clearQuery();
-}
     clearQuery();
 }
 
@@ -1147,7 +1127,6 @@ function nextChallenge() {
     }
 
     currentChallengeIndex++;
-    currentAttempts = 0;  // Reset attempts for the new challenge
     loadChallenge();
     document.getElementById("challenge-result").textContent = "";
 }
@@ -1155,29 +1134,32 @@ function nextChallenge() {
 // Function to reset the visual indicators
 function resetIndicators(count) {
     const indicatorsContainer = document.getElementById("indicators");
-    indicatorsContainer.innerHTML = "";  // Clear existing indicators
+    indicatorsContainer.innerHTML = ""; // Clear existing indicators
 
+    // Generate a number of circles based on the challenge count
     for (let i = 0; i < count; i++) {
         const indicator = document.createElement("div");
         indicator.classList.add("indicator");
         indicator.style.width = "20px";
         indicator.style.height = "20px";
         indicator.style.borderRadius = "50%";
-        indicator.style.backgroundColor = "#ccc";  // Default grey
+        indicator.style.backgroundColor = "#ccc";  // Default color (grey)
         indicator.style.border = "2px solid white";
         indicatorsContainer.appendChild(indicator);
     }
 }
 
 // Function to update visual indicators based on the current challenge index
-function updateIndicator(index, status) {
+function updateIndicators() {
     const indicators = document.querySelectorAll(".indicator");
-    if (status === "correct") {
-        indicators[index].style.backgroundColor = "#66ff00";  // Green for correct answers
-    } else if (status === "warning") {
-        indicators[index].style.backgroundColor = "yellow";  // Yellow for first incorrect attempt
-    } else if (status === "error") {
-        indicators[index].style.backgroundColor = "red";  // Red for last attempt or challenge failure
+
+    // Loop through all indicators and set their color to green if the challenge was solved correctly
+    for (let i = 0; i < indicators.length; i++) {
+        if (i < currentChallengeIndex) {
+            indicators[i].style.backgroundColor = "#66ff00";  // Mark completed challenges
+        } else {
+            indicators[i].style.backgroundColor = "#ccc";  // Reset other challenges
+        }
     }
 }
 
@@ -1214,4 +1196,3 @@ function normalizeQuery(query) {
         .trim() // Trim leading/trailing spaces
         .toLowerCase(); // Convert to lowercase
 }
-
