@@ -115,6 +115,8 @@ select:focus {
 /* Table Container */
 .table-container {
     margin-bottom: 20px;
+    overflow-x: auto; /* Enables horizontal scrolling when table overflows */
+    width: 100%;
 }
 
 #data-table {
