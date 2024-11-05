@@ -480,9 +480,17 @@ button.add-value-button {
         width: 65%;
         margin-top: 10px;
     }
+
+    .tab button {
+
+    font-size: 1rem;}
 }
 
 @media (max-width: 480px) {
+
+        .tab button {
+
+    font-size: 1rem;}
     #test2 {
         padding: 8px;
       width: 30%;
