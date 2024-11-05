@@ -321,7 +321,10 @@ document.addEventListener("DOMContentLoaded", () => {
         button.addEventListener("click", (event) => {
             currentDifficulty = event.target.dataset.difficulty;
             currentChallengeIndex = 0; // Reset challenge index on difficulty change
-            resetIndicators(challenges.length);
+            
+            // Reset indicators and their state when difficulty changes
+            resetIndicators(0); // Clear the indicators visually
+            indicatorsState = []; // Reset indicators state
             loadChallenge(); // Load the first challenge for the new difficulty
         });
     });
@@ -385,6 +388,9 @@ function loadChallenge() {
         return;
     }
 
+    // Reset the number of indicators according to available challenges
+    resetIndicators(filteredChallenges.length);
+
     if (currentChallengeIndex >= filteredChallenges.length) {
         challengeContainer.textContent = "Challenge complete!";
         return;
@@ -393,7 +399,7 @@ function loadChallenge() {
     challengeContainer.textContent = filteredChallenges[currentChallengeIndex].question;
 
     // Reset attempts for the new challenge
-    attempts = 0; 
+    attempts = 0;
 
     // Load indicator state for current challenge or set to default (green or red)
     if (indicatorsState[currentChallengeIndex] !== undefined) {
@@ -469,7 +475,7 @@ function nextChallenge() {
 
 function resetIndicators(count) {
     const indicatorsContainer = document.getElementById("indicators");
-    indicatorsContainer.innerHTML = "";
+    indicatorsContainer.innerHTML = ""; // Clear previous indicators
 
     for (let i = 0; i < count; i++) {
         const indicator = document.createElement("div");
@@ -505,6 +511,8 @@ function updateIndicator(index, isCorrect, color) {
         indicators[index].style.backgroundColor = "#66ff00";
     }
 }
+
+
 
 function createSampleDatabases() {
  // Create the "people" table with an additional column for "age"
