@@ -379,7 +379,7 @@ function loadChallenge() {
 
     if (filteredChallenges.length === 0) {
         challengeContainer.textContent = "No challenges available for the selected database and difficulty.";
-        resetIndicators(0); 
+        resetIndicators(0);
         return;
     }
 
@@ -389,10 +389,16 @@ function loadChallenge() {
     }
 
     challengeContainer.textContent = filteredChallenges[currentChallengeIndex].question;
-    resetIndicators(filteredChallenges.length);
-    updateIndicators();
+
+    // Do not reset indicators if the previous challenge was answered incorrectly
+    if (attempts < 3) {
+        resetIndicators(filteredChallenges.length);
+    }
+
+    updateIndicators(); // Update indicators based on the currentChallengeIndex
     attempts = 0; // Reset attempts for the new challenge
 }
+
 
 function checkChallenge() {
     const query = document.getElementById("sql-query").textContent.trim();
@@ -446,6 +452,7 @@ function nextChallenge() {
     loadChallenge();
     document.getElementById("challenge-result").textContent = "";
 }
+
 
 
 function resetIndicators(count) {
