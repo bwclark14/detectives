@@ -1059,19 +1059,20 @@ function checkChallenge() {
     const query = document.getElementById("sql-query").textContent.trim();
     const challengeResult = document.getElementById("challenge-result");
 
-    const challenge = challenges.filter(challenge => challenge.table === currentDatabase)[currentChallengeIndex];
+    const challenge = challenges
+        .filter(challenge => challenge.table === currentDatabase && challenge.difficulty === currentDifficulty)[currentChallengeIndex];
+    
     if (!challenge) {
         challengeResult.textContent = "No challenge loaded.";
         return;
     }
 
-    // Normalize both user query and correct query before comparing
     const normalizedUserQuery = normalizeQuery(query);
     const normalizedCorrectQuery = normalizeQuery(challenge.correctQuery);
 
     if (normalizedUserQuery === normalizedCorrectQuery) {
         challengeResult.textContent = `Good job! Your query got us the results we need: "${query}"`;
-        updateIndicator(currentChallengeIndex, true);  // Mark the current question as correct
+        updateIndicator(currentChallengeIndex, true);
         setTimeout(nextChallenge, 3000);
     } else {
         challengeResult.innerHTML = `
@@ -1116,17 +1117,18 @@ function capitalizeFirstLetter(string) {
 
 
 function nextChallenge() {
-    const filteredChallenges = challenges.filter(challenge => challenge.table === currentDatabase);
-    
+    const filteredChallenges = challenges.filter(
+        challenge => challenge.table === currentDatabase && challenge.difficulty === currentDifficulty
+    );
+
     if (currentChallengeIndex >= filteredChallenges.length - 1) {
         alert("Challenge complete!");
-        return; // No more challenges available
+        return;
     }
-    
-    // Increment the challenge index and loop back if at the end
+
     currentChallengeIndex++;
-    loadChallenge(); // Load the next challenge
-    document.getElementById("challenge-result").textContent = ""; // Clear previous results
+    loadChallenge();
+    document.getElementById("challenge-result").textContent = "";
 }
 
 // Function to reset the visual indicators
