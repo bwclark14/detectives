@@ -724,7 +724,7 @@ const challenges = [
     {
         table: "people",
         difficulty: "medium",
-        question: "MEDIUM 4. Can you show me only the surnames of people who have blue eyes, in alphabetical order of surname?",
+        question: "MEDIUM 4. Can you show me only the surnames of people who have blue eyes?",
         correctQuery: "SELECT surname FROM people WHERE eye_colour = \'blue\'"
     },
         {
@@ -738,8 +738,8 @@ const challenges = [
     {
         table: "people",
         difficulty: "medium",
-        question: "MEDIUM 6. I want to know the surnames, heights and eye colours of people who are exactly 25 years old and sort them by surname in reverse alphabetical order.",
-        correctQuery: "SELECT surname , height , eye_colour FROM people WHERE age = 25 ORDER BY surname ASC"
+        question: "MEDIUM 6. I want to know the surnames, heights and eye colours of people who are exactly 25 years old.",
+        correctQuery: "SELECT surname , height , eye_colour FROM people WHERE age = 25"
     },
 
     {
@@ -751,15 +751,15 @@ const challenges = [
     {
         table: "people",
         difficulty: "medium",
-        question: "MEDIUM 8. Can you provide the forenames of people who have a shoe size of 8 OR have hazel eyes?",
-        correctQuery: "SELECT forename , shoe_size , eye_colour FROM people WHERE shoe_size = 7 OR eye_colour = \'hazel\'"
+        question: "MEDIUM 8. Can you provide the forenames and shoe sizes of people who have a shoe size of 8 OR have hazel eyes?",
+        correctQuery: "SELECT forename , shoe_size FROM people WHERE shoe_size = 7 OR eye_colour = \'hazel\'"
     },
 
     {
         table: "people",
         difficulty: "medium",
-        question: "MEDIUM 9. I want a list of forenames, surnames and eye colours of people who younger than 30 years old, ordered by the oldest person first.",
-        correctQuery: "SELECT forename , surname , eye_colour FROM people WHERE age < 30 ORDER BY age DESC"
+        question: "MEDIUM 9. I want a list of forenames, surnames, eye colours and ages of everyone ordered by the oldest person first.",
+        correctQuery: "SELECT forename , surname , eye_colour , age FROM people ORDER BY age DESC"
     },
         {
         table: "people",
@@ -779,7 +779,60 @@ const challenges = [
         question: "HARD 2. Give me the surnames, heights and shoe sizes of people who are taller than 170 cm or who have feet smaller than 5.",
         correctQuery: "SELECT surname , height , shoe_size FROM people WHERE height > 170 OR shoe_size < 5"
     },
-
+           {
+        table: "people",
+        difficulty: "hard",
+        question: "HARD 3. Give me the forenames, surnames and ages of people who are born in March or April.",
+        correctQuery: "SELECT forename , surname , age FROM people WHERE month_of_birth = \'March\' OR month_of_birth = \'April\'"
+    },
+    {
+        table: "people",
+        difficulty: "hard",
+        question: "HARD 4. How many people have brown hair and brown eyes? Give me a list of their forenames and ages.",
+        correctQuery: "SELECT forename , age FROM people WHERE eye_colour = \'brown\' AND hair_colour = \'brown\'"
+    },
+        {
+        table: "people",
+        difficulty: "hard",
+        question: "HARD 5. Give me the surname, hair colour and eye colour of people who were born after the year 2000 in the month of May.",
+        correctQuery: "SELECT surname , hair_colour , eye_colour FROM people WHERE year_of_birth > 2000 AND month_of_birth = \'May\'"
+    },
+           {
+        table: "people",
+        difficulty: "hard",
+        question: "HARD 6. How many people have size 8 feet and black hair?  Show me the forenames, surnnames and eye colours.",
+        correctQuery: "SELECT forename , surname , eye_colour FROM people WHERE shoe_size = 8 AND hair_colour = \'black\'"
+    },
+        {
+        table: "people",
+        difficulty: "hard",
+        question: "HARD 7. I want to know the surnames, heights and eye colours of people who are 30 years old and sort them by surname in reverse alphabetical order.",
+        correctQuery: "SELECT surname , height , eye_colour FROM people WHERE age = 30 ORDER BY surname DESC"
+    },
+    {
+       table: "people",
+        difficulty: "hard",
+        question: "HARD 8. Can you provide the forenames, shoe sizes and eye colours of people who have a shoe size of 7 OR have hazel eyes? SOrt them in alphabetical order of forename",
+        correctQuery: "SELECT forename , shoe_size , eye_colour FROM people WHERE shoe_size = 7 OR eye_colour = \'hazel\' ORDER BY forename ASC"
+    },
+        {
+       table: "people",
+        difficulty: "hard",
+        question: "HARD 8. Give me a list of everyones details, order in alphabetcial order of surname and forename",
+        correctQuery: "SELECT * FROM people ORDER BY surname , forename ASC"
+    },
+         {
+       table: "people",
+        difficulty: "hard",
+        question: "HARD 9. Give me a list of everyones details, order in alphabetcial order of surname and reverse order of age!",
+        correctQuery: "SELECT * FROM people ORDER BY surname ASC , age DESC"
+    },
+             {
+       table: "people",
+        difficulty: "hard",
+        question: "HARD 10. I need all a list of surnames, fornames, eye colours and heights of everyone with the surname Baker or Brown. Put this list in order from tallest to shortest.",
+        correctQuery: "SELECT surname , forename , eye_colour , height FROM people WHERE surname = \'Baker\' OR surname = \'Brown\' ORDER BY height DESC "
+    },
     // Challenges for the Cars table
 // Challenges for the Cars table
 {
