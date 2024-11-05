@@ -370,6 +370,7 @@ function normalizeQuery(query) {
 
 
 
+let indicatorsState = []; // Track the state of indicators for each challenge
 
 function loadChallenge() {
     const challengeContainer = document.getElementById("challenge-container");
@@ -393,13 +394,16 @@ function loadChallenge() {
     // Reset attempts for the new challenge
     attempts = 0; 
 
-    // Ensure the previous indicator states persist
-    if (attempts < 3) {
-        resetIndicators(filteredChallenges.length); // Only reset if less than 3 attempts
+    // Load indicator state for current challenge or set to default (green or red)
+    if (indicatorsState[currentChallengeIndex] !== undefined) {
+        updateIndicator(currentChallengeIndex, false, indicatorsState[currentChallengeIndex]); // Persist the color
+    } else {
+        resetIndicators(filteredChallenges.length); // Only reset if state is undefined
     }
 
     updateIndicators(); // Update indicators based on the currentChallengeIndex
 }
+
 
 
 
@@ -421,6 +425,7 @@ function checkChallenge() {
     if (normalizedUserQuery === normalizedCorrectQuery) {
         challengeResult.textContent = `Good job! Your query got us the results we need: "${query}"`;
         updateIndicator(currentChallengeIndex, true);
+        indicatorsState[currentChallengeIndex] = "#66ff00"; // Mark as green on success
         setTimeout(nextChallenge, 3000);
     } else {
         attempts++;
@@ -433,12 +438,14 @@ function checkChallenge() {
         } else {
             // Final attempt
             updateIndicator(currentChallengeIndex, false, "red"); // Set to red after three failed attempts
+            indicatorsState[currentChallengeIndex] = "red"; // Store the red state
             challengeResult.textContent = "Incorrect. Moving to the next challenge.";
             setTimeout(nextChallenge, 3000);
         }
     }
     clearQuery();
 }
+
 
 
 function nextChallenge() {
@@ -455,6 +462,7 @@ function nextChallenge() {
     loadChallenge();
     document.getElementById("challenge-result").textContent = "";
 }
+
 
 
 
@@ -477,13 +485,16 @@ function resetIndicators(count) {
 function updateIndicators() {
     const indicators = document.querySelectorAll(".indicator");
     for (let i = 0; i < indicators.length; i++) {
-        if (i < currentChallengeIndex) {
-            indicators[i].style.backgroundColor = "#66ff00";
+        if (indicatorsState[i]) { // Check if there's a saved state
+            indicators[i].style.backgroundColor = indicatorsState[i];
+        } else if (i < currentChallengeIndex) {
+            indicators[i].style.backgroundColor = "#66ff00"; // Mark completed challenges as green
         } else {
-            indicators[i].style.backgroundColor = "#ccc";
+            indicators[i].style.backgroundColor = "#ccc"; // Default color for unattempted challenges
         }
     }
 }
+
 
 function updateIndicator(index, isCorrect, color) {
     const indicators = document.querySelectorAll(".indicator");
