@@ -515,55 +515,57 @@ button.add-value-button {
 
     font-size: 1rem;}
 
-
-    #test2 {
+#test2 {
   display: flex;
   justify-content: space-between;
+  gap: 20px; /* Adds space between the main sections */
   padding: 10px;
 }
 
 .side-by-side-container,
 .logiccompare {
   display: flex;
-  justify-content: space-between;
-  width: 100%;
+  gap: 20px; /* Adds space between each container inside the row */
 }
 
 .table-container, 
 .symbols-container, 
-.logiccompare h3 + button { /* styles for each section */
+.logiccompare {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-right: 20px;
+  flex-direction: column; /* Stack heading and buttons vertically */
+  align-items: center; /* Center-align heading and buttons */
 }
 
 .table-container h3,
 .symbols-container h3,
 .logiccompare h3 {
-  margin: 0 0 5px;
-  text-align: center;
+  margin: 0;
+  padding-bottom: 5px; /* Adds space between heading and buttons */
 }
 
 #table-buttons,
 .symbols-container button,
 .logiccompare button {
-  margin-bottom: 5px;
+  margin: 3px 0; /* Adds spacing between buttons */
 }
 
+/* Specific layout for Compare and Logic buttons */
 .logiccompare {
-  display: flex;
   flex-direction: column;
+  gap: 10px;
+  align-items: center;
 }
 
+/* Ensure Compare and Logic headings are displayed horizontally */
 .logiccompare h3 {
-  display: inline;
-  margin-right: 10px;
+  display: inline-block;
+  margin: 0 10px;
 }
 
 .logiccompare h3 + button {
   margin-bottom: 5px;
 }
+
 
 
 }
