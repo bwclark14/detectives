@@ -321,7 +321,7 @@ document.addEventListener("DOMContentLoaded", () => {
         button.addEventListener("click", (event) => {
             currentDifficulty = event.target.dataset.difficulty;
             currentChallengeIndex = 0; // Reset challenge index on difficulty change
-            resetIndicators();
+            resetIndicators(challenges.length);
             loadChallenge(); // Load the first challenge for the new difficulty
         });
     });
