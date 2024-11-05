@@ -483,14 +483,14 @@ button.add-value-button {
 
     .tab button {
 
-    font-size: 1rem;}
+    font-size: 0.9rem;}
 }
 
 @media (max-width: 480px) {
 
         .tab button {
 
-    font-size: 1rem;}
+    font-size: 0.9rem;}
     #test2 {
         padding: 8px;
       width: 30%;
