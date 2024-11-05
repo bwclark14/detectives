@@ -19,6 +19,238 @@ document.addEventListener("DOMContentLoaded", async () => {
     loadChallenge(); // Load the first challenge on page load
 });
 
+
+function displayTable() {
+    const table = document.getElementById("data-table");
+    table.innerHTML = ""; // Clear existing table content
+
+    // Get the current database table data
+    const data = db.exec(`SELECT * FROM ${currentDatabase} ORDER BY RANDOM() LIMIT 5`)[0];
+
+    if (!data) {
+        table.innerHTML = "<p>No data available.</p>";
+        return;
+    }
+
+    const headers = data.columns;
+    const numberOfFields = headers.length;
+
+    // Check if fieldInfo already exists and remove it if it does
+    const existingFieldInfo = document.getElementById("field-info");
+    if (existingFieldInfo) {
+        existingFieldInfo.remove();
+    }
+
+    // Create a new div for field information
+    const fieldInfo = document.createElement('div');
+    fieldInfo.id = "field-info";
+    fieldInfo.style.border = '1px solid #000';
+    fieldInfo.style.padding = '10px';
+    fieldInfo.style.textAlign = 'center';
+    fieldInfo.style.marginBottom = '10px';
+
+    // Create text for number of fields and fields list
+    const fieldCountText = `Number of fields: ${numberOfFields}`;
+    const fieldListText = `Fields: ${headers.join(', ')}`;
+    fieldInfo.innerHTML = `<strong>${fieldCountText}</strong><br><br><strong>${fieldListText}</strong>`;
+
+    // Insert field information above the table
+    table.parentNode.insertBefore(fieldInfo, table);
+
+    // Create header row for the table
+    const headerRow = table.insertRow();
+    headers.forEach(header => {
+        const cell = headerRow.insertCell();
+        cell.textContent = header;
+        cell.style.fontWeight = "bold";
+    });
+
+    // Insert data rows into the table
+    data.values.forEach(row => {
+        const rowElement = table.insertRow();
+        row.forEach(cellData => {
+            const cell = rowElement.insertCell();
+            cell.textContent = cellData;
+        });
+    });
+}
+
+function populateFieldsButtons() {
+    const fieldsContainer = document.getElementById("fields-buttons");
+    fieldsContainer.innerHTML = "";
+
+    const tableButtonsContainer = document.getElementById("table-buttons");
+    tableButtonsContainer.innerHTML = "";
+
+    let fields;
+    let tableName;
+
+    switch (currentDatabase) {
+       case "people":
+    fields = [
+        "surname",       // Surname of the person
+        "forename",      // Forename of the person
+        "eye_colour",     // Eye color
+        "hair_colour",    // Hair color
+        "shoe_size",     // UK shoe size
+        "height",        // Height in centimeters
+        "month_of_birth",// Month of birth
+        "year_of_birth", // Year of birth
+        "age"            // Age of the person
+    ];
+    tableName = "people"; // Table name in the database
+            break;
+case "cars":
+    fields = [
+        "registration_no", 
+        "make", 
+        "model", 
+        "fuel_type", 
+        "body_style", 
+        "colour",        // Added colour field
+        "owner_name", 
+        "owner_city", 
+        "year_manufactured"  // Added year_manufactured field
+    ];
+    tableName = "cars";
+    break;
+        case "products":
+            fields = ["product_id", "name", "category", "price", "number_in_stock"];
+            tableName = "products";
+            break;
+    }
+
+    // Create a button for the table name
+    const tableButton = document.createElement("button");
+    tableButton.textContent = tableName;
+    tableButton.onclick = () => appendSQL(tableName);
+    tableButtonsContainer.appendChild(tableButton);
+
+    // Create buttons for each field
+    fields.forEach(field => {
+        const button = document.createElement("button");
+        button.textContent = field;
+        button.onclick = () => appendSQL(field);
+        fieldsContainer.appendChild(button);
+        fieldsContainer.appendChild(document.createTextNode(" "));
+    });
+}
+
+function clearQuery() {
+    document.getElementById("sql-query").textContent = "";
+    document.getElementById("record-message").textContent = "";
+    document.getElementById("query-result").innerHTML = "";
+    document.getElementById("result-message").textContent = "";
+    const recordMessage = document.getElementById("record-message");
+    if (recordMessage) {
+        recordMessage.remove();
+    }
+    queryHistory = [];
+}
+
+let queryHistory = [];
+
+function appendSQL(value) {
+    const sqlQueryDiv = document.getElementById("sql-query");
+    sqlQueryDiv.textContent += value + " ";
+    queryHistory.push(value);
+}
+
+function deleteLastWord() {
+    // Check if the queryHistory is already empty
+    if (queryHistory.length === 0) {
+        return; // Exit the function if there's nothing to delete
+    }
+
+    // Remove the last word from queryHistory and update the display
+    queryHistory.pop();
+    const newQuery = queryHistory.join(" ");
+    document.getElementById("sql-query").textContent = newQuery.trim() + " ";
+}
+
+function addNumericValue() {
+    const numInput = document.getElementById("number-input").value;
+    appendSQL(numInput);
+    document.getElementById("number-input").value = "";
+}
+
+function addTextValue() {
+    const textInput = document.getElementById("text-input").value;
+    const formattedText = `'${textInput}'`;
+    appendSQL(formattedText);
+    document.getElementById("text-input").value = "";
+}
+
+function executeQuery() {
+    const query = document.getElementById("sql-query").textContent.trim();
+    const resultMessage = document.getElementById("result-message");
+    const resultTable = document.getElementById("query-result");
+
+    resultTable.innerHTML = "";
+    resultMessage.textContent = "";
+  
+
+    const existingRecordMessage = document.getElementById("record-message");
+    if (existingRecordMessage) {
+        existingRecordMessage.innerHTML = "";
+    }
+
+    try {
+        const result = db.exec(query);
+        if (!result || result.length === 0 || !result[0].values || result[0].values.length === 0) {
+            resultMessage.textContent = "No results found for the query.";
+            return;
+        }
+    
+        const numRecords = result[0].values.length;
+        const recordMessage = document.createElement("p");
+        recordMessage.id = "record-message";
+        recordMessage.textContent = `Found ${numRecords} record(s):`;
+        resultTable.parentNode.insertBefore(recordMessage, resultTable);
+
+        const headers = result[0].columns;
+        const headerRow = resultTable.insertRow();
+        headers.forEach(header => {
+            const cell = headerRow.insertCell();
+            cell.textContent = header;
+            cell.style.fontWeight = "bold";
+        });
+
+        result[0].values.forEach(row => {
+            const rowElement = resultTable.insertRow();
+            row.forEach(cellData => {
+                const cell = rowElement.insertCell();
+                cell.textContent = cellData;
+            });
+        });
+
+        resultMessage.textContent = "";
+        scrollToQResults();
+    } catch (e) {
+        resultMessage.textContent = `Error executing query: ${e.message}`;
+    }
+}
+
+function scrollToQResults() {
+    const qResultsElement = document.getElementById("qresults");
+    if (qResultsElement) {
+        qResultsElement.scrollIntoView({ behavior: "smooth" });
+    }
+}
+
+function toggleTable() {
+    const tableContainer = document.querySelector('.table-container');
+    const toggleButton = document.getElementById('toggle-table-button');
+
+    if (tableContainer.style.display === "none") {
+        tableContainer.style.display = "block";
+        toggleButton.textContent = "Hide Table";
+    } else {
+        tableContainer.style.display = "none";
+        toggleButton.textContent = "Show Table";
+    }
+}
+
 function toggleChallengeDisplay() {
     const sqlcDiv = document.getElementById("sqlc");
     const toggleButton = document.getElementById("toggle-sqlc");
@@ -31,6 +263,113 @@ function toggleChallengeDisplay() {
         toggleButton.textContent = "Show SQL Challenge";
     }
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+    const sqlcDiv = document.getElementById("sqlc");
+    sqlcDiv.style.display = "none";
+
+    const challengeSection = document.createElement("div");
+    challengeSection.id = "challenge-section";
+    challengeSection.style.marginTop = "0"; // Remove margin-top to prevent space below
+    challengeSection.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h2 id="challenge-title" style="margin: 0; border-style:none;">SQL Challenge</h2>
+            <div id="indicators" style="display: inline-flex; gap: 5px; margin-top: 10px;"></div>
+            <div id="difficulty-buttons" style="display: inline-flex; gap: 10px;">
+                <button class="difficulty-button" data-difficulty="easy">Easy</button>
+                <button class="difficulty-button" data-difficulty="medium">Medium</button>
+                <button class="difficulty-button" data-difficulty="hard">Hard</button>
+            </div>
+        </div>
+        <hr style="border: 1px solid #36d1dc;">
+        <p id="challenge-container"></p>
+      
+        <button style="margin-bottom:10px; margin-top:10px;" class="run-query-button" onclick="checkChallenge()">
+            Submit Challenge Answer
+        </button>
+        <p id="challenge-result"></p>
+    `;
+    sqlcDiv.appendChild(challengeSection);
+
+    const queryInputDiv = document.querySelector(".query-input");
+    const originalParent = queryInputDiv.parentNode;
+
+    // Create a placeholder div and insert it right after queryInputDiv
+    const placeholder = document.createElement("div");
+    placeholder.style.display = "none"; // Keep it hidden initially
+    originalParent.insertBefore(placeholder, queryInputDiv.nextSibling);
+
+    function moveQueryInputToChallenge() {
+        // Hide placeholder and move queryInputDiv to challengeSection
+        placeholder.style.display = "block";
+        placeholder.style.height = "10px"; // Reserve height space if necessary
+        challengeSection.appendChild(queryInputDiv);
+    }
+
+    function restoreQueryInputToOriginal() {
+        // Move queryInputDiv back to its original position and hide placeholder
+        originalParent.insertBefore(queryInputDiv, placeholder);
+        placeholder.style.display = "none";
+    }
+
+    // Load initial challenge
+    loadChallenge();
+
+    // Add event listeners for difficulty buttons
+    const difficultyButtons = document.querySelectorAll(".difficulty-button");
+    difficultyButtons.forEach(button => {
+        button.addEventListener("click", (event) => {
+            currentDifficulty = event.target.dataset.difficulty;
+            currentChallengeIndex = 0; // Reset challenge index on difficulty change
+            loadChallenge(); // Load the first challenge for the new difficulty
+        });
+    });
+
+    const toggleButton = document.getElementById("toggle-sqlc");
+    toggleButton.addEventListener("click", () => {
+        if (sqlcDiv.style.display === "none") {
+            sqlcDiv.style.display = "block";
+            toggleButton.textContent = "Hide SQL Challenge";
+            moveQueryInputToChallenge();
+        } else {
+            sqlcDiv.style.display = "none";
+            toggleButton.textContent = "Show SQL Challenge";
+            restoreQueryInputToOriginal();
+        }
+    });
+});
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function openTab(evt, tabName) {
+    let i, tabcontent, tablinks;
+
+    tabcontent = document.getElementsByClassName("tab-content");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+        tabcontent[i].classList.remove("active");
+    }
+
+    tablinks = document.getElementsByClassName("tab")[0].getElementsByTagName("button");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].classList.remove("active");
+    }
+
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.classList.add("active");
+}
+
+function normalizeQuery(query) {
+    return query
+        .replace(/\s+/g, ' ') // Replace multiple spaces with a single space
+        .trim() // Trim leading/trailing spaces
+        .toLowerCase(); // Convert to lowercase
+}
+
+
+
 
 function loadChallenge() {
     const challengeContainer = document.getElementById("challenge-container");
@@ -157,6 +496,7 @@ db.run(`
     age INTEGER
   );
 `);
+
 
 // Insert updated values for each person with age calculated based on the current year (assuming it's 2024)
 db.run(`
