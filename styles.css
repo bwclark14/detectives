@@ -540,7 +540,7 @@ button.add-value-button {
 .symbols-container, 
 .logiccompare {
   display: flex;
-  flex-direction: row; /* Stack heading and buttons vertically */
+  flex-direction: column; /* Stack heading and buttons vertically */
   align-items: center; /* Center-align heading and buttons */
 }
 
