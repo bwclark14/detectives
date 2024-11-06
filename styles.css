@@ -527,6 +527,7 @@ button.add-value-button {
   gap: 20px; /* Adds space between the main sections */
   padding: 10px;
     font-size: 0.8rem;
+    width:100%;
 }
 
 .side-by-side-container,
@@ -558,7 +559,7 @@ button.add-value-button {
 #table-buttons,
 .symbols-container button,
 .logiccompare button {
-  margin: 3px 0;
+  margin: 2px 0;
     flex-direction: row;/* Adds spacing between buttons */
 }
 
@@ -572,7 +573,7 @@ button.add-value-button {
 /* Ensure Compare and Logic headings are displayed horizontally */
 .logiccompare h3 {
   display: inline-block;
-  margin: 0 10px;
+  margin: 0 5px;
 }
 
 .logiccompare h3 + button {
