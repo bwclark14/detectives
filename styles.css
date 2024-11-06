@@ -517,7 +517,7 @@ button.add-value-button {
   and (max-device-width: 1024px) 
   and (orientation: portrait) 
   and (-webkit-min-device-pixel-ratio: 1) {
-  
+
   .tab button {
     font-size: 1rem;
   }
@@ -555,10 +555,12 @@ button.add-value-button {
     padding-bottom: 2px; /* Adds space between heading and buttons */
   }
 
+  /* This ensures Symbols and its buttons are aligned in a row */
   .symbols-container {
-    flex-direction: row; /* Arrange buttons in a row */
-    gap: 5px;
-    align-items: center;
+    display: flex; /* Aligns the heading and buttons in a row */
+    flex-direction: row; /* Ensures the heading and buttons are in a row */
+    align-items: center; /* Vertically aligns the heading and buttons */
+    gap: 10px; /* Adds space between the heading and buttons */
   }
 
   #table-buttons,
@@ -588,4 +590,3 @@ button.add-value-button {
     width: 100%;
   }
 }
-
