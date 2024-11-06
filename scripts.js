@@ -278,9 +278,9 @@ challengeSection.innerHTML = `
         
         <!-- Difficulty buttons next to the heading -->
         <div id="difficulty-buttons" style="display: flex; gap: 10px; font-size:12pt">
-            <button class="difficulty-button" data-difficulty="easy">Lvl 1</button>
-            <button class="difficulty-button" data-difficulty="medium">Lvl 2</button>
-            <button class="difficulty-button" data-difficulty="hard">Lvl 3</button>
+            <button class="difficulty-button" data-difficulty="easy" style="font-size: 12pt;">Lvl 1</button>
+            <button class="difficulty-button" data-difficulty="medium" style="font-size: 12pt;">Lvl 2</button>
+            <button class="difficulty-button" data-difficulty="hard" style="font-size: 12pt;">Lvl 3</button>
         </div>
     </div>
 
