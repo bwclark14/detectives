@@ -12,12 +12,31 @@ document.addEventListener("DOMContentLoaded", async () => {
     clearQuery();
 
     document.getElementById("clear-button").addEventListener("click", clearQuery);
+    document.getElementById("database-select").addEventListener("change", (event) => {
+        currentDatabase = event.target.value;
+        loadChallenge(); // Update challenge title and content
+    });
 
     const toggleButton = document.getElementById("toggle-sqlc");
     toggleButton.addEventListener("click", toggleChallengeDisplay);
     
     loadChallenge(); // Load the first challenge on page load
 });
+/*document.addEventListener("DOMContentLoaded", async () => {
+    const SQL = await initSqlJs({ locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/${file}` });
+    db = new SQL.Database();
+    createSampleDatabases();
+    changeDatabase();
+    clearQuery();
+
+    document.getElementById("clear-button").addEventListener("click", clearQuery);
+
+    const toggleButton = document.getElementById("toggle-sqlc");
+    toggleButton.addEventListener("click", toggleChallengeDisplay);
+    
+    loadChallenge(); // Load the first challenge on page load
+});
+*/
 
 
 function displayTable() {
@@ -407,6 +426,10 @@ function normalizeQuery(query) {
 let indicatorsState = []; // Track the state of indicators for each challenge
 
 function loadChallenge() {
+    // Update challenge title to include the current database name
+    const challengeTitle = document.getElementById("challenge-title");
+    challengeTitle.textContent = `SQL Challenge: ${currentDatabase} table`;
+    
     const challengeContainer = document.getElementById("challenge-container");
     const filteredChallenges = challenges.filter(challenge =>
         challenge.table === currentDatabase && challenge.difficulty === currentDifficulty
