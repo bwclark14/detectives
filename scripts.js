@@ -340,6 +340,7 @@ sqlcDiv.appendChild(challengeSection);
     placeholder.style.display = "none"; // Keep it hidden initially
     originalParent.insertBefore(placeholder, queryInputDiv.nextSibling);
 
+    /*
     function moveQueryInputToChallenge() {
         // Hide placeholder and move queryInputDiv to challengeSection
         placeholder.style.display = "block";
@@ -352,6 +353,29 @@ sqlcDiv.appendChild(challengeSection);
         originalParent.insertBefore(queryInputDiv, placeholder);
         placeholder.style.display = "none";
     }
+    */
+
+    function moveQueryInputToChallenge() {
+    // Hide the 'Build Your SQL Query' div
+    const buildDiv = document.getElementById("build");
+    buildDiv.style.display = "none";  // Hide the div
+
+    // Hide placeholder and move queryInputDiv to challengeSection
+    placeholder.style.display = "block";
+    placeholder.style.height = "10px"; // Reserve height space if necessary
+    challengeSection.appendChild(queryInputDiv);
+}
+
+function restoreQueryInputToOriginal() {
+    // Show the 'Build Your SQL Query' div
+    const buildDiv = document.getElementById("build");
+    buildDiv.style.display = "block";  // Show the div
+
+    // Move queryInputDiv back to its original position and hide placeholder
+    originalParent.insertBefore(queryInputDiv, placeholder);
+    placeholder.style.display = "none";
+}
+
 
     // Load initial challenge
     loadChallenge();
