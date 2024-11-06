@@ -326,19 +326,27 @@ sqlcDiv.appendChild(challengeSection);
     // Load initial challenge
     loadChallenge();
 
-    // Add event listeners for difficulty buttons
-    const difficultyButtons = document.querySelectorAll(".difficulty-button");
-    difficultyButtons.forEach(button => {
-        button.addEventListener("click", (event) => {
-            currentDifficulty = event.target.dataset.difficulty;
-            currentChallengeIndex = 0; // Reset challenge index on difficulty change
-            
-            // Reset indicators and their state when difficulty changes
-            resetIndicators(0); // Clear the indicators visually
-            indicatorsState = []; // Reset indicators state
-            loadChallenge(); // Load the first challenge for the new difficulty
-        });
+
+// Add event listeners for difficulty buttons
+const difficultyButtons = document.querySelectorAll(".difficulty-button");
+difficultyButtons.forEach(button => {
+    button.addEventListener("click", (event) => {
+        currentDifficulty = event.target.dataset.difficulty;
+        currentChallengeIndex = 0; // Reset challenge index on difficulty change
+        
+        // Remove the 'selected' class from all buttons
+        difficultyButtons.forEach(btn => btn.classList.remove("selected"));
+        
+        // Add the 'selected' class to the clicked button
+        event.target.classList.add("selected");
+        
+        // Reset indicators and their state when difficulty changes
+        resetIndicators(0); // Clear the indicators visually
+        indicatorsState = []; // Reset indicators state
+        loadChallenge(); // Load the first challenge for the new difficulty
     });
+});
+
 
     const toggleButton = document.getElementById("toggle-sqlc");
     toggleButton.addEventListener("click", () => {
