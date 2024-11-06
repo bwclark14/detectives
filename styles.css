@@ -155,10 +155,6 @@ select:focus {
     background-color: #2d2d44;
 }
 
-#query-result, #data-table {
-    font-size: 0.9rem;
-}
-
 /* Buttons */
 button {
     padding: 8px 16px;
@@ -533,19 +529,22 @@ button.add-value-button {
   #test2 {
     display: flex;
     justify-content: space-between;
-    gap: 10px; /* Space between sections */
+    gap: 5px; /* Space between sections */
     padding: 2px; /* Padding for test2 container */
     font-size: 0.8rem; /* Font size for the entire container */
     width: 100%;
-    flex-wrap: wrap; /* Allow wrapping of elements if needed */
+    flex-wrap: wrap; /* Allow wrapping of elements on smaller screens */
   }
 
-  /* Ensure the table, symbols, compare, and logic sections are displayed in a row */
-  .side-by-side-container {
+  /* Ensure side-by-side containers and logiccompare have consistent font size */
+  .side-by-side-container,
+  .logiccompare {
     display: flex;
-    justify-content: space-between;
-    gap: 10px; /* Adds space between the sections */
-    width: 100%;
+    flex-direction: column; /* Stack headings and buttons vertically */
+    gap: 5px; /* Adds space between containers */
+    align-items: flex-start; /* Align items to the left */
+    font-size: 0.8rem; /* Font size for text inside containers */
+    width: 48%; /* Allow containers to take up half the width */
   }
 
   /* Stack the content in columns for table-container, symbols-container, logiccompare */
@@ -556,7 +555,7 @@ button.add-value-button {
     flex-direction: column; /* Stack heading and buttons vertically */
     align-items: flex-start; /* Align heading and buttons to the left */
     font-size: 0.8rem; /* Font size for text inside containers */
-    width: 23%; /* Allow each container to take up 23% width */
+    width: 100%; /* Make sure it takes the full width */
   }
 
   /* Headings inside table-container, symbols-container, and logiccompare */
