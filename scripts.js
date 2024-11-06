@@ -1148,7 +1148,7 @@ const challenges = [
 {
     table: "cars",
     difficulty: "easy",
-    question: "5. I need a list of all distinct cities where car owners are located.",
+    question: "5. I need a list of all the cities where car owners are located.",
     correctQuery: "SELECT DISTINCT owner_city FROM cars"
 },
 {
@@ -1180,6 +1180,25 @@ const challenges = [
     difficulty: "easy",
     question: "10. I need a list of all Diesel cars, ordered by the year they were manufactured, from oldest to newest.",
     correctQuery: "SELECT * FROM cars WHERE fuel_type = \'Diesel\' ORDER BY year_manufactured ASC"
+},
+
+    {
+    table: "cars",
+    difficulty: "medium",
+    question: "M1. Give me a list of all the different models made by Ford",
+    correctQuery: "SELECT DISTINCT model FROM cars WHERE make = \'Ford\'"
+},
+        {
+    table: "cars",
+    difficulty: "medium",
+    question: "M2. Give me a list of Electric car ownner names and their cities",
+    correctQuery: "SELECT owner_name , owner_city FROM cars WHERE fuel_type = \'Electric\' "
+},
+            {
+    table: "cars",
+    difficulty: "medium",
+    question: "M3. I need the registration number and owner names of all cars manufactured after 2018",
+    correctQuery: "SELECT registration_no , owner_name FROM cars WHERE year_manufactured > 2018"
 },
 
     // Challenges for the Products table
