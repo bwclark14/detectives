@@ -507,7 +507,7 @@ function resetIndicators(count) {
         indicator.style.width = "20px";
         indicator.style.height = "20px";
         
-        indicator.style.borderRadius = "50%";
+        indicator.style.borderRadius = "15px";
         indicator.style.backgroundColor = "#ccc";  // Default color (grey)
         indicator.style.border = "1px solid white";
         indicator.style.display = "flex";
@@ -515,7 +515,7 @@ function resetIndicators(count) {
         indicator.style.justifyContent = "center";
         indicator.style.color = "black";
         indicator.style.fontWeight = "bold";
-        indicator.style.fontSize = "12px"; // Smaller font size
+        indicator.style.fontSize = "11px"; // Smaller font size
 
         // Set the number text inside the circle, starting at 1
         indicator.textContent = i + 1;
