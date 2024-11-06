@@ -159,12 +159,6 @@ select:focus {
     font-size: 0.9rem;
 }
 
-#data-table th, #query-result th {
-    background-color: #d1d1d1; /* Lighter grey background */
-    color: #2d2d44; /* Darker text color */
-    text-transform: uppercase;
-}
-
 /* Buttons */
 button {
     padding: 8px 16px;
@@ -427,32 +421,6 @@ button.add-value-button {
     background-color: #36d1dc;
     color: #0d0d14;
 }
-
-/* For data-table */
-#data-table tr:first-child {
-    background-color: #d1d1d1; /* Lighter grey background */
-    font-color: black; /* Darker text color */
-    text-transform: uppercase;
-}
-
-#data-table th {
-    background-color: #36d1dc; /* Original header color */
-    color: #0d0d14;
-    text-transform: uppercase;
-}
-
-/* For query-result */
-#query-result tr:first-child {
-    background-color: #d1d1d1; /* Lighter grey background */
-     color: #0d0d14; /* Darker text color */
-    text-transform: uppercase;
-}
-
-#query-result th {
-    background-color: #36d1dc; /* Original header color */
-    color: #0d0d14;
-}
-
 
 /* Responsive Design */
 @media (max-width: 768px) {
