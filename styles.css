@@ -158,7 +158,7 @@ select:focus {
 }
 
 #data-table th, #query-result th {
-    background-color: #d1d1d1; /* Lighter grey background */
+    background-color: #36d1dc; /* Lighter grey background */
     color: #2d2d44; /* Darker text color */
     text-transform: uppercase;
 }
