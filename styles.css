@@ -525,8 +525,8 @@ button.add-value-button {
   #test2 {
     display: flex;
     justify-content: space-between;
-    gap: 20px; /* Adds space between sections */
-    padding: 10px;
+    gap: 5px; /* Adds space between sections */
+    padding: 5px;
     font-size: 0.8rem;
     width: 100%;
   }
@@ -535,7 +535,7 @@ button.add-value-button {
   .logiccompare {
     display: flex;
     flex: 1; /* Makes sure each section takes equal space */
-    gap: 20px; /* Adds space between containers */
+    gap: 5px; /* Adds space between containers */
     align-items: center;
        font-size: 0.8rem;
   }
@@ -546,6 +546,7 @@ button.add-value-button {
     display: flex;
     flex-direction: column; /* Stack buttons vertically by default */
     align-items: center;
+      font-size: 0.8rem;
   }
 
   .table-container h3,
