@@ -277,7 +277,7 @@ challengeSection.innerHTML = `
         <h2 id="challenge-title" style="margin: 0; border-style:none;">SQL Challenge</h2>
         
         <!-- Difficulty buttons next to the heading -->
-        <div id="difficulty-buttons" style="display: flex; gap: 10px;">
+        <div id="difficulty-buttons" style="display: flex; gap: 10px; font-size:12pt">
             <button class="difficulty-button" data-difficulty="easy">Lvl 1</button>
             <button class="difficulty-button" data-difficulty="medium">Lvl 2</button>
             <button class="difficulty-button" data-difficulty="hard">Lvl 3</button>
@@ -507,7 +507,7 @@ function resetIndicators(count) {
         indicator.style.width = "20px";
         indicator.style.height = "20px";
         
-        indicator.style.borderRadius = "15px";
+        indicator.style.borderRadius = "15%";
         indicator.style.backgroundColor = "#ccc";  // Default color (grey)
         indicator.style.border = "1px solid white";
         indicator.style.display = "flex";
