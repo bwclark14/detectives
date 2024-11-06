@@ -277,8 +277,8 @@ challengeSection.innerHTML = `
         <h2 id="challenge-title" style="margin: 0; border-style:none;">SQL Challenge</h2>
         
         <!-- Difficulty buttons next to the heading -->
-        <div id="difficulty-buttons" style="display: flex; gap: 10px; font-size:12pt">
-            <button class="difficulty-button" data-difficulty="easy" style="font-size: 11pt; padding:5px;">Lvl 1</button>
+        <div id="difficulty-buttons" style="display: flex; gap: 10px;">
+            <button class="difficulty-button" data-difficulty="easy" style="font-size: 11pt; padding:0px 5px 0px 5px;">Lvl 1</button>
             <button class="difficulty-button" data-difficulty="medium" style="font-size: 11pt;padding:5px;">Lvl 2</button>
             <button class="difficulty-button" data-difficulty="hard" style="font-size: 11pt;padding:5px;">Lvl 3</button>
         </div>
