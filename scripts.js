@@ -146,6 +146,8 @@ function clearQuery() {
         recordMessage.remove();
     }
     queryHistory = [];
+      resultTable.innerHTML = "";
+    resultMessage.textContent = "";
 }
 
 let queryHistory = [];
