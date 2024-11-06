@@ -537,6 +537,7 @@ button.add-value-button {
     flex: 1; /* Makes sure each section takes equal space */
     gap: 20px; /* Adds space between containers */
     align-items: center;
+       font-size: 0.8rem;
   }
 
   .table-container, 
@@ -559,7 +560,7 @@ button.add-value-button {
     display: flex; /* Ensures that heading and buttons are in a row */
     flex-direction: row; /* Ensure the elements are aligned horizontally */
     align-items: center; /* Vertically align heading and buttons */
-    gap: 10px; /* Space between heading and buttons */
+    gap: 5px; /* Space between heading and buttons */
   }
 
   #table-buttons,
@@ -567,22 +568,26 @@ button.add-value-button {
   .logiccompare button {
     margin: 2px 0;
     flex-direction: row; /* Ensures buttons are aligned in a row */
+       font-size: 0.8rem;
   }
 
   /* Specific layout for Compare and Logic buttons */
   .logiccompare {
     flex-direction: row;
-    gap: 10px;
+    gap: 5px;
     align-items: center;
+       font-size: 0.8rem;
   }
 
   .logiccompare h3 {
     display: inline-block;
     margin: 0 5px;
+       font-size: 0.8rem;
   }
 
   .logiccompare h3 + button {
     margin-bottom: 5px;
+       font-size: 0.8rem;
   }
 
   #test {
