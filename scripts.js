@@ -284,7 +284,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <hr style="border: 1px solid #36d1dc;">
         <p id="challenge-container"></p>
       
-        <button style="margin-bottom:10px; margin-top:10px;" class="run-query-button" onclick="checkChallenge()">
+        <button id="submitButton" style="margin-bottom:10px; margin-top:10px;" class="run-query-button" onclick="checkChallenge()">
             Submit Challenge Answer
         </button>
         <p id="challenge-result"></p>
@@ -417,6 +417,7 @@ function loadChallenge() {
 function checkChallenge() {
     const query = document.getElementById("sql-query").textContent.trim();
     const challengeResult = document.getElementById("challenge-result");
+    const submitButton = document.getElementById("submitButton"); // Get the submit button
 
     const challenge = challenges
         .filter(challenge => challenge.table === currentDatabase && challenge.difficulty === currentDifficulty)[currentChallengeIndex];
@@ -447,6 +448,10 @@ function checkChallenge() {
             updateIndicator(currentChallengeIndex, false, "red"); // Set to red after three failed attempts
             indicatorsState[currentChallengeIndex] = "red"; // Store the red state
             challengeResult.textContent = "Incorrect. Moving to the next challenge.";
+
+            // Hide the submit button after three failed attempts
+            submitButton.style.display = "none";
+
             setTimeout(nextChallenge, 3000);
         }
     }
@@ -465,10 +470,19 @@ function nextChallenge() {
         return;
     }
 
+    // Move to the next challenge
     currentChallengeIndex++;
-    loadChallenge();
-    document.getElementById("challenge-result").textContent = "";
+    loadChallenge(); // Load the new challenge
+    document.getElementById("challenge-result").textContent = ""; // Clear the result message
+    
+    // Reset attempts for the new challenge
+    attempts = 0;
+
+    // Re-show the submit button for the new challenge
+    const submitButton = document.getElementById("submitButton");
+    submitButton.style.display = "block";
 }
+
 
 function resetIndicators(count) {
     const indicatorsContainer = document.getElementById("indicators");
