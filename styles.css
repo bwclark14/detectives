@@ -533,16 +533,18 @@ button.add-value-button {
     padding: 2px; /* Padding for test2 container */
     font-size: 0.8rem; /* Font size for the entire container */
     width: 100%;
+    flex-wrap: wrap; /* Allow wrapping of elements on smaller screens */
   }
 
   /* Ensure side-by-side containers and logiccompare have consistent font size */
   .side-by-side-container,
   .logiccompare {
     display: flex;
-    flex: 1; /* Makes sure each section takes equal space */
+    flex-direction: column; /* Stack headings and buttons vertically */
     gap: 5px; /* Adds space between containers */
-    align-items: center;
-    font-size: 0.8rem; /* Font size for text inside side-by-side containers */
+    align-items: flex-start; /* Align items to the left */
+    font-size: 0.8rem; /* Font size for text inside containers */
+    width: 48%; /* Allow containers to take up half the width */
   }
 
   /* Stack the content in columns for table-container, symbols-container, logiccompare */
@@ -550,9 +552,10 @@ button.add-value-button {
   .symbols-container, 
   .logiccompare {
     display: flex;
-    flex-direction: column; /* Stack heading and buttons vertically by default */
-    align-items: center; /* Center content */
+    flex-direction: column; /* Stack heading and buttons vertically */
+    align-items: flex-start; /* Align heading and buttons to the left */
     font-size: 0.8rem; /* Font size for text inside containers */
+    width: 100%; /* Make sure it takes the full width */
   }
 
   /* Headings inside table-container, symbols-container, and logiccompare */
@@ -560,16 +563,17 @@ button.add-value-button {
   .symbols-container h3,
   .logiccompare h3 {
     margin: 2px 0; /* Consistent margin for headings */
-    padding-bottom: 2px; /* Padding between heading and buttons */
+    padding-bottom: 5px; /* Padding between heading and buttons */
     font-size: 0.8rem; /* Font size for headings */
+    display: block; /* Ensure headings are displayed as block-level elements */
   }
 
-  /* Fix for Symbols container to display in row */
+  /* Fix for Symbols container to display buttons in a row under the heading */
   .symbols-container {
-    display: flex; /* Ensure heading and buttons are in a row */
-    flex-direction: row; /* Align elements horizontally */
-    align-items: center; /* Vertically align heading and buttons */
-    gap: 5px; /* Space between heading and buttons */
+    display: flex;
+    flex-direction: column; /* Stack heading and buttons vertically */
+    align-items: flex-start; /* Align buttons to the left */
+    gap: 2px; /* Adds small space between buttons */
   }
 
   /* Button specific styling for table-buttons, symbols-container, and logiccompare buttons */
@@ -579,27 +583,21 @@ button.add-value-button {
     margin: 2px; /* Consistent margin for buttons */
     padding: 2px; /* Consistent padding for buttons */
     font-size: 0.8rem; /* Font size for buttons */
-    display: inline-block; /* Ensure buttons stay inline */
+    display: inline-block; /* Ensure buttons are displayed inline */
   }
 
   /* Specific layout for Compare and Logic buttons */
   .logiccompare {
-    flex-direction: row; /* Ensure elements are in a row */
-    gap: 5px; /* Space between buttons */
-    align-items: center; /* Vertically align buttons */
-    font-size: 0.8rem; /* Font size for text inside logiccompare */
+    flex-direction: column; /* Stack heading and buttons vertically */
+    gap: 5px; /* Space between heading and buttons */
+    align-items: flex-start; /* Align buttons to the left */
   }
 
   /* Ensure logiccompare headings have consistent styling */
   .logiccompare h3 {
-    display: inline-block;
-    margin: 0 5px; /* Margin between heading and buttons */
+    margin: 2px 0; /* Margin between heading and buttons */
+    padding-bottom: 5px; /* Padding between heading and buttons */
     font-size: 0.8rem; /* Font size for headings inside logiccompare */
-  }
-
-  .logiccompare h3 + button {
-    margin-bottom: 5px; /* Margin at the bottom of the button */
-    font-size: 0.8rem; /* Font size for buttons next to heading */
   }
 
   /* Ensuring full width for #test */
