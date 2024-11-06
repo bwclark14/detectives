@@ -280,8 +280,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 <button class="difficulty-button" data-difficulty="medium">Lvl 2</button>
                 <button class="difficulty-button" data-difficulty="hard">Lvl 3</button>
             </div>
-            <div id="indicators" style="display: inline-flex; gap: 5px; margin-top: 10px;"></div>
+            
         </div>
+        <div id="indicators" style="display: inline-flex; gap: 5px; margin-top: 10px;"></div>
         <hr style="border: 1px solid #36d1dc;">
         <p id="challenge-container"></p>
       
