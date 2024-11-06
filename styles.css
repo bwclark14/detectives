@@ -517,81 +517,75 @@ button.add-value-button {
   and (max-device-width: 1024px) 
   and (orientation: portrait) 
   and (-webkit-min-device-pixel-ratio: 1) {
-        .tab button {
+  
+  .tab button {
+    font-size: 1rem;
+  }
 
-    font-size: 1rem;}
-
-#test2 {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px; /* Adds space between the main sections */
-  padding: 10px;
+  #test2 {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px; /* Adds space between sections */
+    padding: 10px;
     font-size: 0.8rem;
-    width:100%;
-}
+    width: 100%;
+  }
 
-.side-by-side-container,
-.logiccompare {
-  display: flex;
-  gap: 20px; /* Adds space between each container inside the row */
-}
+  .side-by-side-container,
+  .logiccompare {
+    display: flex;
+    flex: 1; /* Makes sure each section takes equal space */
+    gap: 20px; /* Adds space between containers */
+    align-items: center;
+  }
 
-.table-container, 
-.symbols-container, 
- {
-  display: flex;
-  flex-direction: column; /* Stack heading and buttons vertically */
-  align-items: center; /* Center-align heading and buttons */
+  /* Ensures containers inside each section are in row direction */
+  .table-container, 
+  .symbols-container, 
+  .logiccompare {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    align-items: center;
+  }
 
-}
+  .table-container h3,
+  .symbols-container h3,
+  .logiccompare h3 {
+    margin: 0;
+    padding-bottom: 2px; /* Adds space between heading and buttons */
+  }
 
-    .logiccompare {
-  display: flex;
-  flex-direction: row; /* Stack heading and buttons vertically */
-  align-items: center; /* Center-align heading and buttons */
+  .symbols-container {
+    flex-direction: row; /* Arrange buttons in a row */
+    gap: 5px;
+    align-items: center;
+  }
 
-}
+  #table-buttons,
+  .symbols-container button,
+  .logiccompare button {
+    margin: 2px 0;
+    flex-direction: row; /* Ensures buttons are aligned in a row */
+  }
 
-.table-container h3,
-.symbols-container h3,
-.logiccompare h3 {
-  margin: 0;
-  padding-bottom: 2px; /* Adds space between heading and buttons */
-}
-.symbols-container{
-     flex-direction: row;
-  gap: 5px;
-  align-items: center;
-}
-    
-#table-buttons,
-.symbols-container button,
-.logiccompare button {
-  margin: 2px 0;
-    flex-direction: row;/* Adds spacing between buttons */
-}
+  /* Specific layout for Compare and Logic buttons */
+  .logiccompare {
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+  }
 
-/* Specific layout for Compare and Logic buttons */
-.logiccompare {
-  flex-direction: row;
-  gap: 10px;
-  align-items: center;
-}
+  .logiccompare h3 {
+    display: inline-block;
+    margin: 0 5px;
+  }
 
-/* Ensure Compare and Logic headings are displayed horizontally */
-.logiccompare h3 {
-  display: inline-block;
-  margin: 0 5px;
-}
+  .logiccompare h3 + button {
+    margin-bottom: 5px;
+  }
 
-.logiccompare h3 + button {
-  margin-bottom: 5px;
-}
-
-    #test
-    {width:100%}
-
-
-
+  #test {
+    width: 100%;
+  }
 }
 
