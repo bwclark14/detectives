@@ -470,9 +470,33 @@ function nextChallenge() {
     document.getElementById("challenge-result").textContent = "";
 }
 
+function resetIndicators(count) {
+    const indicatorsContainer = document.getElementById("indicators");
+    indicatorsContainer.innerHTML = ""; // Clear previous indicators
+
+    for (let i = 0; i < count; i++) {
+        const indicator = document.createElement("div");
+        indicator.classList.add("indicator");
+        indicator.style.width = "30px"; // Width for text space
+        indicator.style.height = "30px"; // Height for text space
+        indicator.style.borderRadius = "50%";
+        indicator.style.backgroundColor = "#ccc"; // Default color (grey)
+        indicator.style.border = "1px solid white";
+        indicator.style.display = "flex"; // Center text horizontally
+        indicator.style.alignItems = "center"; // Center text vertically
+        indicator.style.justifyContent = "center"; // Center text horizontally
+        indicator.style.color = "black"; // Text color
+        indicator.style.fontWeight = "bold"; // Optional: Make text bold
+
+        // Set the number text inside the circle, starting at 1
+        indicator.textContent = i + 1;
+
+        indicatorsContainer.appendChild(indicator);
+    }
+}
 
 
-
+/*
 function resetIndicators(count) {
     const indicatorsContainer = document.getElementById("indicators");
     indicatorsContainer.innerHTML = ""; // Clear previous indicators
@@ -488,6 +512,7 @@ function resetIndicators(count) {
         indicatorsContainer.appendChild(indicator);
     }
 }
+*/
 
 function updateIndicators() {
     const indicators = document.querySelectorAll(".indicator");
