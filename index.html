@@ -1,244 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>
-   SQL Query Simulator
-  </title>
-  <link href="styles.css" rel="stylesheet"/>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/sql-wasm.js">
-  </script>
- </head>
- <body>
-  <div class="container">
-   <h1>
-    The Data Detective - SQL Simulator
-   </h1>
-   <!-- Database Selection -->
-   <h2>
-    Select a Database
-   </h2>
-   <select id="database-select" onchange="changeDatabase()">
-    <option value="people">
-     People
-    </option>
-    <option value="cars">
-     Cars
-    </option>
-    <option value="products">
-     Products
-    </option>
-   </select>
-   <div class="table-container">
-    <h2 id="database-title">
-     People Database
-    </h2>
-    <p>
-     Sample of records in the selected database. These are
-     <strong>
-      not ALL
-     </strong>
-     the records in the database!
-    </p>
-    <table id="data-table">
-     <!-- Data will be inserted here by JavaScript -->
-    </table>
-   </div>
-   <button style="margin-bottom:10px" id="toggle-table-button" onclick="toggleTable()">
-    Hide Table
-   </button>
-   <button id="toggle-sqlc">Show SQL Challenge</button>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>SQL Query Simulator</title>
+    <link href="styles.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/sql-wasm.js"></script>
+  </head>
 
-    
-
-    
-   <h2>
-    <div id="build">Build Your SQL Query</div>
-        <div id="sqlc" style="color:white; font-size:1.2rem;">
-         
-   
-         
-
+  <body>
+    <div class="container">
+      <h1>The Data Detective - SQL Simulator</h1>
       
+      <!-- Database Selection -->
+      <h2>Select a Database</h2>
+      <select id="database-select" onchange="changeDatabase()">
+        <option value="people">People</option>
+        <option value="cars">Cars</option>
+        <option value="products">Products</option>
+      </select>
 
-    </div>
-   
-   </h2>
-   <div class="query-input">
-    <div class="sql-query-display" id="sql-query">
-    </div>
-    <button class="run-query-button" onclick="executeQuery(); scrollToQResults()">
-     Run
-    </button>
-    <button class="delete-button" onclick="deleteLastWord()">
-     Backspace
-    </button>
-
-    <button class="clear-button" onclick="clearQuery()">
-     Clear
-    </button>
-   </div>
-   <div class="sql-actions">
-    
-   </div>
-   <!-- Tabs for SQL building -->
-    
-    
-     <!-- Tabs for SQL building -->
-    
-<div class="container clearfix" style="margin-top:1px;">
-  <div id="test2">
-    <div class="side-by-side-container">
       <div class="table-container">
-        <h3>Table</h3>
-        <div id="table-buttons">
-          <!-- table button will be populated here based on the selected database -->
+        <h2 id="database-title">People Database</h2>
+        <p>
+          Sample of records in the selected database. These are <strong>not ALL</strong> the records in the database!
+        </p>
+        <table id="data-table">
+          <!-- Data will be inserted here by JavaScript -->
+        </table>
+      </div>
+
+      <button style="margin-bottom: 10px" id="toggle-table-button" onclick="toggleTable()">Hide Table</button>
+      <button id="toggle-sqlc">Show SQL Challenge</button>
+
+      <h2>
+        <div id="build">Build Your SQL Query</div>
+        <div id="sqlc" style="color: white; font-size: 1.2rem;"></div>
+      </h2>
+
+      <div class="query-input">
+        <div class="sql-query-display" id="sql-query"></div>
+        <button class="run-query-button" onclick="executeQuery(); scrollToQResults()">Run</button>
+        <button class="delete-button" onclick="deleteLastWord()">Backspace</button>
+        <button class="clear-button" onclick="clearQuery()">Clear</button>
+      </div>
+
+      <div class="sql-actions"></div>
+
+      <!-- Tabs for SQL building -->
+      <div class="container clearfix" style="margin-top: 1px;">
+        <div id="test2">
+          <div class="side-by-side-container">
+            <div class="table-container">
+              <h3>Table</h3>
+              <div id="table-buttons">
+                <!-- Table button will be populated here based on the selected database -->
+              </div>
+            </div>
+
+            <div class="symbols-container">
+              <h3>Symbols</h3>
+              <button onclick="appendSQL('*')">*</button>
+              <button onclick="appendSQL(',')">,</button>
+              <button onclick="appendSQL(';')">;</button>
+            </div>
+          </div>
+
+          <div class="logiccompare">
+            <h3>Compare</h3>
+            <button onclick="appendSQL('=')">=</button>
+            <button onclick="appendSQL('&lt;')">&lt;</button>
+            <button onclick="appendSQL('&gt;')">&gt;</button>
+
+            <h3>Logic</h3>
+            <button onclick="appendSQL('AND')">AND</button>
+            <button onclick="appendSQL('OR')">OR</button>
+          </div>
+        </div>
+							<div id="test">
+        <div class="tab">
+          <button class="active" onclick="openTab(event, 'commands')">SQL Commands</button>
+          <button onclick="openTab(event, 'operators')">Sorting</button>
+          <button onclick="openTab(event, 'fields')">Fields</button>
+          <button onclick="openTab(event, 'values')">Values</button>
+          <span class="break-point"></span>
+        </div>
+
+        <div class="tab-content active" id="commands">
+          <div class="command-group">
+            <h3>SQL Commands</h3>
+            <span class="break-point">
+              <button onclick="appendSQL('SELECT')">SELECT</button>
+              <button onclick="appendSQL('FROM')">FROM</button>
+              <button onclick="appendSQL('WHERE')">WHERE</button>
+              <span class="break-point"></span>
+            </span>
+          </div>
+
+          <div class="command-group">
+            <h3>Other</h3>
+            <button onclick="appendSQL('DISTINCT')">DISTINCT</button>
+            <button onclick="appendSQL('LIMIT')">LIMIT</button>
+          </div>
+        </div>
+
+        <div class="tab-content" id="operators">
+          <div class="command-group">
+            <h3>Sorting</h3>
+            <button onclick="appendSQL('ORDER BY')">ORDER BY</button>
+            <button onclick="appendSQL('ASC')">ASC</button>
+            <button onclick="appendSQL('DESC')">DESC</button>
+          </div>
+        </div>
+
+        <div class="tab-content" id="fields">
+          <div class="command-group">
+            <h3>Fields</h3>
+            <div id="fields-buttons">
+              <!-- Field buttons will be populated here based on the selected database -->
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-content" id="values">
+          <div class="command-group">
+            <h3>Enter Numeric Value</h3>
+            <input id="number-input" step="any" type="number" />
+            <button onclick="addNumericValue()">Add Number</button>
+            <span class="break-point">
+              <h3>Enter Text Value</h3>
+              <input id="text-input" type="text" />
+              <button onclick="addTextValue()">Add Text</button>
+            </span>
+          </div>
         </div>
       </div>
+      </div>
 
-      <div class="symbols-container">
-        <h3>Symbols</h3>
-        <button onclick="appendSQL('*')">*</button>
-        <button onclick="appendSQL(',')">,</button>
-        <button onclick="appendSQL(';')">;</button>
+      
+
+      <div class="result-container">
+        <h2 id="qresults">Query Result</h2>
+        <p id="result-message"></p>
+        <table id="query-result">
+          <!-- Query results will be displayed here -->
+        </table>
       </div>
     </div>
 
-    <div class="logiccompare">
-      <h3>Compare</h3>
-      <button onclick="appendSQL('=')">=</button>
-      <button onclick="appendSQL('&lt;')">&lt;</button>
-      <button onclick="appendSQL('&gt;')">&gt;</button>
-
-      <h3>Logic</h3>
-      <button onclick="appendSQL('AND')">AND</button>
-      <button onclick="appendSQL('OR')">OR</button>
-    </div>
-  </div>
-</div>
-
- 
-    
-    <div id="test">
-   <div class="tab">
-    <button class="active" onclick="openTab(event, 'commands')">
-     SQL Commands
-    </button>
-    <button onclick="openTab(event, 'operators')">
-     Sorting
-    </button>
-    <button onclick="openTab(event, 'fields')">
-     Fields
-    </button>
-    <button onclick="openTab(event, 'values')">
-     Values
-    </button>
-    <span class="break-point">
-    </span>
-   </div>
-   <div class="tab-content active" id="commands">
-    <div class="command-group">
-     <h3>
-      SQL Commands
-     </h3>
-     <span class="break-point">
-      <button onclick="appendSQL('SELECT')">
-       SELECT
-      </button>
-      <button onclick="appendSQL('FROM')">
-       FROM
-      </button>
-      <button onclick="appendSQL('WHERE')">
-       WHERE
-      </button>
-      <span class="break-point">
-      </span>
-     </span>
-    </div>
-
-    <div class="command-group">
-     <h3>
-      Other
-     </h3>
-     <button onclick="appendSQL('DISTINCT')">
-      DISTINCT
-     </button>
-     <button onclick="appendSQL('LIMIT')">
-      LIMIT
-     </button>
-    </div>
-
-   </div>
-  <div class="tab-content" id="operators">
-      <div class="command-group">
-     <h3>
-      Sorting
-     </h3>
-     <button onclick="appendSQL('ORDER BY')">
-      ORDER BY
-     </button>
-     <button onclick="appendSQL('ASC')">
-      ASC
-     </button>
-     <button onclick="appendSQL('DESC')">
-      DESC
-     </button>
-    </div>
-  </div>
-  <div class="tab-content" id="fields">
-   <div class="command-group">
-    <h3>
-     Fields
-    </h3>
-    <div id="fields-buttons">
-     <!-- Field buttons will be populated here based on the selected database -->
-    </div>
-   </div>
-  </div>
-  <div class="tab-content" id="values">
-   <div class="command-group">
-    <h3>
-     Enter Numeric Value
-    </h3>
-    <input id="number-input" step="any" type="number"/>
-    <button onclick="addNumericValue()">
-     Add Number
-    </button>
-    <span class="break-point">
-     <h3>
-      Enter Text Value
-     </h3>
-     <input id="text-input" type="text"/>
-     <button onclick="addTextValue()">
-      Add Text
-     </button>
-    </span>
-   </div>
-  </div>
-      
-    </div>
-    
-   
-   </div>
-    
-  <div class="result-container">
-   <h2 id="qresults">
-    Query Result
-   </h2>
-   <p id="result-message">
-   </p>
-   <table id="query-result">
-    <!-- Query results will be displayed here -->
-   </table>
-  </div>
-    
-
-
-    
-
-    
-  <script src="scripts.js">
-  </script>
- </body>
+    <script src="scripts.js"></script>
+  </body>
 </html>
