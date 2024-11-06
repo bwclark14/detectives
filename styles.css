@@ -551,7 +551,7 @@ button.add-value-button {
   padding-bottom: 5px; /* Adds space between heading and buttons */
 }
 .symbols-container{
-     flex-direction: row;
+     flex-direction: column;
   gap: 10px;
   align-items: center;
 }
