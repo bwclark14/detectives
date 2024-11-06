@@ -431,7 +431,7 @@ button.add-value-button {
 /* For data-table */
 #data-table tr:first-child {
     background-color: #d1d1d1; /* Lighter grey background */
-    color: black; /* Darker text color */
+    font-color: black; /* Darker text color */
     text-transform: uppercase;
 }
 
