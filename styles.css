@@ -542,7 +542,7 @@ button.add-value-button {
   display: flex;
   flex-direction: column; /* Stack heading and buttons vertically */
   align-items: center; /* Center-align heading and buttons */
-    width:40%;
+
 }
 
 .table-container h3,
