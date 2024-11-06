@@ -87,49 +87,39 @@
     
      <!-- Tabs for SQL building -->
     
+<div class="container clearfix" style="margin-top:1px;">
+  <div id="test2">
+    <div class="side-by-side-container">
+      <div class="table-container">
+        <h3>Table</h3>
+        <div id="table-buttons">
+          <!-- table button will be populated here based on the selected database -->
+        </div>
+      </div>
+
+      <div class="symbols-container">
+        <h3>Symbols</h3>
+        <button onclick="appendSQL('*')">*</button>
+        <button onclick="appendSQL(',')">,</button>
+        <button onclick="appendSQL(';')">;</button>
+      </div>
+    </div>
+
+    <div class="logiccompare">
+      <h3>Compare</h3>
+      <button onclick="appendSQL('=')">=</button>
+      <button onclick="appendSQL('&lt;')">&lt;</button>
+      <button onclick="appendSQL('&gt;')">&gt;</button>
+
+      <h3>Logic</h3>
+      <button onclick="appendSQL('AND')">AND</button>
+      <button onclick="appendSQL('OR')">OR</button>
+    </div>
+  </div>
+</div>
 
  
-    <div class="container clearfix" style="margin-top:1px;">
-       <div id="test2">
-         <div class="side-by-side-container">
-          <div class="table-container">
-            <h3>Table</h3>
-            <div id="table-buttons">
-            <!-- table button will be populated here based on the selected database -->
-            </div>
-         </div>
-         <div class="symbols-container">
-          <h3>Symbols</h3>
-           <button onclick="appendSQL('*')">*</button>
-           <button onclick="appendSQL(',')">,</button>
-           <button onclick="appendSQL(';')">;</button>
-         </div>
-        </div>
     
-        <div class="logiccompare">
-          <h3>Compare </h3>
-    <button onclick="appendSQL('=')">= </button>
-    <button onclick="appendSQL('&lt;')">
-     &lt;
-    </button>
-    <button onclick="appendSQL('&gt;')">
-     &gt;
-    </button>
-      <h3>
-     Logic
-    </h3>
-       <button onclick="appendSQL('AND')">
-      AND
-     </button>
-     <button onclick="appendSQL('OR')">
-      OR
-     </button>
-    <span class="break-point">
-     <span class="break-point">
-     </span>
-    </span>
-   </div>
-    </div>
     <div id="test">
    <div class="tab">
     <button class="active" onclick="openTab(event, 'commands')">
