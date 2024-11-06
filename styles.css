@@ -552,7 +552,8 @@ button.add-value-button {
 #table-buttons,
 .symbols-container button,
 .logiccompare button {
-  margin: 3px 0; /* Adds spacing between buttons */
+  margin: 3px 0;
+    flex-direction: row;/* Adds spacing between buttons */
 }
 
 /* Specific layout for Compare and Logic buttons */
