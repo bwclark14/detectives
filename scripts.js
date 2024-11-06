@@ -279,6 +279,7 @@ document.addEventListener("DOMContentLoaded", () => {
     sqlcDiv.style.display = "none";
 
     const challengeSection = document.createElement("div");
+    currentDatabase = document.getElementById("database-select").value;
 challengeSection.id = "challenge-section";
 challengeSection.style.marginTop = "0"; // Remove margin-top to prevent space below
 challengeSection.innerHTML = `
