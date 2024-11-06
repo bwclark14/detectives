@@ -165,14 +165,14 @@ select:focus {
 
 /* For data-table */
 #data-table tr:first-child {
-    background-color: #d1d1d1; /* Lighter grey background */
+    background-color: #36d1dc;
     color: black; /* Black text color for the first row */
     text-transform: uppercase;
 }
 
 /* For query-result */
 #query-result tr:first-child {
-    background-color: #d1d1d1; /* Lighter grey background */
+    background-color: #36d1dc;
     color: black; /* Black text color for the first row */
     text-transform: uppercase;
 }
