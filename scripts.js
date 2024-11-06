@@ -274,12 +274,13 @@ document.addEventListener("DOMContentLoaded", () => {
     challengeSection.innerHTML = `
         <div style="display: flex; justify-content: space-between; align-items: center;">
             <h2 id="challenge-title" style="margin: 0; border-style:none;">SQL Challenge</h2>
-            <div id="indicators" style="display: inline-flex; gap: 5px; margin-top: 10px;"></div>
+            
             <div id="difficulty-buttons" style="display: inline-flex; gap: 10px;">
-                <button class="difficulty-button" data-difficulty="easy">Easy</button>
-                <button class="difficulty-button" data-difficulty="medium">Medium</button>
-                <button class="difficulty-button" data-difficulty="hard">Hard</button>
+                <button class="difficulty-button" data-difficulty="easy">Lvl 1</button>
+                <button class="difficulty-button" data-difficulty="medium">Lvl 2</button>
+                <button class="difficulty-button" data-difficulty="hard">Lvl 3</button>
             </div>
+            <div id="indicators" style="display: inline-flex; gap: 5px; margin-top: 10px;"></div>
         </div>
         <hr style="border: 1px solid #36d1dc;">
         <p id="challenge-container"></p>
