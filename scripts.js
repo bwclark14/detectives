@@ -477,16 +477,20 @@ function resetIndicators(count) {
     for (let i = 0; i < count; i++) {
         const indicator = document.createElement("div");
         indicator.classList.add("indicator");
-        indicator.style.width = "30px"; // Width for text space
-        indicator.style.height = "30px"; // Height for text space
+        
+        // Smaller dimensions for the circle
+        indicator.style.width = "20px";
+        indicator.style.height = "20px";
+        
         indicator.style.borderRadius = "50%";
-        indicator.style.backgroundColor = "#ccc"; // Default color (grey)
+        indicator.style.backgroundColor = "#ccc";  // Default color (grey)
         indicator.style.border = "1px solid white";
-        indicator.style.display = "flex"; // Center text horizontally
-        indicator.style.alignItems = "center"; // Center text vertically
-        indicator.style.justifyContent = "center"; // Center text horizontally
-        indicator.style.color = "black"; // Text color
-        indicator.style.fontWeight = "bold"; // Optional: Make text bold
+        indicator.style.display = "flex";
+        indicator.style.alignItems = "center";
+        indicator.style.justifyContent = "center";
+        indicator.style.color = "black";
+        indicator.style.fontWeight = "bold";
+        indicator.style.fontSize = "12px"; // Smaller font size
 
         // Set the number text inside the circle, starting at 1
         indicator.textContent = i + 1;
