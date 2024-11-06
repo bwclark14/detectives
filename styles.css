@@ -517,7 +517,7 @@ button.add-value-button {
   and (max-device-width: 1024px) 
   and (orientation: portrait) 
   and (-webkit-min-device-pixel-ratio: 1) {
-
+  
   .tab button {
     font-size: 1rem;
   }
@@ -539,12 +539,11 @@ button.add-value-button {
     align-items: center;
   }
 
-  /* Ensures containers inside each section are in row direction */
   .table-container, 
   .symbols-container, 
   .logiccompare {
     display: flex;
-    flex-direction: column; /* Stack buttons vertically */
+    flex-direction: column; /* Stack buttons vertically by default */
     align-items: center;
   }
 
@@ -555,12 +554,12 @@ button.add-value-button {
     padding-bottom: 2px; /* Adds space between heading and buttons */
   }
 
-  /* This ensures Symbols and its buttons are aligned in a row */
+  /* Fix for the Symbols container to display in row on tablets in portrait */
   .symbols-container {
-    display: flex; /* Aligns the heading and buttons in a row */
-    flex-direction: row; /* Ensures the heading and buttons are in a row */
-    align-items: center; /* Vertically aligns the heading and buttons */
-    gap: 10px; /* Adds space between the heading and buttons */
+    display: flex; /* Ensures that heading and buttons are in a row */
+    flex-direction: row; /* Ensure the elements are aligned horizontally */
+    align-items: center; /* Vertically align heading and buttons */
+    gap: 10px; /* Space between heading and buttons */
   }
 
   #table-buttons,
@@ -590,3 +589,4 @@ button.add-value-button {
     width: 100%;
   }
 }
+
