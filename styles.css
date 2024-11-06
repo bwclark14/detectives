@@ -526,7 +526,6 @@ button.add-value-button {
   justify-content: space-between;
   gap: 20px; /* Adds space between the main sections */
   padding: 10px;
-    font-size: 0.8rem;
 }
 
 .side-by-side-container,
@@ -549,17 +548,11 @@ button.add-value-button {
   margin: 0;
   padding-bottom: 5px; /* Adds space between heading and buttons */
 }
-.symbols-container{
-     flex-direction: row;
-  gap: 10px;
-  align-items: center;
-}
-    
+
 #table-buttons,
 .symbols-container button,
 .logiccompare button {
-  margin: 3px 0;
-    flex-direction: row;/* Adds spacing between buttons */
+  margin: 3px 0; /* Adds spacing between buttons */
 }
 
 /* Specific layout for Compare and Logic buttons */
