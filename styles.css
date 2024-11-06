@@ -517,91 +517,71 @@ button.add-value-button {
   and (max-device-width: 1024px) 
   and (orientation: portrait) 
   and (-webkit-min-device-pixel-ratio: 1) {
+        .tab button {
 
-  /* Consistent font size, padding, and margin for buttons */
-  .tab button {
-    font-size: 0.8rem; /* Font size for buttons */
-    padding: 2px; /* Padding for buttons */
-    margin: 2px; /* Margin for buttons */
-  }
+    font-size: 1rem;}
 
-  /* General styling for the container (test2) */
-  #test2 {
-    display: flex;
-    justify-content: space-between;
-    gap: 5px; /* Space between sections */
-    padding: 2px; /* Padding for test2 container */
-    font-size: 0.8rem; /* Font size for the entire container */
-    width: 100%;
-    flex-wrap: wrap; /* Allow wrapping of elements on smaller screens */
-  }
+#test2 {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px; /* Adds space between the main sections */
+  padding: 10px;
+    font-size: 0.8rem;
+}
 
-  /* Ensure side-by-side containers and logiccompare have consistent font size */
-  .side-by-side-container,
-  .logiccompare {
-    display: flex;
-    flex-direction: column; /* Stack headings and buttons vertically */
-    gap: 5px; /* Adds space between containers */
-    align-items: flex-start; /* Align items to the left */
-    font-size: 0.8rem; /* Font size for text inside containers */
-    width: 48%; /* Allow containers to take up half the width */
-  }
+.side-by-side-container,
+.logiccompare {
+  display: flex;
+  gap: 20px; /* Adds space between each container inside the row */
+}
 
-  /* Stack the content in columns for table-container, symbols-container, logiccompare */
-  .table-container, 
-  .symbols-container, 
-  .logiccompare {
-    display: flex;
-    flex-direction: column; /* Stack heading and buttons vertically */
-    align-items: flex-start; /* Align heading and buttons to the left */
-    font-size: 0.8rem; /* Font size for text inside containers */
-    width: 100%; /* Make sure it takes the full width */
-  }
+.table-container, 
+.symbols-container, 
+.logiccompare {
+  display: flex;
+  flex-direction: row; /* Stack heading and buttons vertically */
+  align-items: center; /* Center-align heading and buttons */
+}
 
-  /* Headings inside table-container, symbols-container, and logiccompare */
-  .table-container h3,
-  .symbols-container h3,
-  .logiccompare h3 {
-    margin: 2px 0; /* Consistent margin for headings */
-    padding-bottom: 5px; /* Padding between heading and buttons */
-    font-size: 0.8rem; /* Font size for headings */
-    display: block; /* Ensure headings are displayed as block-level elements */
-  }
+.table-container h3,
+.symbols-container h3,
+.logiccompare h3 {
+  margin: 0;
+  padding-bottom: 5px; /* Adds space between heading and buttons */
+}
+.symbols-container{
+     flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+    
+#table-buttons,
+.symbols-container button,
+.logiccompare button {
+  margin: 3px 0;
+    flex-direction: row;/* Adds spacing between buttons */
+}
 
-  /* Fix for Symbols container to display buttons in a row under the heading */
-  .symbols-container {
-    display: flex;
-    flex-direction: column; /* Stack heading and buttons vertically */
-    align-items: flex-start; /* Align buttons to the left */
-    gap: 2px; /* Adds small space between buttons */
-  }
+/* Specific layout for Compare and Logic buttons */
+.logiccompare {
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
 
-  /* Button specific styling for table-buttons, symbols-container, and logiccompare buttons */
-  #table-buttons,
-  .symbols-container button,
-  .logiccompare button {
-    margin: 2px; /* Consistent margin for buttons */
-    padding: 2px; /* Consistent padding for buttons */
-    font-size: 0.8rem; /* Font size for buttons */
-    display: inline-block; /* Ensure buttons are displayed inline */
-  }
+/* Ensure Compare and Logic headings are displayed horizontally */
+.logiccompare h3 {
+  display: inline-block;
+  margin: 0 10px;
+}
 
-  /* Specific layout for Compare and Logic buttons */
-  .logiccompare {
-    flex-direction: column; /* Stack heading and buttons vertically */
-    gap: 5px; /* Space between heading and buttons */
-    align-items: flex-start; /* Align buttons to the left */
-  }
+.logiccompare h3 + button {
+  margin-bottom: 5px;
+}
 
-  /* Ensure logiccompare headings have consistent styling */
-  .logiccompare h3 {
-    margin: 2px 0; /* Margin between heading and buttons */
-    padding-bottom: 5px; /* Padding between heading and buttons */
-    font-size: 0.8rem; /* Font size for headings inside logiccompare */
-  }
+    #test
+    {width:100%}
 
-  /* Ensuring full width for #test */
-  #test {
-    width: 100%;
-  }
+
+
 }
