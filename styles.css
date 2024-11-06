@@ -517,82 +517,93 @@ button.add-value-button {
   and (max-device-width: 1024px) 
   and (orientation: portrait) 
   and (-webkit-min-device-pixel-ratio: 1) {
-  
+
+  /* Consistent font size, padding, and margin for buttons */
   .tab button {
-    font-size: 1rem;
+    font-size: 0.8rem; /* Font size for buttons */
+    padding: 2px; /* Padding for buttons */
+    margin: 2px; /* Margin for buttons */
   }
 
+  /* General styling for the container (test2) */
   #test2 {
     display: flex;
     justify-content: space-between;
-    gap: 5px; /* Adds space between sections */
-    padding: 5px;
-    font-size: 0.8rem;
+    gap: 5px; /* Space between sections */
+    padding: 2px; /* Padding for test2 container */
+    font-size: 0.8rem; /* Font size for the entire container */
     width: 100%;
   }
 
+  /* Ensure side-by-side containers and logiccompare have consistent font size */
   .side-by-side-container,
   .logiccompare {
     display: flex;
     flex: 1; /* Makes sure each section takes equal space */
     gap: 5px; /* Adds space between containers */
     align-items: center;
-       font-size: 0.8rem;
+    font-size: 0.8rem; /* Font size for text inside side-by-side containers */
   }
 
+  /* Stack the content in columns for table-container, symbols-container, logiccompare */
   .table-container, 
   .symbols-container, 
   .logiccompare {
     display: flex;
-    flex-direction: column; /* Stack buttons vertically by default */
-    align-items: center;
-      font-size: 0.8rem;
+    flex-direction: column; /* Stack heading and buttons vertically by default */
+    align-items: center; /* Center content */
+    font-size: 0.8rem; /* Font size for text inside containers */
   }
 
+  /* Headings inside table-container, symbols-container, and logiccompare */
   .table-container h3,
   .symbols-container h3,
   .logiccompare h3 {
-    margin: 0;
-    padding-bottom: 2px; /* Adds space between heading and buttons */
+    margin: 2px 0; /* Consistent margin for headings */
+    padding-bottom: 2px; /* Padding between heading and buttons */
+    font-size: 0.8rem; /* Font size for headings */
   }
 
-  /* Fix for the Symbols container to display in row on tablets in portrait */
+  /* Fix for Symbols container to display in row */
   .symbols-container {
-    display: flex; /* Ensures that heading and buttons are in a row */
-    flex-direction: row; /* Ensure the elements are aligned horizontally */
+    display: flex; /* Ensure heading and buttons are in a row */
+    flex-direction: row; /* Align elements horizontally */
     align-items: center; /* Vertically align heading and buttons */
     gap: 5px; /* Space between heading and buttons */
   }
 
+  /* Button specific styling for table-buttons, symbols-container, and logiccompare buttons */
   #table-buttons,
   .symbols-container button,
   .logiccompare button {
-    margin: 2px 0;
-    flex-direction: row; /* Ensures buttons are aligned in a row */
-       font-size: 0.8rem;
+    margin: 2px; /* Consistent margin for buttons */
+    padding: 2px; /* Consistent padding for buttons */
+    font-size: 0.8rem; /* Font size for buttons */
+    display: inline-block; /* Ensure buttons stay inline */
   }
 
   /* Specific layout for Compare and Logic buttons */
   .logiccompare {
-    flex-direction: row;
-    gap: 5px;
-    align-items: center;
-       font-size: 0.8rem;
+    flex-direction: row; /* Ensure elements are in a row */
+    gap: 5px; /* Space between buttons */
+    align-items: center; /* Vertically align buttons */
+    font-size: 0.8rem; /* Font size for text inside logiccompare */
   }
 
+  /* Ensure logiccompare headings have consistent styling */
   .logiccompare h3 {
     display: inline-block;
-    margin: 0 5px;
-       font-size: 0.8rem;
+    margin: 0 5px; /* Margin between heading and buttons */
+    font-size: 0.8rem; /* Font size for headings inside logiccompare */
   }
 
   .logiccompare h3 + button {
-    margin-bottom: 5px;
-       font-size: 0.8rem;
+    margin-bottom: 5px; /* Margin at the bottom of the button */
+    font-size: 0.8rem; /* Font size for buttons next to heading */
   }
 
+  /* Ensuring full width for #test */
   #test {
     width: 100%;
   }
 }
-
