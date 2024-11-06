@@ -480,11 +480,11 @@ function resetIndicators(count) {
     for (let i = 0; i < count; i++) {
         const indicator = document.createElement("div");
         indicator.classList.add("indicator");
-        indicator.style.width = "20px";
-        indicator.style.height = "20px";
+        indicator.style.width = "15px";
+        indicator.style.height = "15px";
         indicator.style.borderRadius = "50%";
         indicator.style.backgroundColor = "#ccc";  // Default color (grey)
-        indicator.style.border = "2px solid white";
+        indicator.style.border = "1px solid white";
         indicatorsContainer.appendChild(indicator);
     }
 }
