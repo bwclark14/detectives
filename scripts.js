@@ -137,18 +137,26 @@ case "cars":
 }
 
 function clearQuery() {
+    // Get the resultMessage and resultTable elements
+    const resultMessage = document.getElementById("result-message");
+    const resultTable = document.getElementById("query-result");
+
+    // Clear various content elements
     document.getElementById("sql-query").textContent = "";
     document.getElementById("record-message").textContent = "";
-    document.getElementById("query-result").innerHTML = "";
-    document.getElementById("result-message").textContent = "";
+    resultTable.innerHTML = ""; // Clear the query-result content
+    resultMessage.textContent = ""; // Clear the result-message content
+
+    // Remove record-message if it exists
     const recordMessage = document.getElementById("record-message");
     if (recordMessage) {
         recordMessage.remove();
     }
+
+    // Clear query history and reset any other related elements
     queryHistory = [];
-      resultTable.innerHTML = "";
-    resultMessage.textContent = "";
 }
+
 
 let queryHistory = [];
 
