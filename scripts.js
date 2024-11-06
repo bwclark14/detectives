@@ -284,7 +284,7 @@ challengeSection.style.marginTop = "0"; // Remove margin-top to prevent space be
 challengeSection.innerHTML = `
     <!-- Container for heading and difficulty buttons -->
     <div style="display: flex; align-items: center; gap: 15px;">
-        <h2 id="challenge-title" style="margin: 0; border-style:none;">SQL Challenge ${currentDatabase}</h2>
+        <h2 id="challenge-title" style="margin: 0; border-style:none;">SQL Challenge: ${currentDatabase} table</h2>
         
         <!-- Difficulty buttons next to the heading -->
         <div id="difficulty-buttons" style="display: flex; gap: 10px;">
