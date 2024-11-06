@@ -269,29 +269,38 @@ document.addEventListener("DOMContentLoaded", () => {
     sqlcDiv.style.display = "none";
 
     const challengeSection = document.createElement("div");
-    challengeSection.id = "challenge-section";
-    challengeSection.style.marginTop = "0"; // Remove margin-top to prevent space below
-    challengeSection.innerHTML = `
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <h2 id="challenge-title" style="margin: 0; border-style:none;">SQL Challenge</h2>
-            
-            <div id="difficulty-buttons" style="display: inline-flex; gap: 10px;">
-                <button class="difficulty-button" data-difficulty="easy">Lvl 1</button>
-                <button class="difficulty-button" data-difficulty="medium">Lvl 2</button>
-                <button class="difficulty-button" data-difficulty="hard">Lvl 3</button>
-            </div>
-            
+challengeSection.id = "challenge-section";
+challengeSection.style.marginTop = "0"; // Remove margin-top to prevent space below
+challengeSection.innerHTML = `
+    <!-- Container for heading and difficulty buttons -->
+    <div style="display: flex; align-items: center; gap: 15px;">
+        <h2 id="challenge-title" style="margin: 0; border-style:none;">SQL Challenge</h2>
+        
+        <!-- Difficulty buttons next to the heading -->
+        <div id="difficulty-buttons" style="display: flex; gap: 10px;">
+            <button class="difficulty-button" data-difficulty="easy">Lvl 1</button>
+            <button class="difficulty-button" data-difficulty="medium">Lvl 2</button>
+            <button class="difficulty-button" data-difficulty="hard">Lvl 3</button>
         </div>
-        <div id="indicators" style="display: inline-flex; gap: 5px; margin-top: 10px;"></div>
-        <hr style="border: 1px solid #36d1dc;">
-        <p id="challenge-container"></p>
-      
-        <button id="submitButton" style="margin-bottom:10px; margin-top:10px;" class="run-query-button" onclick="checkChallenge()">
-            Submit Challenge Answer
-        </button>
-        <p id="challenge-result"></p>
-    `;
-    sqlcDiv.appendChild(challengeSection);
+    </div>
+
+    <!-- Indicators below heading and difficulty buttons -->
+    <div id="indicators" style="display: flex; gap: 5px; margin-top: 10px;"></div>
+
+    <!-- Horizontal line -->
+    <hr style="border: 1px solid #36d1dc;">
+    
+    <!-- Challenge container -->
+    <p id="challenge-container"></p>
+  
+    <!-- Submit button and challenge result -->
+    <button id="submitButton" style="margin-bottom:10px; margin-top:10px;" class="run-query-button" onclick="checkChallenge()">
+        Submit Challenge Answer
+    </button>
+    <p id="challenge-result"></p>
+`;
+
+sqlcDiv.appendChild(challengeSection);
 
     const queryInputDiv = document.querySelector(".query-input");
     const originalParent = queryInputDiv.parentNode;
