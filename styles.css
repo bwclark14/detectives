@@ -8,6 +8,12 @@ body, h1, h2, p, select, button, input {
     box-sizing: border-box;
 }
 
+.difficulty-button.selected {
+    background-color: #36d1dc; /* Highlight color */
+    color: white; /* Optional: change text color */
+    font-weight: bold; /* Optional: make the text bold */
+}
+
 body {
     background-color: #0d0d14;
     color: #e0e0e6;
