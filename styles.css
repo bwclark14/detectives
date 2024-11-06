@@ -432,6 +432,7 @@ button.add-value-button {
 #data-table tr:first-child {
     background-color: #d1d1d1; /* Lighter grey background */
     color: #2d2d44; /* Darker text color */
+    text-transform: uppercase;
 }
 
 #data-table th {
@@ -443,7 +444,8 @@ button.add-value-button {
 /* For query-result */
 #query-result tr:first-child {
     background-color: #d1d1d1; /* Lighter grey background */
-    color: #2d2d44; /* Darker text color */
+     color: #2d2d44; /* Darker text color */
+    text-transform: uppercase;
 }
 
 #query-result th {
